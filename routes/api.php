@@ -19,7 +19,7 @@ Route::group(['prefix' => 'jahad'], function () {
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
-        Route::get('/user', [\App\Http\Controllers\Api\AuthController::class, 'user']);
+        Route::get('/users', [\App\Http\Controllers\Api\AuthController::class, 'user']);
         Route::post('/authorize/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userAuthorize']);
     });
 });

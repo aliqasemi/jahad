@@ -1,11 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar
-            app
-            color="primary"
-            dark
-        >
-        </v-app-bar>
+       <navigation />
         <v-main>
             <router-view></router-view>
         </v-main>
@@ -13,10 +8,18 @@
 </template>
 
 <script>
+import {setAuthToken} from "./service/AuthService";
+import Navigation from "./components/Navigation";
+
 export default {
     name: 'App',
+    components: {Navigation},
     data: () => ({
         //
     }),
+    mounted() {
+        const token = localStorage.getItem("token");
+        setAuthToken(token);
+    },
 };
 </script>
