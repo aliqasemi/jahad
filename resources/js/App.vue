@@ -1,6 +1,6 @@
 <template>
     <v-app>
-       <navigation />
+        <navigation/>
         <v-main>
             <router-view></router-view>
         </v-main>
@@ -10,6 +10,7 @@
 <script>
 import {setAuthToken} from "./service/AuthService";
 import Navigation from "./components/Navigation";
+import {mapMutations} from "vuex";
 
 export default {
     name: 'App',
@@ -17,9 +18,13 @@ export default {
     data: () => ({
         //
     }),
+    methods: {
+        ...mapMutations(['SET_LOGIN_STATUS'])
+    },
     mounted() {
         const token = localStorage.getItem("token");
         setAuthToken(token);
+        this.SET_LOGIN_STATUS(!!token);
     },
 };
 </script>

@@ -7,7 +7,6 @@ export default {
         try {
             commit("SET_LOADING", true);
             const response = await repository.logIn(body);
-            console.log("response", response)
             if (!(response instanceof Error)) {
                 commit("SET_LOGIN_STATUS", true);
             }

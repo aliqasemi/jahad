@@ -5,7 +5,7 @@
         </v-col>
         <v-col>
             <button v-if="getLoginStatus" @click="logoutRequest">خروج</button>
-            <router-link v-else to="/login">ورود</router-link>
+            <router-link  v-else to="/login">ورود</router-link>
         </v-col>
     </v-row>
 </template>
@@ -15,8 +15,8 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
     name: "Navigation",
-    computed: {
-        ...mapGetters(['getLoginStatus'])
+    computed:{
+      ...mapGetters(['getLoginStatus'])
     },
     methods: {
         ...mapActions(['logout']),
