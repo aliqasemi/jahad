@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Main from "../views/Main";
 import {isAuthenticated, isGuest} from "./AuthenticateRoute";
 import Profile from "../views/Profile";
+import Register from "../views/Register";
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const routes = [
         component: Login,
         name: "Login",
         beforeEnter: isGuest,
+    },
+    {
+        path: '/register',
+        component: Register,
+        name: "register",
     },
     {
         path: '/profile',

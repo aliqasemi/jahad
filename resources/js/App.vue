@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <navigation/>
+        <navigation v-if="getLoginStatus"/>
         <v-main>
             <router-view></router-view>
         </v-main>
@@ -10,7 +10,7 @@
 <script>
 import {setAuthToken} from "./service/AuthService";
 import Navigation from "./components/Navigation";
-import {mapMutations} from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 
 export default {
     name: 'App',
@@ -18,6 +18,9 @@ export default {
     data: () => ({
         //
     }),
+    computed: {
+        ...mapGetters(['getLoginStatus'])
+    },
     methods: {
         ...mapMutations(['SET_LOGIN_STATUS'])
     },

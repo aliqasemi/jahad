@@ -76,7 +76,7 @@ import {setAuthToken} from "../service/AuthService";
 import {mapActions} from "vuex";
 
 export default {
-    name: 'Login',
+    name: 'Register',
     components: {
         Notification,
     },
