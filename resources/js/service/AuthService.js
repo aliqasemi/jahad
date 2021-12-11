@@ -10,6 +10,14 @@ export const setAuthToken = (token) => {
     }
 };
 
+export const setAuthUser = (user) => {
+    if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+    } else {
+        localStorage.removeItem("user");
+    }
+};
+
 export const checkAuth = () => {
     if (localStorage.getItem("token")) {
         return true;

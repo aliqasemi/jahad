@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-form v-model="valid" @submit.prevent="loginRequest">
+        <v-form @submit.prevent="registerRequest">
             <v-container style="background: antiquewhite; margin-top: 20px; width: 50%">
                 <v-row style="margin: 0 auto">
                     <v-col style="margin: 0 auto"
@@ -8,29 +8,74 @@
                            md="4"
                     >
                         <v-text-field
-                            v-model="username"
-                            :rules="emailRules"
-                            label="شماره تلفن"
+                            v-model="form.firstname"
+                            label="نام"
                             required
                         ></v-text-field>
                     </v-col>
                 </v-row>
-
                 <v-row style="margin: 0 auto">
                     <v-col style="margin: 0 auto"
                            cols="12"
                            md="4"
                     >
                         <v-text-field
-                            v-model="password"
-                            :rules="passwordRules"
+                            v-model="form.lastname"
+                            label="نام خانوادگی"
+                            required
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row style="margin: 0 auto">
+                    <v-col style="margin: 0 auto"
+                           cols="12"
+                           md="4"
+                    >
+                        <v-text-field
+                            v-model="form.phoneNumber"
+                            label="شماره تلفن"
+                            required
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row style="margin: 0 auto">
+                    <v-col style="margin: 0 auto"
+                           cols="12"
+                           md="4"
+                    >
+                        <v-text-field
+                            v-model="form.email"
+                            label="ایمیل"
+                            required
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row style="margin: 0 auto">
+                    <v-col style="margin: 0 auto"
+                           cols="12"
+                           md="4"
+                    >
+                        <v-text-field
+                            v-model="form.password"
                             type="password"
                             label="رمز عبور"
                             required
                         ></v-text-field>
                     </v-col>
                 </v-row>
-
+                <v-row style="margin: 0 auto">
+                    <v-col style="margin: 0 auto"
+                           cols="12"
+                           md="4"
+                    >
+                        <v-text-field
+                            v-model="form.password_confirmation"
+                            type="password"
+                            label="تکرار رمز عبور"
+                            required
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
 
                 <v-row style="text-align: center">
                     <v-col style="margin: 0 auto"
@@ -38,20 +83,8 @@
                            md="4"
                     >
                         <v-btn type="submit" elevation="2" block>
-                            ورود
+                            ثبت نام
                         </v-btn>
-                    </v-col>
-                </v-row>
-                <v-row style="text-align: center">
-                    <v-col style="margin: 0 auto"
-                           cols="12"
-                           md="4"
-                    >
-                        <router-link to="register">
-                            <v-btn type="submit" elevation="2" block>
-                                ثبت نام
-                            </v-btn>
-                        </router-link>
                     </v-col>
                 </v-row>
                 <v-row style="text-align: center">
@@ -61,7 +94,7 @@
                     >
                         <router-link to="/">
                             <v-btn type="submit" elevation="2" block>
-                                صفحه اصلی
+                                بازگشت به صفحه اصلی
                             </v-btn>
                         </router-link>
                     </v-col>
@@ -71,9 +104,16 @@
     </div>
 </template>
 <script>
-
-import {setAuthToken} from "../service/AuthService";
 import {mapActions} from "vuex";
+
+var defaultForm = {
+    firstname: null,
+    lastname: null,
+    phoneNumber: null,
+    email: null,
+    password: null,
+    password_confirmation: null,
+}
 
 export default {
     name: 'Register',
@@ -81,31 +121,16 @@ export default {
         Notification,
     },
     data: () => ({
-        valid: false,
-        passwordRules: [
-            v => !!v || 'رمز عبور را وارد نمایید',
-            v => v.length <= 16 || 'رمز عبور باید کمتر از 10 کاراکتر باشد',
-        ],
-        email: '',
-        emailRules: [
-            v => !!v || 'شماره تلفن الزامی است',
-            v => '^(09)\\d{9}$'.test(v) || 'فرمت شماره تلفن باید درست باشد',
-        ],
         error: null,
-        username: "",
-        password: "",
+        form: defaultForm,
     }),
     methods: {
-        ...mapActions(['login']),
-        async loginRequest() {
-            const body = {
-                phoneNumber: this.username,
-                password: this.password,
-            };
-            let response = await this.login(body);
+        ...mapActions(['register']),
+        async registerRequest() {
+            let response = await this.register({formData: this.form});
 
             if (!(response instanceof Error)) {
-                await this.$router.replace("/home");
+                await this.$router.replace("/");
             }
         },
     }

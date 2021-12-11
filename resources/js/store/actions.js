@@ -32,4 +32,15 @@ export default {
             commit("SET_LOADING", false);
         }
     },
+
+    async register({commit}, {formData}) {
+        try {
+            commit("SET_LOADING", true);
+            const response = await repository.register(formData);
+        } catch (e) {
+            return e;
+        } finally {
+            commit("SET_LOADING", false);
+        }
+    }
 };

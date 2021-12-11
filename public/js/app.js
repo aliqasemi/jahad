@@ -5371,6 +5371,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       Items: []
     };
   },
+  computed: {
+    authUser: function authUser() {
+      return JSON.parse(localStorage.getItem('user'));
+    }
+  },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['logout'])), {}, {
     logoutRequest: function logoutRequest() {
       var _this = this;
@@ -5421,8 +5426,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _service_AuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/AuthService */ "./resources/js/service/AuthService.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5504,10 +5508,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Login',
@@ -5516,24 +5516,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      valid: false,
-      passwordRules: [function (v) {
-        return !!v || 'رمز عبور را وارد نمایید';
-      }, function (v) {
-        return v.length <= 16 || 'رمز عبور باید کمتر از 10 کاراکتر باشد';
-      }],
-      email: '',
-      emailRules: [function (v) {
-        return !!v || 'شماره تلفن الزامی است';
-      }, function (v) {
-        return '^(09)\\d{9}$'.test(v) || 'فرمت شماره تلفن باید درست باشد';
-      }],
       error: null,
       username: "",
       password: ""
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(['login'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['login'])), {}, {
     loginRequest: function loginRequest() {
       var _this = this;
 
@@ -5655,8 +5643,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _service_AuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/AuthService */ "./resources/js/service/AuthService.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5741,8 +5728,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
+var defaultForm = {
+  firstname: null,
+  lastname: null,
+  phoneNumber: null,
+  email: null,
+  password: null,
+  password_confirmation: null
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Register',
   components: {
@@ -5750,52 +5777,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      valid: false,
-      passwordRules: [function (v) {
-        return !!v || 'رمز عبور را وارد نمایید';
-      }, function (v) {
-        return v.length <= 16 || 'رمز عبور باید کمتر از 10 کاراکتر باشد';
-      }],
-      email: '',
-      emailRules: [function (v) {
-        return !!v || 'شماره تلفن الزامی است';
-      }, function (v) {
-        return '^(09)\\d{9}$'.test(v) || 'فرمت شماره تلفن باید درست باشد';
-      }],
       error: null,
-      username: "",
-      password: ""
+      form: defaultForm
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(['login'])), {}, {
-    loginRequest: function loginRequest() {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['register'])), {}, {
+    registerRequest: function registerRequest() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var body, response;
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                body = {
-                  phoneNumber: _this.username,
-                  password: _this.password
-                };
-                _context.next = 3;
-                return _this.login(body);
+                _context.next = 2;
+                return _this.register({
+                  formData: _this.form
+                });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
                 if (response instanceof Error) {
-                  _context.next = 7;
+                  _context.next = 6;
                   break;
                 }
 
-                _context.next = 7;
-                return _this.$router.replace("/home");
+                _context.next = 6;
+                return _this.$router.replace("/");
 
-              case 7:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -5845,7 +5857,7 @@ var AuthenticationRepository = /*#__PURE__*/function () {
     key: "logIn",
     value: function () {
       var _logIn = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(body) {
-        var response, token;
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -5856,8 +5868,8 @@ var AuthenticationRepository = /*#__PURE__*/function () {
 
               case 3:
                 response = _context.sent;
-                token = response.data.token;
-                (0,_service_AuthService__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)(token);
+                (0,_service_AuthService__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)(response.data.token);
+                (0,_service_AuthService__WEBPACK_IMPORTED_MODULE_1__.setAuthUser)(response.data.user);
 
                 if (!(response && response.status === 200)) {
                   _context.next = 8;
@@ -5935,6 +5947,52 @@ var AuthenticationRepository = /*#__PURE__*/function () {
       }
 
       return logOut;
+    }()
+  }, {
+    key: "register",
+    value: function () {
+      var _register = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(formData) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios.post("http://127.0.0.1:8000/api/jahad/register", formData);
+
+              case 3:
+                response = _context3.sent;
+
+                if (!(response && response.status === 201)) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                return _context3.abrupt("return", response.data);
+
+              case 6:
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+                return _context3.abrupt("return", _context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 8]]);
+      }));
+
+      function register(_x2) {
+        return _register.apply(this, arguments);
+      }
+
+      return register;
     }()
   }]);
 
@@ -6150,6 +6208,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setAuthToken": () => (/* binding */ setAuthToken),
+/* harmony export */   "setAuthUser": () => (/* binding */ setAuthUser),
 /* harmony export */   "checkAuth": () => (/* binding */ checkAuth)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -6162,6 +6221,13 @@ var setAuthToken = function setAuthToken(token) {
   } else {
     localStorage.removeItem("token");
     delete (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common.Authorization);
+  }
+};
+var setAuthUser = function setAuthUser(user) {
+  if (user) {
+    localStorage.setItem("user", JSON.stringify(user));
+  } else {
+    localStorage.removeItem("user");
   }
 };
 var checkAuth = function checkAuth() {
@@ -6275,6 +6341,43 @@ var repository = new _abstraction_repository_AuthenticationRepository__WEBPACK_I
           }
         }
       }, _callee2, null, [[1, 10, 13, 16]]);
+    }))();
+  },
+  register: function register(_ref3, _ref4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var commit, formData, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              formData = _ref4.formData;
+              _context3.prev = 2;
+              commit("SET_LOADING", true);
+              _context3.next = 6;
+              return repository.register(formData);
+
+            case 6:
+              response = _context3.sent;
+              _context3.next = 12;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](2);
+              return _context3.abrupt("return", _context3.t0);
+
+            case 12:
+              _context3.prev = 12;
+              commit("SET_LOADING", false);
+              return _context3.finish(12);
+
+            case 15:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[2, 9, 12, 15]]);
     }))();
   }
 });
@@ -30807,15 +30910,28 @@ var render = function () {
                     "v-col",
                     { staticClass: "flex-justified-right", attrs: { lg: "9" } },
                     [
-                      _c("div", { staticClass: "Title" }, [
-                        _c("div", { staticClass: "Name Fa" }, [
-                          _vm._v("علی قاسمی"),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "Role Fa" }, [
-                          _vm._v("مدیریت"),
-                        ]),
-                      ]),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "Title",
+                          staticStyle: { "text-align": "right" },
+                        },
+                        [
+                          _c("div", { staticClass: "Name Fa" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm.authUser.firstname +
+                                  " " +
+                                  _vm.authUser.lastname
+                              )
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "Role Fa" }, [
+                            _vm._v("مدیریت"),
+                          ]),
+                        ]
+                      ),
                     ]
                   ),
                   _vm._v(" "),
@@ -30938,13 +31054,6 @@ var render = function () {
               return _vm.loginRequest.apply(null, arguments)
             },
           },
-          model: {
-            value: _vm.valid,
-            callback: function ($$v) {
-              _vm.valid = $$v
-            },
-            expression: "valid",
-          },
         },
         [
           _c(
@@ -30969,11 +31078,7 @@ var render = function () {
                     },
                     [
                       _c("v-text-field", {
-                        attrs: {
-                          rules: _vm.emailRules,
-                          label: "شماره تلفن",
-                          required: "",
-                        },
+                        attrs: { label: "شماره تلفن", required: "" },
                         model: {
                           value: _vm.username,
                           callback: function ($$v) {
@@ -31002,7 +31107,6 @@ var render = function () {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          rules: _vm.passwordRules,
                           type: "password",
                           label: "رمز عبور",
                           required: "",
@@ -31281,15 +31385,8 @@ var render = function () {
           on: {
             submit: function ($event) {
               $event.preventDefault()
-              return _vm.loginRequest.apply(null, arguments)
+              return _vm.registerRequest.apply(null, arguments)
             },
-          },
-          model: {
-            value: _vm.valid,
-            callback: function ($$v) {
-              _vm.valid = $$v
-            },
-            expression: "valid",
           },
         },
         [
@@ -31315,17 +31412,97 @@ var render = function () {
                     },
                     [
                       _c("v-text-field", {
-                        attrs: {
-                          rules: _vm.emailRules,
-                          label: "شماره تلفن",
-                          required: "",
-                        },
+                        attrs: { label: "نام", required: "" },
                         model: {
-                          value: _vm.username,
+                          value: _vm.form.firstname,
                           callback: function ($$v) {
-                            _vm.username = $$v
+                            _vm.$set(_vm.form, "firstname", $$v)
                           },
-                          expression: "username",
+                          expression: "form.firstname",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                { staticStyle: { margin: "0 auto" } },
+                [
+                  _c(
+                    "v-col",
+                    {
+                      staticStyle: { margin: "0 auto" },
+                      attrs: { cols: "12", md: "4" },
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: { label: "نام خانوادگی", required: "" },
+                        model: {
+                          value: _vm.form.lastname,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.form, "lastname", $$v)
+                          },
+                          expression: "form.lastname",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                { staticStyle: { margin: "0 auto" } },
+                [
+                  _c(
+                    "v-col",
+                    {
+                      staticStyle: { margin: "0 auto" },
+                      attrs: { cols: "12", md: "4" },
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: { label: "شماره تلفن", required: "" },
+                        model: {
+                          value: _vm.form.phoneNumber,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.form, "phoneNumber", $$v)
+                          },
+                          expression: "form.phoneNumber",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                { staticStyle: { margin: "0 auto" } },
+                [
+                  _c(
+                    "v-col",
+                    {
+                      staticStyle: { margin: "0 auto" },
+                      attrs: { cols: "12", md: "4" },
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: { label: "ایمیل", required: "" },
+                        model: {
+                          value: _vm.form.email,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.form, "email", $$v)
+                          },
+                          expression: "form.email",
                         },
                       }),
                     ],
@@ -31348,17 +31525,48 @@ var render = function () {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          rules: _vm.passwordRules,
                           type: "password",
                           label: "رمز عبور",
                           required: "",
                         },
                         model: {
-                          value: _vm.password,
+                          value: _vm.form.password,
                           callback: function ($$v) {
-                            _vm.password = $$v
+                            _vm.$set(_vm.form, "password", $$v)
                           },
-                          expression: "password",
+                          expression: "form.password",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                { staticStyle: { margin: "0 auto" } },
+                [
+                  _c(
+                    "v-col",
+                    {
+                      staticStyle: { margin: "0 auto" },
+                      attrs: { cols: "12", md: "4" },
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          type: "password",
+                          label: "تکرار رمز عبور",
+                          required: "",
+                        },
+                        model: {
+                          value: _vm.form.password_confirmation,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.form, "password_confirmation", $$v)
+                          },
+                          expression: "form.password_confirmation",
                         },
                       }),
                     ],
@@ -31386,49 +31594,9 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                        ورود\n                    "
+                            "\n                        ثبت نام\n                    "
                           ),
                         ]
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-row",
-                { staticStyle: { "text-align": "center" } },
-                [
-                  _c(
-                    "v-col",
-                    {
-                      staticStyle: { margin: "0 auto" },
-                      attrs: { cols: "12", md: "4" },
-                    },
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: "register" } },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                type: "submit",
-                                elevation: "2",
-                                block: "",
-                              },
-                            },
-                            [
-                              _vm._v(
-                                "\n                            ثبت نام\n                        "
-                              ),
-                            ]
-                          ),
-                        ],
-                        1
                       ),
                     ],
                     1
@@ -31463,7 +31631,7 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                            صفحه اصلی\n                        "
+                                "\n                            بازگشت به صفحه اصلی\n                        "
                               ),
                             ]
                           ),

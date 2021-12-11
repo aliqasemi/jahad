@@ -8,8 +8,8 @@
             <v-list class="pa-1">
                 <v-row style="text-align: end;" class="ma-0">
                     <v-col lg="9" class="flex-justified-right">
-                        <div class="Title">
-                            <div class="Name Fa">علی قاسمی</div>
+                        <div class="Title" style="text-align: right">
+                            <div class="Name Fa">{{authUser.firstname + ' ' +  authUser.lastname}}</div>
                             <div class="Role Fa">مدیریت</div>
                         </div>
                     </v-col>
@@ -34,7 +34,7 @@
 </template>
 <script>
 
-import {mapActions, mapGetters} from "vuex";
+import {mapActions} from "vuex";
 
 export default {
     name: "Navigation",
@@ -47,6 +47,11 @@ export default {
             drawer: false,
             user: {name: ""},
             Items: [],
+        }
+    },
+    computed: {
+        authUser() {
+            return JSON.parse(localStorage.getItem('user'))
         }
     },
     methods: {
