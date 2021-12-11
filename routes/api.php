@@ -18,9 +18,12 @@ Route::group(['prefix' => 'jahad'], function () {
     Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
     Route::middleware('auth:api')->group(function () {
+        //auth route
         Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
         Route::get('/users', [\App\Http\Controllers\Api\AuthController::class, 'user']);
         Route::post('/authorize/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userAuthorize']);
+        //category route
+        Route::resource('categories', \App\Http\Controllers\Api\CategoryController::class);
     });
 });
 

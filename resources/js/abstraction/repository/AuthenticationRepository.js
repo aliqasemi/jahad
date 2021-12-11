@@ -18,6 +18,7 @@ export default class AuthenticationRepository {
         try {
             let response = await axios.get("http://127.0.0.1:8000/api/jahad/logout");
             setAuthToken();
+            setAuthUser();
             if (response && response.status === 200) {
                 return response.data;
             }
