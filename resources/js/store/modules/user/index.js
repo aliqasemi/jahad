@@ -5,16 +5,13 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 import state from './state'
-import user from './modules/user/index'
 
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
+export default {
+    namespaced: true,
     actions,
     getters,
     mutations,
-    state,
-    modules:{
-        user
-    }
-})
+    state
+}

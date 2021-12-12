@@ -125,7 +125,7 @@ export default {
         form: defaultForm,
     }),
     methods: {
-        ...mapActions(['register']),
+        ...mapActions("user", ['register']),
         async registerRequest() {
             let response = await this.register({formData: this.form});
 

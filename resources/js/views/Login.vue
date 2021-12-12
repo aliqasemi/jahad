@@ -81,7 +81,7 @@ export default {
         password: "",
     }),
     methods: {
-        ...mapActions(['login']),
+        ...mapActions("user", ['login']),
         async loginRequest() {
             const body = {
                 phoneNumber: this.username,

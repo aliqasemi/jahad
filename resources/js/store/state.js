@@ -1,4 +1,1 @@
-export default {
-    loading: false,
-    isLogin: false,
-}
+export default {}

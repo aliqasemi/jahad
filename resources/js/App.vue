@@ -19,10 +19,10 @@ export default {
         //
     }),
     computed: {
-        ...mapGetters(['getLoginStatus'])
+        ...mapGetters("user", ['getLoginStatus'])
     },
     methods: {
-        ...mapMutations(['SET_LOGIN_STATUS'])
+        ...mapMutations("user", ['SET_LOGIN_STATUS'])
     },
     mounted() {
         const token = localStorage.getItem("token");

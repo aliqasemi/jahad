@@ -55,7 +55,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['logout']),
+        ...mapActions("user",['logout']),
         async logoutRequest() {
             let response = await this.logout();
 
