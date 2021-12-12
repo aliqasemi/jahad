@@ -5,6 +5,8 @@ import Main from "../views/Main";
 import {isAuthenticated, isGuest} from "./AuthenticateRoute";
 import Profile from "../views/Profile";
 import Register from "../views/Register";
+import Category from "../views/Category/Category";
+import Add from "../views/Category/Add";
 
 Vue.use(VueRouter)
 
@@ -31,6 +33,25 @@ const routes = [
         name: 'Profile',
         component: Profile,
         beforeEnter: isAuthenticated,
+    },
+    {
+        path: '/categories',
+        name: 'ListCategories',
+        component: Category,
+        beforeEnter: isAuthenticated,
+    },
+    {
+        path: '/categories/add',
+        name: 'AddCategory',
+        component: Add,
+        beforeEnter: isAuthenticated,
+    },
+    {
+        path: "/categories/:category_id",
+        component: Add,
+        name: 'EditCategory',
+        beforeEnter: isAuthenticated,
+        props: true,
     },
 ];
 

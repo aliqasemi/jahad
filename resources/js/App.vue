@@ -24,7 +24,7 @@ export default {
     methods: {
         ...mapMutations("user", ['SET_LOGIN_STATUS'])
     },
-    mounted() {
+    created() {
         const token = localStorage.getItem("token");
         setAuthToken(token);
         this.SET_LOGIN_STATUS(!!token);

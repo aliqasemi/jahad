@@ -106,7 +106,7 @@
 <script>
 import {mapActions} from "vuex";
 
-var defaultForm = {
+let defaultForm = {
     firstname: null,
     lastname: null,
     phoneNumber: null,

@@ -9,7 +9,7 @@
                 <v-row style="text-align: end;" class="ma-0">
                     <v-col lg="9" class="flex-justified-right">
                         <div class="Title" style="text-align: right">
-                            <div class="Name Fa">{{authUser.firstname + ' ' +  authUser.lastname}}</div>
+                            <div class="Name Fa">{{ authUser.firstname + ' ' + authUser.lastname }}</div>
                             <div class="Role Fa">مدیریت</div>
                         </div>
                     </v-col>
@@ -28,6 +28,20 @@
                         </a>
                     </v-col>
                 </v-row>
+            </v-list>
+            <v-list>
+                <v-list-item
+                    link
+                    :to="{name:'ListCategories'}"
+                >
+                    <v-list-item-icon>
+                        <v-icon>fa-list-alt</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content style="margin-right: 5px">
+                        <v-list-item-title>دسته بندی ها</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
     </v-layout>
@@ -55,7 +69,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions("user",['logout']),
+        ...mapActions("user", ['logout']),
         async logoutRequest() {
             let response = await this.logout();
 
