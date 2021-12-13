@@ -11,6 +11,7 @@
 import {setAuthToken} from "./service/AuthService";
 import Navigation from "./components/Navigation";
 import {mapGetters, mapMutations} from "vuex";
+import axios from "axios";
 
 export default {
     name: 'App',
@@ -24,10 +25,16 @@ export default {
     methods: {
         ...mapMutations("user", ['SET_LOGIN_STATUS'])
     },
-    created() {
+    async created() {
         const token = localStorage.getItem("token");
         setAuthToken(token);
-        this.SET_LOGIN_STATUS(!!token);
+        try {
+            await axios.get('http://127.0.0.1:8000/api/jahad/categories');
+            this.SET_LOGIN_STATUS(!!token);
+        } catch (e) {
+            setAuthToken();
+            await this.$router.replace("/login");
+        }
     },
 };
 </script>
