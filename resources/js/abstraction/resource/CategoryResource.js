@@ -15,7 +15,7 @@ const getArray = (data) => {
 const setData = (data, hasUpdate = false) => {
     return {
         name: data.name,
-        parent_id: data.parent_id[0] !== 0 ? data.parent_id[0] : null,
+        parent_id: data.parent_id !== 0 ? data.parent_id : null,
         _method: hasUpdate ? "put" : "post",
     };
 };

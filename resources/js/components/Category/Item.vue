@@ -8,63 +8,44 @@
                    style="background-color: #000000;  color:#eeeeee ;border-radius:20px; margin: 0 auto;height: 50%; text-align: center">
                 <span>{{ item.children_count }} زیر مجموعه</span>
             </v-col>
-            <v-col xl="2" lg="2" sm="3" class="flex-justified-left">
-                <v-row justify="center" style="padding: 5px">
-                    <router-link :to="{ name: 'EditCategory', params:{category_id: item.id} }">
-                    <span>
-                        <v-tooltip>
-            <template v-slot:activator="{ on }">
-                <v-btn
-                    slot="activator"
-                >
-                    <v-icon dark>fa-edit</v-icon>
-                </v-btn>
-            </template>
-            <span>ویرایش</span>
-        </v-tooltip>
-                    </span>
-                    </router-link>
-                    <v-dialog
-                        v-model="dialog"
-                        persistent
-                        max-width="290"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-tooltip>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        slot="activator"
-                                    >
-                                        <v-icon dark>fa-trash</v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>حذف</span>
-                            </v-tooltip>
+            <v-col xl="4" lg="4" sm="4" class="flex-justified-left">
+                <v-row justify="center" style="padding: 5px; margin: 0 auto">
+                    <v-tooltip>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                slot="activator"
+                                @click="editDialog = true"
+                            >
+                                <v-icon dark>fa-edit</v-icon>
+                            </v-btn>
                         </template>
-                        <v-card>
-                            <br>
-                            <v-card-text style="direction: rtl">
-                                آیا از حذف کردن ایتم خود اطمینان دارید?
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                    color="green darken-1"
-                                    text
-                                    @click="dialog = false"
-                                >
-                                    خیر
-                                </v-btn>
-                                <v-btn
-                                    color="green darken-1"
-                                    text
-                                    @click="deleteCategory(item.id)"
-                                >
-                                    بله
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                        <span>ویرایش</span>
+                    </v-tooltip>
+                    <v-tooltip>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                slot="activator"
+                                @click.native="deleteDialog = true"
+                            >
+                                <v-icon dark>fa-trash</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>حذف</span>
+                    </v-tooltip>
+                    <v-tooltip>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                slot="activator"
+                                @click.native="plusDialog = true"
+                            >
+                                <v-icon dark>fa-plus</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>اضافه کردن زیر مجموعه</span>
+                    </v-tooltip>
+                    <delete-modal v-model="deleteDialog" @action="deleteCategory(item.id)"/>
+                    <add-modal v-model="plusDialog" :parent_id="item.id"/>
+                    <add-modal v-model="editDialog" :category_id="item.id"/>
                 </v-row>
             </v-col>
         </v-row>
@@ -73,11 +54,16 @@
 
 <script>
 import {mapActions} from "vuex";
+import DeleteModal from "../GeneralComponent/deleteModal";
+import AddModal from "./AddModal";
 
 export default {
     name: 'Item',
+    components: {AddModal, DeleteModal},
     data: () => ({
-        dialog: false,
+        deleteDialog: false,
+        plusDialog: false,
+        editDialog: false,
         id: {default: null}
     }),
     props: {
@@ -94,7 +80,7 @@ export default {
             if (!(response instanceof Error)) {
                 this.dialog = false;
             }
-        }
+        },
     }
 }
 </script>

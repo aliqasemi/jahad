@@ -19,11 +19,11 @@
 
         </v-row>
 
-        <router-link :to="{ name: 'AddCategory' }" replace>
-            <v-btn>
-                اضافه کردن
-            </v-btn>
-        </router-link>
+        <v-btn @click="plusDialog = true">
+            اضافه کردن
+        </v-btn>
+
+        <add-modal v-model="plusDialog"/>
     </v-container>
 </template>
 
@@ -31,10 +31,15 @@
 import RecursivePanels from "../RecursivePanels/RecursivePanels";
 import Item from "./Item";
 import {mapGetters, mapActions} from 'vuex'
+import AddModal from "./AddModal";
 
 export default {
     name: "Items",
+    data: () => ({
+        plusDialog: false,
+    }),
     components: {
+        AddModal,
         RecursivePanels,
         Item,
     },

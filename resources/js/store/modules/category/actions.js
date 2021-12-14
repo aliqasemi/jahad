@@ -45,7 +45,6 @@ export default {
     },
     async removeCategory({commit}, categoryId) {
         try {
-            console.log("categoryId", categoryId)
             const response = await repository.destroy(categoryId);
             commit("REMOVE_CATEGORY", categoryId);
             return response;
