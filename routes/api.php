@@ -24,6 +24,9 @@ Route::group(['prefix' => 'jahad'], function () {
         Route::post('/authorize/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userAuthorize']);
         //category route
         Route::resource('categories', \App\Http\Controllers\Api\CategoryController::class);
+
+        //service route
+        Route::resource('services', \App\Http\Controllers\Api\ServiceController::class);
     });
 });
 

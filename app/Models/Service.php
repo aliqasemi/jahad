@@ -12,7 +12,7 @@ class Service extends Model implements HasMediaInterface
     use HasFactory, HasMedia;
 
     protected $fillable = [
-        'title', 'category_id', 'city_id', 'address', 'description'
+        'title', 'category_id', 'city_id', 'address', 'description', 'user_id'
     ];
 
     public function getTable(): string
@@ -22,6 +22,16 @@ class Service extends Model implements HasMediaInterface
 
     public function category()
     {
-        $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }
