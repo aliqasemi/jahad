@@ -12,7 +12,7 @@ class Service extends Model implements HasMediaInterface
     use HasFactory, HasMedia;
 
     protected $fillable = [
-        'title', 'category_id', 'city_id', 'province_id', 'country_id', 'address', 'description'
+        'title', 'category_id', 'city_id', 'address', 'description'
     ];
 
     public function getTable(): string

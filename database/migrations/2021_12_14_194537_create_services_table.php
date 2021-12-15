@@ -20,8 +20,6 @@ class CreateServicesTable extends Migration
             $table->string('category_id');
             $table->string('address');
             $table->string('city_id')->nullable();
-            $table->string('province_id')->nullable();
-            $table->string('country_id')->nullable();
             $table->timestamps();
         });
     }
