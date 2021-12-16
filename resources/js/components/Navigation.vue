@@ -1,5 +1,5 @@
 <template>
-    <v-layout style="text-align: right;direction: rtl;">
+    <v-layout style="text-align: right;direction: rtl;max-height: 50px;">
         <v-container class="Header" style="margin: 5px; padding: 5px;">
             <v-icon class="Menu" @click.stop="drawer = !drawer">fa fa-bars</v-icon>
         </v-container>
@@ -40,6 +40,18 @@
 
                     <v-list-item-content style="margin-right: 5px">
                         <v-list-item-title>دسته بندی ها</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item
+                    link
+                    :to="{name:'ListServices'}"
+                >
+                    <v-list-item-icon>
+                        <v-icon>fa-list-alt</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content style="margin-right: 5px">
+                        <v-list-item-title>خدمت ها</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
