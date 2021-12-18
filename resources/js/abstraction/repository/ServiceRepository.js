@@ -1,17 +1,17 @@
 import {
     setData,
     getJson,
-    getArray,
+    getArray, setQuery,
 } from "../resource/ServiceResource";
 import axios from "axios"
 
 export default class ServiceRepository {
-    async index() {
+    async index(data) {
+        const params = setQuery(data);
         try {
-            let response = await axios.get('http://127.0.0.1:8000/api/jahad/services');
-
+            let response = await axios.get('http://127.0.0.1:8000/api/jahad/services', {params});
             if (response && response.status === 200) {
-                return getArray(response.data.data);
+                return getArray(response.data);
             }
         } catch (e) {
             return e;

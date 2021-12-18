@@ -1,8 +1,5 @@
-import {convertListToTree} from "../../../service/ProcessTreeArray";
-
 export default {
-    getListService: (state) => {
-        return state.category;
-    },
+    getListService: (state) => state.service,
     getServiceLoading: (state) => state.loading,
+    getServicePagination: (state) => state.pagination,
 }

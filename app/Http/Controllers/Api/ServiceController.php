@@ -22,7 +22,7 @@ class ServiceController extends Controller
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ServiceResource::collection(
-            Service::with(['main_image', 'city.county.province', 'user', 'category'])->get()
+            Service::with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'))
         );
     }
 

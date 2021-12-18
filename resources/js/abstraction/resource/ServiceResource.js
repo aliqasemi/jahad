@@ -1,3 +1,5 @@
+import {SetPagination, SetQueries} from "../../service/SetPagination";
+
 const getJson = (data) => {
     return {
         id: data.id,
@@ -13,8 +15,14 @@ const getJson = (data) => {
     };
 };
 
-const getArray = (data) => {
-    return data.map((Item) => getJson(Item));
+const getArray = ({data, meta}) => {
+    const pagination = SetPagination(meta);
+    data = data.map((Item) => getJson(Item));
+    return {data, pagination};
+};
+
+const setQuery = (data) => {
+    return SetQueries(data);
 };
 
 const setData = (data, hasUpdate = false) => {
@@ -36,4 +44,4 @@ const setData = (data, hasUpdate = false) => {
     return formData;
 };
 
-export {setData, getArray, getJson};
+export {setData, getArray, getJson, setQuery};

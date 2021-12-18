@@ -3,11 +3,17 @@ import ServiceRepository from "../../../abstraction/repository/ServiceRepository
 let repository = new ServiceRepository();
 
 export default {
-    async loadServiceList({commit}) {
+    async loadServiceList({commit, state}) {
         try {
             commit("SET_LOADING", true);
-            const service = await repository.index();
-            commit("SET_SERVICE", service);
+            const service = await repository.index(
+                {
+                    pagination: state.pagination,
+                }
+            );
+            commit("SET_SERVICE", service.data);
+            commit("SET_SERVICE_PAGINATION", service.pagination);
+            console.log("service.pagination", service.pagination)
             return service;
         } catch (e) {
             return e;
