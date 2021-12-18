@@ -5769,6 +5769,165 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _abstraction_repository_CityRepository__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstraction/repository/CityRepository */ "./resources/js/abstraction/repository/CityRepository.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var repository = new _abstraction_repository_CityRepository__WEBPACK_IMPORTED_MODULE_1__["default"]();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CitySelect",
+  data: function data() {
+    return {
+      countyStatus: false,
+      cityStatus: false,
+      provinces: [],
+      counties: [],
+      cities: [],
+      province_id: null,
+      county_id: null,
+      city_id: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return repository.indexProvinces();
+
+            case 2:
+              _this.provinces = _context.sent;
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  watch: {
+    province_id: {
+      handler: function handler() {
+        var _this2 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  _context2.next = 2;
+                  return repository.indexCounties(_this2.province_id);
+
+                case 2:
+                  _this2.counties = _context2.sent;
+                  _this2.cities = [];
+
+                case 4:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }))();
+      }
+    },
+    county_id: {
+      handler: function handler() {
+        var _this3 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.next = 2;
+                  return repository.indexCities(_this3.county_id);
+
+                case 2:
+                  _this3.cities = _context3.sent;
+
+                case 3:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }))();
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/deleteModal.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/deleteModal.vue?vue&type=script&lang=js& ***!
@@ -6701,6 +6860,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/GeneralComponent/CitySelect */ "./resources/js/components/GeneralComponent/CitySelect.vue");
 //
 //
 //
@@ -6711,8 +6871,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Add",
+  components: {
+    CitySelect: _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     service_id: {
       "default": null
@@ -7200,6 +7378,189 @@ var CategoryRepository = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./resources/js/abstraction/repository/CityRepository.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/abstraction/repository/CityRepository.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CityRepository)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resource_CItyresource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../resource/CItyresource */ "./resources/js/abstraction/resource/CItyresource.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+var CityRepository = /*#__PURE__*/function () {
+  function CityRepository() {
+    _classCallCheck(this, CityRepository);
+  }
+
+  _createClass(CityRepository, [{
+    key: "indexProvinces",
+    value: function () {
+      var _indexProvinces = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().get('http://127.0.0.1:8000/api/jahad/provinces');
+
+              case 3:
+                response = _context.sent;
+
+                if (!(response && response.status === 200)) {
+                  _context.next = 6;
+                  break;
+                }
+
+                return _context.abrupt("return", (0,_resource_CItyresource__WEBPACK_IMPORTED_MODULE_1__.getArray)(response.data.data));
+
+              case 6:
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                return _context.abrupt("return", _context.t0);
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 8]]);
+      }));
+
+      function indexProvinces() {
+        return _indexProvinces.apply(this, arguments);
+      }
+
+      return indexProvinces;
+    }()
+  }, {
+    key: "indexCounties",
+    value: function () {
+      var _indexCounties = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(province_id) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().get('http://127.0.0.1:8000/api/jahad/counties/' + province_id);
+
+              case 3:
+                response = _context2.sent;
+
+                if (!(response && response.status === 200)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                return _context2.abrupt("return", (0,_resource_CItyresource__WEBPACK_IMPORTED_MODULE_1__.getArray)(response.data.data));
+
+              case 6:
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
+                return _context2.abrupt("return", _context2.t0);
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 8]]);
+      }));
+
+      function indexCounties(_x) {
+        return _indexCounties.apply(this, arguments);
+      }
+
+      return indexCounties;
+    }()
+  }, {
+    key: "indexCities",
+    value: function () {
+      var _indexCities = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(county_id) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().get('http://127.0.0.1:8000/api/jahad/cities/' + county_id);
+
+              case 3:
+                response = _context3.sent;
+
+                if (!(response && response.status === 200)) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                return _context3.abrupt("return", (0,_resource_CItyresource__WEBPACK_IMPORTED_MODULE_1__.getArray)(response.data.data));
+
+              case 6:
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+                return _context3.abrupt("return", _context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 8]]);
+      }));
+
+      function indexCities(_x2) {
+        return _indexCities.apply(this, arguments);
+      }
+
+      return indexCities;
+    }()
+  }]);
+
+  return CityRepository;
+}();
+
+
+
+/***/ }),
+
 /***/ "./resources/js/abstraction/repository/ServiceRepository.js":
 /*!******************************************************************!*\
   !*** ./resources/js/abstraction/repository/ServiceRepository.js ***!
@@ -7455,6 +7816,36 @@ var ServiceRepository = /*#__PURE__*/function () {
 
   return ServiceRepository;
 }();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/abstraction/resource/CItyresource.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/abstraction/resource/CItyresource.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getArray": () => (/* binding */ getArray)
+/* harmony export */ });
+var getJson = function getJson(data) {
+  return {
+    id: data.id,
+    title: data.title,
+    name: data.name
+  };
+};
+
+var getArray = function getArray(data) {
+  data = data.map(function (Item) {
+    return getJson(Item);
+  });
+  return data;
+};
 
 
 
@@ -33155,6 +33546,45 @@ component.options.__file = "resources/js/components/Category/Items.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/GeneralComponent/CitySelect.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/GeneralComponent/CitySelect.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CitySelect_vue_vue_type_template_id_101cf026_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CitySelect.vue?vue&type=template&id=101cf026&scoped=true& */ "./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=template&id=101cf026&scoped=true&");
+/* harmony import */ var _CitySelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CitySelect.vue?vue&type=script&lang=js& */ "./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CitySelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CitySelect_vue_vue_type_template_id_101cf026_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CitySelect_vue_vue_type_template_id_101cf026_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "101cf026",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/GeneralComponent/CitySelect.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/GeneralComponent/deleteModal.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/GeneralComponent/deleteModal.vue ***!
@@ -33693,6 +34123,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CitySelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CitySelect.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CitySelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/GeneralComponent/deleteModal.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/components/GeneralComponent/deleteModal.vue?vue&type=script&lang=js& ***!
@@ -34001,6 +34447,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Items_vue_vue_type_template_id_4fab6efa_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Items_vue_vue_type_template_id_4fab6efa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Items.vue?vue&type=template&id=4fab6efa&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Category/Items.vue?vue&type=template&id=4fab6efa&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=template&id=101cf026&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=template&id=101cf026&scoped=true& ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CitySelect_vue_vue_type_template_id_101cf026_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CitySelect_vue_vue_type_template_id_101cf026_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CitySelect_vue_vue_type_template_id_101cf026_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CitySelect.vue?vue&type=template&id=101cf026&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=template&id=101cf026&scoped=true&");
 
 
 /***/ }),
@@ -34676,6 +35139,116 @@ var render = function () {
           expression: "plusDialog",
         },
       }),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=template&id=101cf026&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralComponent/CitySelect.vue?vue&type=template&id=101cf026&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-row",
+    [
+      _c(
+        "v-col",
+        { attrs: { lg: "4" } },
+        [
+          _c("v-autocomplete", {
+            staticStyle: { direction: "ltr" },
+            attrs: {
+              items: _vm.provinces,
+              "item-text": "name",
+              "item-value": "id",
+              dense: "",
+              reverse: "",
+              filled: "",
+              label: "استان",
+            },
+            model: {
+              value: _vm.province_id,
+              callback: function ($$v) {
+                _vm.province_id = $$v
+              },
+              expression: "province_id",
+            },
+          }),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-col",
+        { attrs: { lg: "4" } },
+        [
+          _c("v-autocomplete", {
+            staticStyle: { direction: "ltr" },
+            attrs: {
+              items: _vm.counties,
+              "item-text": "name",
+              "item-value": "id",
+              dense: "",
+              reverse: "",
+              filled: "",
+              label: "شهر",
+            },
+            model: {
+              value: _vm.county_id,
+              callback: function ($$v) {
+                _vm.county_id = $$v
+              },
+              expression: "county_id",
+            },
+          }),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-col",
+        { attrs: { lg: "4" } },
+        [
+          _c("v-autocomplete", {
+            staticStyle: { direction: "ltr" },
+            attrs: {
+              items: _vm.cities,
+              "item-text": "name",
+              "item-value": "id",
+              dense: "",
+              reverse: "",
+              filled: "",
+              label: "شهرستان",
+            },
+            model: {
+              value: _vm.city_id,
+              callback: function ($$v) {
+                _vm.city_id = $$v
+              },
+              expression: "city_id",
+            },
+          }),
+        ],
+        1
+      ),
     ],
     1
   )
@@ -35972,6 +36545,45 @@ var render = function () {
       _c("br"),
       _vm._v(" "),
       _c("hr", { staticStyle: { display: "block", width: "75%" } }),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            { attrs: { lg: "3" } },
+            [
+              _c("v-text-field", {
+                staticStyle: { "text-align": "right" },
+                attrs: { label: "عنوان", reverse: "" },
+              }),
+              _vm._v(" "),
+              _c("v-textarea", {
+                staticStyle: { "text-align": "right" },
+                attrs: { label: "توضیحات", reverse: "" },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { lg: "4" } },
+            [
+              _c("v-text-field", {
+                staticStyle: { "text-align": "right" },
+                attrs: { label: "آدرس", reverse: "" },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-col", { attrs: { lg: "5" } }),
+          _vm._v(" "),
+          _c("v-col", { attrs: { lg: "12" } }, [_c("city-select")], 1),
+        ],
+        1
+      ),
     ],
     1
   )
