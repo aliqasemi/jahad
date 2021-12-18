@@ -7,6 +7,7 @@ import Profile from "../views/Profile";
 import Register from "../views/Register";
 import Category from "../views/Category/Category";
 import Services from "../views/Service/Services";
+import Add from "../views/Service/Add";
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,19 @@ const routes = [
         name: 'ListServices',
         component: Services,
         beforeEnter: isAuthenticated,
+    },
+    {
+        path: '/services/add',
+        name: 'AddService',
+        component: Add,
+        beforeEnter: isAuthenticated,
+    },
+    {
+        path: '/services/edit/:service_id',
+        name: 'AddService',
+        component: Add,
+        beforeEnter: isAuthenticated,
+        props: true,
     },
 ];
 
