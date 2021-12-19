@@ -48,7 +48,6 @@ import CitySelect from "../../components/GeneralComponent/CitySelect";
 import CropperImage from "../../components/GeneralComponent/CropperImage";
 import CategorySelect from "../../components/GeneralComponent/CategorySelect";
 import {mapActions} from "vuex";
-import login from "../Login";
 
 var defaultForm = {
     title: null,

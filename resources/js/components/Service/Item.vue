@@ -29,22 +29,45 @@
                 <template v-slot:activator="{ on }">
                     <v-btn
                         slot="activator"
+                        @click.native="deleteDialog = true"
                     >
                         <v-icon dark>fa-trash</v-icon>
                     </v-btn>
                 </template>
                 <span>حذف</span>
             </v-tooltip>
+            <delete-modal v-model="deleteDialog" @action="deleteCategory(item.id)"/>
         </v-col>
     </v-row>
 </template>
 
 <script>
+import DeleteModal from "../GeneralComponent/deleteModal";
+import {mapActions} from "vuex";
+
 export default {
     name: "Item",
     props: {
         item: {default: null},
         index: {default: 0},
+    },
+    components: {
+        DeleteModal
+    },
+    data() {
+        return {
+            deleteDialog: false
+        }
+    },
+    methods: {
+        ...mapActions("service", ['removeService']),
+        async deleteCategory(id) {
+            let response;
+            response = await this.removeService(id);
+            if (!(response instanceof Error)) {
+                this.deleteDialog = false;
+            }
+        },
     }
 }
 </script>
