@@ -74,7 +74,7 @@ class ServiceController extends Controller
 
         $service->save();
 
-        return new ServiceResource($service);
+        return new ServiceResource($service->load(['main_image', 'category', 'city.county.province', 'user']));
     }
 
     /**

@@ -55,7 +55,7 @@ const routes = [
     },
     {
         path: '/services/edit/:service_id',
-        name: 'AddService',
+        name: 'EditService',
         component: Add,
         beforeEnter: isAuthenticated,
         props: true,

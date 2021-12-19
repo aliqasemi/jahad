@@ -31,7 +31,10 @@
             </v-row>
             <v-row>
                 <v-col>
-                    <v-btn type="submit">
+                    <v-btn v-if="service_id" type="submit">
+                        ویرایش خدمت
+                    </v-btn>
+                    <v-btn v-else type="submit">
                         اضافه کردن خدمت
                     </v-btn>
                 </v-col>
@@ -74,11 +77,18 @@ export default {
         }
     },
     methods: {
-        ...mapActions("service", ['storeService', 'showService']),
+        ...mapActions("service", ['storeService', 'showService', 'updateService']),
         async registerRequest() {
-            let response = await this.storeService({data: this.form});
-            if (!(response instanceof Error)) {
-                await this.$router.replace("/services");
+            if (this.service_id) {
+                let response = await this.updateService({data: this.form});
+                if (!(response instanceof Error)) {
+                    await this.$router.replace("/services");
+                }
+            } else {
+                let response = await this.storeService({data: this.form});
+                if (!(response instanceof Error)) {
+                    await this.$router.replace("/services");
+                }
             }
         }
     },

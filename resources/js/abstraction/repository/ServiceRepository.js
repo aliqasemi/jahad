@@ -41,7 +41,7 @@ export default class ServiceRepository {
     async update(data) {
         const params = setData(data, true);
 
-        let response = await axios.put(
+        let response = await axios.post(
             "http://127.0.0.1:8000/api/jahad/services/" + data.id,
             params
         );
