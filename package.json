@@ -29,6 +29,7 @@
         "deepmerge": "^4.2.2",
         "fibers": "^5.0.0",
         "vue": "^2.6.14",
+        "vue-advanced-cropper": "^1.9.0",
         "vue-router": "^3.5.3",
         "vuetify": "^2.6.1",
         "vuex": "^3.6.2",
