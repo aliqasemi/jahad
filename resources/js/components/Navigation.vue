@@ -1,7 +1,7 @@
 <template>
-    <v-layout style="text-align: right;direction: rtl;max-height: 50px;">
-        <v-container class="Header" style="margin: 5px; padding: 5px;">
-            <v-icon class="Menu" @click.stop="drawer = !drawer">fa fa-bars</v-icon>
+    <v-layout style="text-align: right;direction: rtl;max-height: 50px;margin: 10px;padding: 10px">
+        <v-container style="margin: 5px; padding: 5px;">
+            <v-icon @click.stop="drawer = !drawer">fa fa-bars</v-icon>
         </v-container>
 
         <v-navigation-drawer v-model="drawer" app temporary right width="420">
