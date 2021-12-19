@@ -13,7 +13,6 @@ export default {
             );
             commit("SET_SERVICE", service.data);
             commit("SET_SERVICE_PAGINATION", service.pagination);
-            console.log("service.pagination", service.pagination)
             return service;
         } catch (e) {
             return e;

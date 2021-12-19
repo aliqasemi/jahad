@@ -1,4 +1,5 @@
 import {SetPagination, SetQueries} from "../../service/SetPagination";
+import {serialize} from 'object-to-formdata';
 
 const getJson = (data) => {
     return {
@@ -6,7 +7,7 @@ const getJson = (data) => {
         title: data.title,
         address: data.address,
         description: data.description,
-        main_image: data.main_image,
+        thumbnail: data.main_image,
         category: data.category,
         user: data.user,
         city: data.city.name,
@@ -30,18 +31,16 @@ const setData = (data, hasUpdate = false) => {
         title: data.title,
         address: data.address,
         description: data.description,
-        main_image: data.main_image,
-        category_id: data.category_id,
+        crop_data: data.crop_data,
+        main_image: data.image,
+        category_id: data.category_id[0],
         city_id: data.city_id,
         _method: hasUpdate ? "put" : "post",
     };
 
-    let formData = new FormData();
-    Object.entries(params).forEach(([key, value]) => {
-        formData.append(key, value);
-    });
-
-    return formData;
+    return serialize(
+        params,
+    );
 };
 
 export {setData, getArray, getJson, setQuery};

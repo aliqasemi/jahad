@@ -26,9 +26,10 @@ class StoreServiceRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'nullable|string',
-            'category_id' => 'required|string|exists:categories,id',
+            'category_id' => 'required|integer|exists:categories,id',
             'city_id' => 'required|integer|exists:cities,id',
-            'address' => 'required|string'
+            'address' => 'required|string',
+
         ];
     }
 }

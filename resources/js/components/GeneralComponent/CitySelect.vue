@@ -51,6 +51,11 @@ let repository = new CityRepository();
 
 export default {
     name: "CitySelect",
+    props: {
+        value: {
+            default: null,
+        }
+    },
     data() {
         return {
             countyStatus: false,
@@ -64,6 +69,7 @@ export default {
         }
     },
     async created() {
+        this.city_id = this.value;
         this.provinces = await repository.indexProvinces();
     },
     watch: {
@@ -76,6 +82,11 @@ export default {
         county_id: {
             async handler() {
                 this.cities = await repository.indexCities(this.county_id);
+            }
+        },
+        city_id: {
+            handler() {
+                this.$emit('input', this.city_id)
             }
         }
     }

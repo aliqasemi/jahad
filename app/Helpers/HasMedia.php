@@ -24,7 +24,7 @@ trait HasMedia
 
     public function registerMediaCollections(): void
     {
-        $size = request('crop');
+        $size = request('crop_data');
         $this->addMediaConversion('thumb')
             ->width($size ? $size['width'] : 368)
             ->height($size ? $size['height'] : 232)

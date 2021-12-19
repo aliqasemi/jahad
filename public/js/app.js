@@ -5821,10 +5821,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      items: [],
       selectItem: []
     };
   },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)("category", ['getTreeCategories'])),
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)("category", ['loadCategoryList'])),
   created: function created() {
     var _this = this;
@@ -5838,11 +5838,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return _this.loadCategoryList();
 
             case 2:
-              _this.items = _context.sent;
-
               _this.selectItem.push(_this.value);
 
-            case 4:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -5932,6 +5930,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var repository = new _abstraction_repository_CityRepository__WEBPACK_IMPORTED_MODULE_1__["default"]();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CitySelect",
+  props: {
+    value: {
+      "default": null
+    }
+  },
   data: function data() {
     return {
       countyStatus: false,
@@ -5952,13 +5955,14 @@ var repository = new _abstraction_repository_CityRepository__WEBPACK_IMPORTED_MO
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              _this.city_id = _this.value;
+              _context.next = 3;
               return repository.indexProvinces();
 
-            case 2:
+            case 3:
               _this.provinces = _context.sent;
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -6014,6 +6018,11 @@ var repository = new _abstraction_repository_CityRepository__WEBPACK_IMPORTED_MO
             }
           }, _callee3);
         }))();
+      }
+    },
+    city_id: {
+      handler: function handler() {
+        this.$emit('input', this.city_id);
       }
     }
   }
@@ -7080,9 +7089,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/GeneralComponent/CitySelect */ "./resources/js/components/GeneralComponent/CitySelect.vue");
-/* harmony import */ var _components_GeneralComponent_CropperImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/GeneralComponent/CropperImage */ "./resources/js/components/GeneralComponent/CropperImage.vue");
-/* harmony import */ var _components_GeneralComponent_CategorySelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/GeneralComponent/CategorySelect */ "./resources/js/components/GeneralComponent/CategorySelect.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/GeneralComponent/CitySelect */ "./resources/js/components/GeneralComponent/CitySelect.vue");
+/* harmony import */ var _components_GeneralComponent_CropperImage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/GeneralComponent/CropperImage */ "./resources/js/components/GeneralComponent/CropperImage.vue");
+/* harmony import */ var _components_GeneralComponent_CategorySelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/GeneralComponent/CategorySelect */ "./resources/js/components/GeneralComponent/CategorySelect.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Login */ "./resources/js/views/Login.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -7119,21 +7138,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
 var defaultForm = {
+  title: null,
+  description: null,
+  city_id: null,
+  address: null,
   category_id: [],
-  document: {
-    crop_data: "",
-    image: "",
-    thumbnail: ""
-  },
-  components: {
-    CitySelect: _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_0__["default"],
-    CropperImage: _components_GeneralComponent_CropperImage__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CategorySelect: _components_GeneralComponent_CategorySelect__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }
+  crop_data: "",
+  image: "",
+  thumbnail: ""
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Add",
@@ -7143,16 +7172,51 @@ var defaultForm = {
     }
   },
   components: {
-    CategorySelect: _components_GeneralComponent_CategorySelect__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CropperImage: _components_GeneralComponent_CropperImage__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CitySelect: _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_0__["default"]
+    CitySelect: _components_GeneralComponent_CitySelect__WEBPACK_IMPORTED_MODULE_1__["default"],
+    CropperImage: _components_GeneralComponent_CropperImage__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CategorySelect: _components_GeneralComponent_CategorySelect__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       form: _objectSpread({}, defaultForm)
     };
   },
-  methods: {}
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)("service", ['storeService'])), {}, {
+    registerRequest: function registerRequest() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.storeService({
+                  data: _this.form
+                });
+
+              case 2:
+                response = _context.sent;
+
+                if (response instanceof Error) {
+                  _context.next = 7;
+                  break;
+                }
+
+                ;
+                _context.next = 7;
+                return _this.$router.replace("/services");
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  })
 });
 
 /***/ }),
@@ -8166,17 +8230,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "setQuery": () => (/* binding */ setQuery)
 /* harmony export */ });
 /* harmony import */ var _service_SetPagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../service/SetPagination */ "./resources/js/service/SetPagination.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* harmony import */ var object_to_formdata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! object-to-formdata */ "./node_modules/object-to-formdata/src/index.js");
+/* harmony import */ var object_to_formdata__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(object_to_formdata__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -8186,7 +8241,7 @@ var getJson = function getJson(data) {
     title: data.title,
     address: data.address,
     description: data.description,
-    main_image: data.main_image,
+    thumbnail: data.main_image,
     category: data.category,
     user: data.user,
     city: data.city.name,
@@ -8218,20 +8273,13 @@ var setData = function setData(data) {
     title: data.title,
     address: data.address,
     description: data.description,
-    main_image: data.main_image,
-    category_id: data.category_id,
+    crop_data: data.crop_data,
+    main_image: data.image,
+    category_id: data.category_id[0],
     city_id: data.city_id,
     _method: hasUpdate ? "put" : "post"
   };
-  var formData = new FormData();
-  Object.entries(params).forEach(function (_ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        key = _ref3[0],
-        value = _ref3[1];
-
-    formData.append(key, value);
-  });
-  return formData;
+  return (0,object_to_formdata__WEBPACK_IMPORTED_MODULE_1__.serialize)(params);
 };
 
 
@@ -9061,25 +9109,24 @@ var repository = new _abstraction_repository_ServiceRepository__WEBPACK_IMPORTED
               service = _context.sent;
               commit("SET_SERVICE", service.data);
               commit("SET_SERVICE_PAGINATION", service.pagination);
-              console.log("service.pagination", service.pagination);
               return _context.abrupt("return", service);
 
-            case 12:
-              _context.prev = 12;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](1);
               return _context.abrupt("return", _context.t0);
 
-            case 15:
-              _context.prev = 15;
+            case 14:
+              _context.prev = 14;
               commit("SET_LOADING", false);
-              return _context.finish(15);
+              return _context.finish(14);
 
-            case 18:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 12, 15, 18]]);
+      }, _callee, null, [[1, 11, 14, 17]]);
     }))();
   },
   showService: function showService(_ref2, id) {
@@ -32253,6 +32300,124 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/object-to-formdata/src/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/object-to-formdata/src/index.js ***!
+  \******************************************************/
+/***/ ((module) => {
+
+function isUndefined(value) {
+  return value === undefined;
+}
+
+function isNull(value) {
+  return value === null;
+}
+
+function isBoolean(value) {
+  return typeof value === 'boolean';
+}
+
+function isObject(value) {
+  return value === Object(value);
+}
+
+function isArray(value) {
+  return Array.isArray(value);
+}
+
+function isDate(value) {
+  return value instanceof Date;
+}
+
+function isBlob(value) {
+  return (
+    value &&
+    typeof value.size === 'number' &&
+    typeof value.type === 'string' &&
+    typeof value.slice === 'function'
+  );
+}
+
+function isFile(value) {
+  return (
+    isBlob(value) &&
+    typeof value.name === 'string' &&
+    (typeof value.lastModifiedDate === 'object' ||
+      typeof value.lastModified === 'number')
+  );
+}
+
+function initCfg(value) {
+  return isUndefined(value) ? false : value;
+}
+
+function serialize(obj, cfg, fd, pre) {
+  cfg = cfg || {};
+  fd = fd || new FormData();
+
+  cfg.indices = initCfg(cfg.indices);
+  cfg.nullsAsUndefineds = initCfg(cfg.nullsAsUndefineds);
+  cfg.booleansAsIntegers = initCfg(cfg.booleansAsIntegers);
+  cfg.allowEmptyArrays = initCfg(cfg.allowEmptyArrays);
+  cfg.noFilesWithArrayNotation = initCfg(cfg.noFilesWithArrayNotation);
+
+  if (isUndefined(obj)) {
+    return fd;
+  } else if (isNull(obj)) {
+    if (!cfg.nullsAsUndefineds) {
+      fd.append(pre, '');
+    }
+  } else if (isBoolean(obj)) {
+    if (cfg.booleansAsIntegers) {
+      fd.append(pre, obj ? 1 : 0);
+    } else {
+      fd.append(pre, obj);
+    }
+  } else if (isArray(obj)) {
+    if (obj.length) {
+      obj.forEach((value, index) => {
+        let key = pre + '[' + (cfg.indices ? index : '') + ']';
+
+        if (cfg.noFilesWithArrayNotation && isFile(value)) {
+          key = pre;
+        }
+
+        serialize(value, cfg, fd, key);
+      });
+    } else if (cfg.allowEmptyArrays) {
+      fd.append(pre + '[]', '');
+    }
+  } else if (isDate(obj)) {
+    fd.append(pre, obj.toISOString());
+  } else if (isObject(obj) && !isFile(obj) && !isBlob(obj)) {
+    Object.keys(obj).forEach((prop) => {
+      const value = obj[prop];
+
+      if (isArray(value)) {
+        while (prop.length > 2 && prop.lastIndexOf('[]') === prop.length - 2) {
+          prop = prop.substring(0, prop.length - 2);
+        }
+      }
+
+      const key = pre ? pre + '[' + prop + ']' : prop;
+
+      serialize(value, cfg, fd, key);
+    });
+  } else {
+    fd.append(pre, obj);
+  }
+
+  return fd;
+}
+
+module.exports = {
+  serialize,
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -35684,7 +35849,7 @@ var render = function () {
         attrs: {
           selectable: "",
           "selection-type": "independent",
-          items: _vm.items,
+          items: _vm.getTreeCategories,
         },
         model: {
           value: _vm.selectItem,
@@ -37176,101 +37341,161 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticStyle: { width: "90%", margin: "0 auto", direction: "rtl" } },
+    "v-form",
+    {
+      on: {
+        submit: function ($event) {
+          $event.preventDefault()
+          return _vm.registerRequest.apply(null, arguments)
+        },
+      },
+    },
     [
-      _c("v-row", { staticStyle: { direction: "rtl" } }, [
-        _vm._v("\n        اضافه کردن خدمت\n    "),
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("hr", { staticStyle: { display: "block", width: "75%" } }),
-      _vm._v(" "),
       _c(
-        "v-row",
+        "div",
+        { staticStyle: { width: "90%", margin: "0 auto", direction: "rtl" } },
         [
+          _c("v-row", { staticStyle: { direction: "rtl" } }, [
+            _vm._v("\n            اضافه کردن خدمت\n        "),
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("hr", { staticStyle: { display: "block", width: "75%" } }),
+          _vm._v(" "),
           _c(
-            "v-col",
-            { attrs: { lg: "3" } },
+            "v-row",
             [
-              _c("v-text-field", {
-                staticStyle: { "text-align": "right" },
-                attrs: { label: "عنوان", reverse: "" },
-              }),
+              _c(
+                "v-col",
+                { attrs: { lg: "3" } },
+                [
+                  _c("v-text-field", {
+                    staticStyle: { "text-align": "right" },
+                    attrs: { label: "عنوان", reverse: "" },
+                    model: {
+                      value: _vm.form.title,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.form, "title", $$v)
+                      },
+                      expression: "form.title",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("v-textarea", {
+                    staticStyle: { "text-align": "right" },
+                    attrs: { label: "توضیحات", reverse: "" },
+                    model: {
+                      value: _vm.form.description,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.form, "description", $$v)
+                      },
+                      expression: "form.description",
+                    },
+                  }),
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-textarea", {
-                staticStyle: { "text-align": "right" },
-                attrs: { label: "توضیحات", reverse: "" },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-col",
-            { attrs: { lg: "4" } },
-            [
-              _c("category-select", {
-                model: {
-                  value: _vm.form.category_id,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.form, "category_id", $$v)
-                  },
-                  expression: "form.category_id",
-                },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-col",
-            { attrs: { lg: "5" } },
-            [
-              _c("cropper-image", {
-                attrs: {
-                  crop_data: _vm.form.document.crop_data,
-                  url: _vm.form.document.thumbnail,
-                },
-                on: {
-                  "update:crop_data": function ($event) {
-                    return _vm.$set(_vm.form.document, "crop_data", $event)
-                  },
-                  "update:url": function ($event) {
-                    return _vm.$set(_vm.form.document, "thumbnail", $event)
-                  },
-                },
-                model: {
-                  value: _vm.form.document.image,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.form.document, "image", $$v)
-                  },
-                  expression: "form.document.image",
-                },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-col",
-            { attrs: { lg: "12" } },
-            [
-              _c("city-select"),
+              _c(
+                "v-col",
+                { attrs: { lg: "4" } },
+                [
+                  _c("category-select", {
+                    model: {
+                      value: _vm.form.category_id,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.form, "category_id", $$v)
+                      },
+                      expression: "form.category_id",
+                    },
+                  }),
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-text-field", {
-                staticStyle: { "text-align": "right", width: "60%" },
-                attrs: { label: "آدرس", reverse: "" },
-              }),
+              _c(
+                "v-col",
+                { attrs: { lg: "5" } },
+                [
+                  _c("cropper-image", {
+                    attrs: {
+                      crop_data: _vm.form.crop_data,
+                      url: _vm.form.thumbnail,
+                    },
+                    on: {
+                      "update:crop_data": function ($event) {
+                        return _vm.$set(_vm.form, "crop_data", $event)
+                      },
+                      "update:url": function ($event) {
+                        return _vm.$set(_vm.form, "thumbnail", $event)
+                      },
+                    },
+                    model: {
+                      value: _vm.form.image,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.form, "image", $$v)
+                      },
+                      expression: "form.image",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { lg: "12" } },
+                [
+                  _c("city-select", {
+                    model: {
+                      value: _vm.form.city_id,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.form, "city_id", $$v)
+                      },
+                      expression: "form.city_id",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    staticStyle: { "text-align": "right", width: "60%" },
+                    attrs: { label: "آدرس", reverse: "" },
+                    model: {
+                      value: _vm.form.address,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.form, "address", $$v)
+                      },
+                      expression: "form.address",
+                    },
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                [
+                  _c("v-btn", { attrs: { type: "submit" } }, [
+                    _vm._v(
+                      "\n                    اضافه کردن خدمت\n                "
+                    ),
+                  ]),
+                ],
+                1
+              ),
             ],
             1
           ),
         ],
         1
       ),
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []

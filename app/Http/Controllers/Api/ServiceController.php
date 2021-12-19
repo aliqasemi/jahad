@@ -37,7 +37,7 @@ class ServiceController extends Controller
         $user = User::findOrFail(Auth::id());
         $service = new Service($request->all());
         $user->services()->save($service);
-        if (Arr::has($request->all(), 'main_image')) {
+        if (!is_null(Arr::get($request->all(), 'main_image'))) {
             $service->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
         $service->save();
