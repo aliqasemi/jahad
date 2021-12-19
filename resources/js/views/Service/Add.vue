@@ -11,7 +11,7 @@
                 <v-textarea style="text-align: right" label="توضیحات" reverse></v-textarea>
             </v-col>
             <v-col lg="4">
-                <v-text-field style="text-align: right" label="آدرس" reverse></v-text-field>
+                <category-select/>
             </v-col>
             <v-col lg="5">
                 <cropper-image
@@ -22,6 +22,7 @@
             </v-col>
             <v-col lg="12">
                 <city-select/>
+                <v-text-field style="text-align: right; width: 60%" label="آدرس" reverse></v-text-field>
             </v-col>
         </v-row>
     </div>
@@ -29,8 +30,8 @@
 
 <script>
 import CitySelect from "../../components/GeneralComponent/CitySelect";
-import 'vue-advanced-cropper/dist/style.css';
 import CropperImage from "../../components/GeneralComponent/CropperImage";
+import CategorySelect from "../../components/GeneralComponent/CategorySelect";
 
 var defaultForm = {
     document: {
@@ -38,6 +39,11 @@ var defaultForm = {
         image: "",
         thumbnail: "",
     },
+    components: {
+        CitySelect,
+        CropperImage,
+        CategorySelect
+    }
 };
 
 export default {
@@ -46,6 +52,7 @@ export default {
         service_id: {default: null}
     },
     components: {
+        CategorySelect,
         CropperImage,
         CitySelect,
     },

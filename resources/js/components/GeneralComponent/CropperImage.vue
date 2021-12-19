@@ -22,7 +22,7 @@
                 <v-icon dark>fa fa-edit
                 </v-icon
                 >
-                فایل خود را آپلود کنید
+                عکس خود را آپلود کنید
             </v-btn>
         </v-row>
     </v-row>
@@ -30,6 +30,7 @@
 
 <script>
 import {Cropper} from 'vue-advanced-cropper';
+import 'vue-advanced-cropper/dist/style.css';
 
 export default {
     name: "CropperImage",
