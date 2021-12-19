@@ -73,14 +73,19 @@ export default {
         }
     },
     methods: {
-        ...mapActions("service", ['storeService']),
+        ...mapActions("service", ['storeService', 'showService']),
         async registerRequest() {
             let response = await this.storeService({data: this.form});
-            if (!(response instanceof Error)) {;
+            if (!(response instanceof Error)) {
                 await this.$router.replace("/services");
             }
         }
     },
+    async created() {
+        if (this.service_id) {
+            this.form = await this.showService(this.service_id)
+        }
+    }
 }
 </script>
 

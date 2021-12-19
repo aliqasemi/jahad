@@ -8,7 +8,7 @@ const getJson = (data) => {
         address: data.address,
         description: data.description,
         thumbnail: data.main_image,
-        category: data.category,
+        category_id: data.category ? data.category.id : null,
         user: data.user,
         city: data.city.name,
         county: data.city.county.name,

@@ -19,7 +19,7 @@ export default class ServiceRepository {
     }
 
     async show(id) {
-        let response = await axios.put("http://127.0.0.1:8000/api/jahad/services/" + id);
+        let response = await axios.get("http://127.0.0.1:8000/api/jahad/services/" + id);
         if (response && response.status === 200) {
             return getJson(response.data.data);
         }
@@ -41,7 +41,7 @@ export default class ServiceRepository {
     async update(data) {
         const params = setData(data, true);
 
-        let response = await axios.post(
+        let response = await axios.put(
             "http://127.0.0.1:8000/api/jahad/services/" + data.id,
             params
         );

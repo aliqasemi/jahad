@@ -26,6 +26,7 @@
         "vuetify-loader": "^1.7.0"
     },
     "dependencies": {
+        "@riophae/vue-treeselect": "^0.4.0",
         "deepmerge": "^4.2.2",
         "fibers": "^5.0.0",
         "object-to-formdata": "^4.2.2",
