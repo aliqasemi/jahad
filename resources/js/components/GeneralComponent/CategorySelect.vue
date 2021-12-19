@@ -16,7 +16,10 @@ import {mapActions} from "vuex";
 export default {
     name: "CategorySelect",
     props: {
-        value: [],
+        value: {
+            default: [],
+            type: Array
+        },
         selectionType: {default: 'single'}
     },
     data() {
@@ -37,7 +40,7 @@ export default {
             handler() {
                 if (this.selectItem.length > 1 && this.selectionType === 'single')
                     this.selectItem.shift()
-                this.$emit('value', this.selectItem)
+                this.$emit('input', this.selectItem)
             }
         }
     }

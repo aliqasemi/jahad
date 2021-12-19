@@ -11,7 +11,7 @@
                 <v-textarea style="text-align: right" label="توضیحات" reverse></v-textarea>
             </v-col>
             <v-col lg="4">
-                <category-select/>
+                <category-select v-model="form.category_id"/>
             </v-col>
             <v-col lg="5">
                 <cropper-image
@@ -34,6 +34,7 @@ import CropperImage from "../../components/GeneralComponent/CropperImage";
 import CategorySelect from "../../components/GeneralComponent/CategorySelect";
 
 var defaultForm = {
+    category_id: [],
     document: {
         crop_data: "",
         image: "",

@@ -5811,7 +5811,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CategorySelect",
   props: {
-    value: [],
+    value: {
+      "default": [],
+      type: Array
+    },
     selectionType: {
       "default": 'single'
     }
@@ -5851,7 +5854,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selectItem: {
       handler: function handler() {
         if (this.selectItem.length > 1 && this.selectionType === 'single') this.selectItem.shift();
-        this.$emit('value', this.selectItem);
+        this.$emit('input', this.selectItem);
       }
     }
   }
@@ -7120,6 +7123,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var defaultForm = {
+  category_id: [],
   document: {
     crop_data: "",
     image: "",
@@ -37203,7 +37207,22 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("v-col", { attrs: { lg: "4" } }, [_c("category-select")], 1),
+          _c(
+            "v-col",
+            { attrs: { lg: "4" } },
+            [
+              _c("category-select", {
+                model: {
+                  value: _vm.form.category_id,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.form, "category_id", $$v)
+                  },
+                  expression: "form.category_id",
+                },
+              }),
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "v-col",
