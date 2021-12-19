@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\CountyResource;
 use App\Http\Resources\ProvinceResource;
+use App\Models\City;
 use App\Models\County;
 use App\Models\Province;
 
@@ -44,6 +45,13 @@ class CityController extends Controller
     {
         return CityResource::collection(
             $county->cities()->get()
+        );
+    }
+
+    public function showCity(City $city): CityResource
+    {
+        return new CityResource(
+            $city->load('county.province')
         );
     }
 }

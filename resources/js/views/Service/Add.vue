@@ -20,6 +20,7 @@
                         :crop_data.sync="form.crop_data"
                         v-model="form.image"
                         :url.sync="form.thumbnail"
+                        :url="form.url"
                     />
                 </v-col>
                 <v-col lg="12">

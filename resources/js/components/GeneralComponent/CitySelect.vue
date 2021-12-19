@@ -69,7 +69,6 @@ export default {
         }
     },
     async created() {
-        this.city_id = this.value;
         this.provinces = await repository.indexProvinces();
     },
     watch: {
@@ -87,6 +86,15 @@ export default {
         city_id: {
             handler() {
                 this.$emit('input', this.city_id)
+            }
+        },
+        value: {
+            async handler() {
+                this.city_id = this.value;
+                this.cities = [await repository.showCity(this.city_id)];
+                this.counties = [this.cities[0].county]
+                this.county_id = this.cities[0].county.id
+                this.province_id = this.cities[0].county.province.id
             }
         }
     }

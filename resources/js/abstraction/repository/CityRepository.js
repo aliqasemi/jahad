@@ -1,5 +1,5 @@
 import {
-    getArray
+    getArray, getJson
 } from "../resource/CItyresource";
 import axios from "axios"
 
@@ -31,6 +31,17 @@ export default class CityRepository {
             let response = await axios.get('http://127.0.0.1:8000/api/jahad/cities/' + county_id);
             if (response && response.status === 200) {
                 return getArray(response.data.data);
+            }
+        } catch (e) {
+            return e;
+        }
+    }
+
+    async showCity(city_id) {
+        try {
+            let response = await axios.get("http://127.0.0.1:8000/api/jahad/cities/show/" + city_id);
+            if (response && response.status === 200) {
+                return response.data.data;
             }
         } catch (e) {
             return e;

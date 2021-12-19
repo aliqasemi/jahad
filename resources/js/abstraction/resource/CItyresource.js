@@ -12,4 +12,4 @@ const getArray = (data) => {
 };
 
 
-export {getArray};
+export {getArray, getJson};

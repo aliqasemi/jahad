@@ -32,6 +32,7 @@ Route::group(['prefix' => 'jahad'], function () {
         Route::get('/provinces', [\App\Http\Controllers\Api\CityController::class, 'indexProvinces']);
         Route::get('/counties/{province}', [\App\Http\Controllers\Api\CityController::class, 'indexCounties']);
         Route::get('/cities/{county}', [\App\Http\Controllers\Api\CityController::class, 'indexCities']);
+        Route::get('/cities/show/{city}', [\App\Http\Controllers\Api\CityController::class, 'showCity']);
     });
 });
 

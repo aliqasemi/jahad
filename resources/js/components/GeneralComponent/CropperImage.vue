@@ -41,11 +41,7 @@ export default {
         value: {
             default: "",
         },
-    },
-    data() {
-        return {
-            url: null,
-        }
+        url: null,
     },
     methods: {
         async uploadImage(event) {

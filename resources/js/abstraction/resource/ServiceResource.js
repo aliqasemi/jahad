@@ -7,10 +7,12 @@ const getJson = (data) => {
         title: data.title,
         address: data.address,
         description: data.description,
-        thumbnail: data.main_image,
+        thumbnail: data.main_image.image,
+        url: data.main_image.image,
         category_id: data.category ? data.category.id : null,
         user: data.user,
         city: data.city.name,
+        city_id: data.city.id,
         county: data.city.county.name,
         province: data.city.county.province.name,
     };
