@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Service;
+namespace App\Http\Requests\Requirement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateServiceRequest extends FormRequest
+class UpdateRequirementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize():bool
     {
         return true;
     }

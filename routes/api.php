@@ -28,6 +28,9 @@ Route::group(['prefix' => 'jahad'], function () {
         //service routes
         Route::resource('services', \App\Http\Controllers\Api\ServiceController::class);
 
+        //requirement routes
+        Route::resource('requirements', \App\Http\Controllers\Api\RequirementController::class);
+
         //city routes
         Route::get('/provinces', [\App\Http\Controllers\Api\CityController::class, 'indexProvinces']);
         Route::get('/counties/{province}', [\App\Http\Controllers\Api\CityController::class, 'indexCounties']);

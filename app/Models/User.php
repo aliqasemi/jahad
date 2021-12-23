@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Service::class);
     }
+
+    public function requirements()
+    {
+        return $this->hasMany(Requirement::class);
+    }
 }
