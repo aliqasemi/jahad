@@ -8,6 +8,7 @@ import state from './state'
 import user from './modules/user/index'
 import category from './modules/category/index'
 import service from './modules/service/index'
+import requirement from './modules/requirement/index'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export const store = new Vuex.Store({
     modules: {
         user,
         category,
-        service
+        service,
+        requirement
     }
 })

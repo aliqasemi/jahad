@@ -1,7 +1,7 @@
 <template>
     <v-row style="width: 70%; height: 70%; border: inset black; margin: 20px auto">
         <cropper
-            :src="url ? url : 'images/insertPhoto.png'"
+            :src="imageUrl ? imageUrl : 'images/insertPhoto.png'"
             @change="change"
         />
         <v-row>
@@ -43,6 +43,11 @@ export default {
         },
         url: null,
     },
+    data() {
+        return {
+            imageUrl: {default: null},
+        }
+    },
     methods: {
         async uploadImage(event) {
             let input = event.target;
@@ -62,10 +67,10 @@ export default {
     computed: {
         image: {
             get() {
-                return this.url
+                return this.imageUrl;
             },
             set(value) {
-                this.url = value
+                this.imageUrl = value;
                 this.$emit("update:url", value);
             },
         },
@@ -74,10 +79,20 @@ export default {
                 return this.value;
             },
             set(value) {
+                console.log("value", this.value)
                 this.$emit("input", value);
             },
         },
-    }
+    },
+    watch: {
+        url: {
+            deep: true,
+            immediate: true,
+            async handler() {
+                this.imageUrl = this.url;
+            },
+        },
+    },
 }
 </script>
 

@@ -54,6 +54,18 @@
                         <v-list-item-title>خدمت ها</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item
+                    link
+                    :to="{name:'ListRequirements'}"
+                >
+                    <v-list-item-icon>
+                        <v-icon>fa-list-alt</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content style="margin-right: 5px">
+                        <v-list-item-title>نیازمندی ها</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
     </v-layout>

@@ -36,7 +36,7 @@
                 </template>
                 <span>حذف</span>
             </v-tooltip>
-            <delete-modal v-model="deleteDialog" @action="deleteCategory(item.id)"/>
+            <delete-modal v-model="deleteDialog" @action="deleteService(item.id)"/>
         </v-col>
     </v-row>
 </template>
@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         ...mapActions("service", ['removeService']),
-        async deleteCategory(id) {
+        async deleteService(id) {
             let response;
             response = await this.removeService(id);
             if (!(response instanceof Error)) {

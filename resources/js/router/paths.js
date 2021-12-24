@@ -7,7 +7,9 @@ import Profile from "../views/Profile";
 import Register from "../views/Register";
 import Category from "../views/Category/Category";
 import Services from "../views/Service/Services";
-import Add from "../views/Service/Add";
+import AddService from "../views/Service/Add";
+import Requirements from "../views/Requirement/Requirements";
+import AddRequirement from "../views/Requirement/Add";
 
 Vue.use(VueRouter)
 
@@ -35,12 +37,14 @@ const routes = [
         component: Profile,
         beforeEnter: isAuthenticated,
     },
+    //categories
     {
         path: '/categories',
         name: 'ListCategories',
         component: Category,
         beforeEnter: isAuthenticated,
     },
+    //services
     {
         path: '/services',
         name: 'ListServices',
@@ -50,13 +54,33 @@ const routes = [
     {
         path: '/services/add',
         name: 'AddService',
-        component: Add,
+        component: AddService,
         beforeEnter: isAuthenticated,
     },
     {
         path: '/services/edit/:service_id',
         name: 'EditService',
-        component: Add,
+        component: AddService,
+        beforeEnter: isAuthenticated,
+        props: true,
+    },
+    //requirement
+    {
+        path: '/requirements',
+        name: 'ListRequirements',
+        component: Requirements,
+        beforeEnter: isAuthenticated,
+    },
+    {
+        path: '/requirements/add',
+        name: 'AddRequirement',
+        component: AddRequirement,
+        beforeEnter: isAuthenticated,
+    },
+    {
+        path: '/requirements/edit/:requirement_id',
+        name: 'EditRequirement',
+        component: AddRequirement,
         beforeEnter: isAuthenticated,
         props: true,
     },
