@@ -17,7 +17,6 @@ class CreateAvailableProvince extends Migration
             $table->id();
             $table->unsignedInteger('province_id');
             $table->unsignedInteger('service_id');
-            $table->timestamps();
         });
     }
 

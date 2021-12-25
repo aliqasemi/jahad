@@ -2,7 +2,7 @@ import {SetPagination, SetQueries} from "../../service/SetPagination";
 import {serialize} from 'object-to-formdata';
 
 const getJson = (data) => {
-    return {
+    let result = {
         id: data.id,
         title: data.title,
         address: data.address,
@@ -16,6 +16,13 @@ const getJson = (data) => {
         county: data.city.county.name,
         province: data.city.county.province.name,
     };
+    if (data.available_province) {
+        result.available_province_ids = data.available_province.map((e) => {
+            return e.id;
+        });
+    }
+
+    return result;
 };
 
 const getArray = ({data, meta}) => {
@@ -33,6 +40,7 @@ const setData = (data, hasUpdate = false) => {
         title: data.title,
         address: data.address,
         description: data.description,
+        available_province_ids: data.available_province_ids,
         crop_data: data.crop_data,
         main_image: data.image,
         category_id: data.category_id[0],

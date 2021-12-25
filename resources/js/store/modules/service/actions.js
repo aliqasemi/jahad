@@ -14,10 +14,8 @@ export default {
             );
             commit("SET_SERVICE", service.data);
             commit("SET_SERVICE_PAGINATION", service.pagination);
-            console.log(service)
             return service;
         } catch (e) {
-            console.log(e)
             return e;
         } finally {
             commit("SET_LOADING", false);

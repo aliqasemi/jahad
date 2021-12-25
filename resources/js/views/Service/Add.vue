@@ -9,7 +9,8 @@
                 <hr style="display: block; width: 75%"/>
                 <v-row>
                     <v-col lg="3">
-                        <v-text-field style="text-align: right" label="عنوان" v-model="form.title" reverse></v-text-field>
+                        <v-text-field style="text-align: right" label="عنوان" v-model="form.title"
+                                      reverse></v-text-field>
                         <v-textarea style="text-align: right" label="توضیحات" v-model="form.description"
                                     reverse></v-textarea>
                     </v-col>
@@ -28,6 +29,19 @@
                         <city-select v-model="form.city_id"/>
                         <v-text-field style="text-align: right; width: 60%" label="آدرس" v-model="form.address"
                                       reverse></v-text-field>
+                    </v-col>
+                    <v-col lg="6" md="12" style="direction: ltr">
+                        <v-select
+                            v-model="form.available_province_ids"
+                            :items="provinces"
+                            item-text="name"
+                            item-value="id"
+                            label="انتخاب نمایید"
+                            multiple
+                            chips
+                            hint="در صورتی که تنها در استان خاصی قادر به فعالیت هستید آن استان خاص را انتخاب نمایید"
+                            persistent-hint
+                        ></v-select>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -50,13 +64,16 @@ import CitySelect from "../../components/GeneralComponent/CitySelect";
 import CropperImage from "../../components/GeneralComponent/CropperImage";
 import CategorySelect from "../../components/GeneralComponent/CategorySelect";
 import {mapActions} from "vuex";
+import CityRepository from "../../abstraction/repository/CityRepository";
 
+let repository = new CityRepository();
 var defaultForm = {
     title: null,
     description: null,
     city_id: null,
     address: null,
     category_id: [],
+    available_province_ids: [],
     crop_data: "",
     image: "",
     thumbnail: "",
@@ -75,6 +92,7 @@ export default {
     data() {
         return {
             form: {...defaultForm},
+            provinces: [],
         }
     },
     methods: {
@@ -97,6 +115,7 @@ export default {
         if (this.service_id) {
             this.form = await this.showService(this.service_id)
         }
+        this.provinces = await repository.indexProvinces();
     }
 }
 </script>
