@@ -34,4 +34,9 @@ class Service extends Model implements HasMediaInterface
     {
         return $this->belongsTo(City::class);
     }
+
+    public function available_province(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Province::class, (new AvailableProvince)->getTable());
+    }
 }

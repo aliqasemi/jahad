@@ -28,7 +28,9 @@ class UpdateServiceRequest extends FormRequest
             'description' => 'nullable|string',
             'category_id' => 'nullable|integer|exists:categories,id',
             'city_id' => 'nullable|integer|exists:cities,id',
-            'address' => 'nullable|string'
+            'address' => 'nullable|string',
+            'available_province_ids' => 'nullable|array',
+            'available_province_ids.*' => 'required|string',
         ];
     }
 }

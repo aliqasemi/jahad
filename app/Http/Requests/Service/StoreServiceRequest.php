@@ -29,7 +29,8 @@ class StoreServiceRequest extends FormRequest
             'category_id' => 'required|integer|exists:categories,id',
             'city_id' => 'required|integer|exists:cities,id',
             'address' => 'required|string',
-
+            'available_province_ids' => 'nullable|array',
+            'available_province_ids.*' => 'required|string',
         ];
     }
 }

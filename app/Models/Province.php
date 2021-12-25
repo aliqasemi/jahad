@@ -27,4 +27,9 @@ class Province extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    public function available_service(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, (new AvailableProvince)->getTable());
+    }
 }

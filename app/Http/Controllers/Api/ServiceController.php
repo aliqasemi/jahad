@@ -40,9 +40,14 @@ class ServiceController extends Controller
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
             $service->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
+
+        if (!is_null(Arr::get($request->all(), 'available_province_ids'))) {
+            $service->available_province()->sync(Arr::get($request->all(), 'available_province_ids'));
+        }
+
         $service->save();
 
-        return new ServiceResource($service->load(['main_image', 'city.county.province', 'user', 'category']));
+        return new ServiceResource($service->load(['main_image', 'city.county.province', 'user', 'category', 'available_province']));
     }
 
     /**
@@ -54,7 +59,7 @@ class ServiceController extends Controller
     public function show(Service $service): ServiceResource
     {
         return new ServiceResource(
-            $service->load(['main_image', 'category', 'city.county.province', 'user'])
+            $service->load(['main_image', 'category', 'city.county.province', 'user', 'available_province'])
         );
     }
 
@@ -73,9 +78,13 @@ class ServiceController extends Controller
             $service->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
 
+        if (!is_null(Arr::get($request->all(), 'available_province_ids'))) {
+            $service->available_province()->sync(Arr::get($request->all(), 'available_province_ids'));
+        }
+
         $service->save();
 
-        return new ServiceResource($service->load(['main_image', 'category', 'city.county.province', 'user']));
+        return new ServiceResource($service->load(['main_image', 'category', 'city.county.province', 'user', 'available_province']));
     }
 
     /**

@@ -23,6 +23,7 @@ class ServiceResource extends JsonResource
             'category' => new CategoryResource($this->whenLoaded('category')),
             'user' => new UserResource($this->whenLoaded('user')),
             'city' => new CityResource($this->whenLoaded('city')),
+            'available_province' => ProvinceResource::collection($this->whenLoaded('available_province'))
         ];
     }
 }
