@@ -9,6 +9,7 @@ import user from './modules/user/index'
 import category from './modules/category/index'
 import service from './modules/service/index'
 import requirement from './modules/requirement/index'
+import snackbar from './modules/snackBar/index'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export const store = new Vuex.Store({
         user,
         category,
         service,
-        requirement
+        requirement,
+        snackbar
     }
 })

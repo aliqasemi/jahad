@@ -4,6 +4,7 @@
         <v-main>
             <router-view></router-view>
         </v-main>
+        <snack-bar/>
     </v-app>
 </template>
 
@@ -12,10 +13,11 @@ import {setAuthToken} from "./service/AuthService";
 import Navigation from "./components/Navigation";
 import {mapGetters, mapMutations} from "vuex";
 import axios from "axios";
+import SnackBar from "./components/GeneralComponent/SnackBar";
 
 export default {
     name: 'App',
-    components: {Navigation},
+    components: {SnackBar, Navigation},
     data: () => ({
         //
     }),

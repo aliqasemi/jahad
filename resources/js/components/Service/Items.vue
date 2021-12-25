@@ -54,6 +54,7 @@ export default {
     },
     async created() {
         let response = await this.loadServiceList();
+        console.log(response.pagination)
         this.pageNumber = response.pagination.pageCount
     }
 }

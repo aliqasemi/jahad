@@ -29,25 +29,28 @@ export default class RequirementRepository {
         try {
             const params = setData(data);
             let response = await axios.post("http://127.0.0.1:8000/api/jahad/requirements", params);
-
             if (response && response.status === 201) {
                 return getJson(response.data.data);
             }
         } catch (e) {
-            return e;
+            return Promise.reject(e.response.data.errors);
         }
     }
 
     async update(data) {
-        const params = setData(data, true);
+        try {
+            const params = setData(data, true);
 
-        let response = await axios.post(
-            "http://127.0.0.1:8000/api/jahad/requirements/" + data.id,
-            params
-        );
+            let response = await axios.post(
+                "http://127.0.0.1:8000/api/jahad/requirements/" + data.id,
+                params
+            );
 
-        if (response && response.status === 200) {
-            return getJson(response.data.data);
+            if (response && response.status === 200) {
+                return getJson(response.data.data);
+            }
+        } catch (e) {
+            return Promise.reject(e.response.data.errors);
         }
     }
 
@@ -57,7 +60,7 @@ export default class RequirementRepository {
                 "http://127.0.0.1:8000/api/jahad/requirements/" + id
             );
             if (response && response.status === 200) {
-                return true;
+                return response;
             }
         } catch (e) {
             return e;

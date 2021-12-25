@@ -68,6 +68,7 @@ class RequirementController extends Controller
     public function update(UpdateRequirementRequest $request, Requirement $requirement): RequirementResource
     {
         $requirement->fill($request->all());
+        $requirement->main_image()->delete();
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
             $requirement->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }

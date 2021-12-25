@@ -68,6 +68,7 @@ class ServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service): ServiceResource
     {
         $service->fill($request->all());
+        $service->main_image()->delete();
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
             $service->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }

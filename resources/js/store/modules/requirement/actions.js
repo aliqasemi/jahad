@@ -1,4 +1,5 @@
 import RequirementRepository from "../../../abstraction/repository/RequirementRepository";
+import {store} from "../../index";
 
 let repository = new RequirementRepository();
 
@@ -36,6 +37,8 @@ export default {
             commit("ADD_REQUIREMENT", requirement);
             return requirement;
         } catch (e) {
+            store.commit('snackbar/SET_SNACKBAR_STATUS', {value: true})
+            store.commit('snackbar/SET_SNACKBAR_MESSAGE', {value: e})
             return e;
         }
     },
@@ -52,6 +55,8 @@ export default {
         try {
             const response = await repository.destroy(requirementId);
             commit("REMOVE_REQUIREMENT", requirementId);
+            store.commit('snackbar/SET_SNACKBAR_STATUS', {value: true})
+            store.commit('snackbar/SET_SNACKBAR_MESSAGE', {value: response.data})
             return response;
         } catch (e) {
             return e;

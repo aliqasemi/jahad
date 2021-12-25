@@ -1,4 +1,5 @@
 import ServiceRepository from "../../../abstraction/repository/ServiceRepository";
+import {store} from "../../index";
 
 let repository = new ServiceRepository();
 
@@ -13,8 +14,10 @@ export default {
             );
             commit("SET_SERVICE", service.data);
             commit("SET_SERVICE_PAGINATION", service.pagination);
+            console.log(service)
             return service;
         } catch (e) {
+            console.log(e)
             return e;
         } finally {
             commit("SET_LOADING", false);
@@ -36,6 +39,8 @@ export default {
             commit("ADD_SERVICE", service);
             return service;
         } catch (e) {
+            store.commit('snackbar/SET_SNACKBAR_STATUS', {value: true})
+            store.commit('snackbar/SET_SNACKBAR_MESSAGE', {value: e})
             return e;
         }
     },
@@ -45,6 +50,8 @@ export default {
             commit("UPDATE_SERVICE", service);
             return service;
         } catch (e) {
+            store.commit('snackbar/SET_SNACKBAR_STATUS', {value: true})
+            store.commit('snackbar/SET_SNACKBAR_MESSAGE', {value: e})
             return e;
         }
     },
@@ -52,6 +59,8 @@ export default {
         try {
             const response = await repository.destroy(serviceId);
             commit("REMOVE_SERVICE", serviceId);
+            store.commit('snackbar/SET_SNACKBAR_STATUS', {value: true})
+            store.commit('snackbar/SET_SNACKBAR_MESSAGE', {value: response.data})
             return response;
         } catch (e) {
             return e;
