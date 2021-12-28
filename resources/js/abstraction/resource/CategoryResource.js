@@ -2,10 +2,11 @@ const getJson = (data) => {
     return {
         id: data.id,
         name: data.name,
+        label: data.name,
         created_at: data.created_at,
         parent_id: data.parent_id,
         children_count: data.children_count,
-        children: data.children,
+        children: getArray(data.children),
     };
 };
 

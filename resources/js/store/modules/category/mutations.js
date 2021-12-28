@@ -1,8 +1,6 @@
-import {addIndexTreeToList} from "../../../service/ProcessTreeArray";
-
 export default {
     SET_CATEGORY(state, category) {
-        Vue.set(state, "category", addIndexTreeToList(category));
+        Vue.set(state, "category", category);
     },
     UPDATE_CATEGORY(state, category) {
         const index = state.category.findIndex(
@@ -12,7 +10,7 @@ export default {
         Vue.set(
             state,
             "category",
-            addIndexTreeToList(state.category)
+            state.category
         );
     },
 
@@ -21,21 +19,21 @@ export default {
         Vue.delete(state.category, Index);
         Vue.set(
             state,
-            "course_category",
-            addIndexTreeToList(state.category)
+            "category",
+            state.category
         );
     },
 
-    ADD_CATEGORY(state, courseCategory) {
+    ADD_CATEGORY(state, category) {
         Vue.set(
             state.category,
             state.category.length,
-            courseCategory
+            category
         );
         Vue.set(
             state,
             "category",
-            addIndexTreeToList(state.category)
+            state.category
         );
     },
 

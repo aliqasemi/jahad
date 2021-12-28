@@ -3,7 +3,7 @@
         <v-row wrap>
             <v-col xs="12" lg="12" md="12" mb-3>
                 <recursive-panels
-                    :items="getListCategory"
+                    :items="getTreeCategories"
                     list-view="tree"
                     parent-id-key="parent_id"
                 >
@@ -44,7 +44,7 @@ export default {
         Item,
     },
     computed: {
-        ...mapGetters('category', ['getListCategory'])
+        ...mapGetters('category', ['getTreeCategories'])
     },
     methods: {
         ...mapActions('category', ['loadCategoryList'])

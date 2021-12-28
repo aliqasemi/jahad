@@ -2,6 +2,7 @@
     <v-row style="padding: 20px">
         <tree-select
             style="direction: ltr;text-align:right;margin: 0 auto"
+            search-nested
             v-model="selectItem"
             :value="selectItem"
             :multiple="true"

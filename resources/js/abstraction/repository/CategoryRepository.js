@@ -63,6 +63,5 @@ export default class CategoryRepository {
             return e;
         }
 
-
     }
 }
