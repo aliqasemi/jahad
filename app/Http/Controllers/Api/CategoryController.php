@@ -16,10 +16,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index()
     {
         return CategoryResource::collection(
-            Category::descendings()
+            Category::withCount(['descendants', 'children'])->get()->toTree()
         );
     }
 
@@ -43,9 +43,13 @@ class CategoryController extends Controller
      * @param Category $category
      * @return CategoryResource
      */
-    public function show(Category $category): CategoryResource
+    public function show(Category $category)
     {
-        return new CategoryResource($category->load('children'));
+        return new CategoryResource(
+            Category::descendantsAndSelf($category->id)
+                ->loadCount(['descendants', 'children'])
+                ->toTree()
+                ->first());
     }
 
     /**

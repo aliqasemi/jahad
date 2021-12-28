@@ -4,29 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, NodeTrait;
 
     protected $fillable = [
         'name', 'parent_id'
     ];
 
-    public function children()
+    public function services(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->belongsTo(Service::class);
     }
 
-    public static function descendings(array $relation = [])
+    public function requirements(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        $descendings = collect();
-        $children = Category::get();
-        while ($children->count()) {
-            $child = $children->load($relation)->loadCount('children')->shift();
-            $descendings->push($child);
-            $children = $children->merge($child->children);
-        }
-        return $descendings;
+        return $this->belongsTo(Requirement::class);
     }
 }
