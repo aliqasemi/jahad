@@ -1,7 +1,15 @@
 <template>
     <v-container>
         <v-row wrap>
-            <v-col xs="12" lg="12" md="12" mb-3>
+            <v-progress-linear
+                v-if="getCategoryLoading"
+                color="black accent-4"
+                indeterminate
+                rounded
+                height="10"
+                style="margin: 10px"
+            ></v-progress-linear>
+            <v-col v-else xs="12" lg="12" md="12" mb-3>
                 <recursive-panels
                     :items="getTreeCategories"
                     list-view="tree"
@@ -44,7 +52,7 @@ export default {
         Item,
     },
     computed: {
-        ...mapGetters('category', ['getTreeCategories'])
+        ...mapGetters('category', ['getTreeCategories','getCategoryLoading'])
     },
     methods: {
         ...mapActions('category', ['loadCategoryList'])

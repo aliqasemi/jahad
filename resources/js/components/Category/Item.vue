@@ -73,10 +73,11 @@ export default {
         subCategoriesCount: {default: 0},
     },
     methods: {
-        ...mapActions('category', ['removeCategory']),
+        ...mapActions('category', ['removeCategory', 'loadCategoryList']),
         async deleteCategory(id) {
             let response;
             response = await this.removeCategory(id);
+            await this.loadCategoryList();
             if (!(response instanceof Error)) {
                 this.dialog = false;
             }

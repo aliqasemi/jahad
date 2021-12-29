@@ -73,11 +73,12 @@ export default {
         },
     },
     methods: {
-        ...mapActions('category', ["showCategory", "storeCategory", "updateCategory"]),
+        ...mapActions('category', ["showCategory", "storeCategory", "updateCategory", "loadCategoryList"]),
         async submit() {
             if (this.category_id) {
                 let response;
                 response = await this.updateCategory({data: this.form});
+                await this.loadCategoryList();
                 if (!(response instanceof Error)) {
                     this.state = false;
                 }
@@ -85,18 +86,22 @@ export default {
                 this.form.parent_id = this.parent_id;
                 let response;
                 response = await this.storeCategory({data: this.form});
+                await this.loadCategoryList();
                 if (!(response instanceof Error)) {
                     this.state = false;
                 }
             }
         },
     },
-    async created() {
-        this.form.name = "";
-        if (this.category_id) {
-            this.form = await this.showCategory(this.category_id);
+    watch: {
+        state: {
+            async handler() {
+                if (this.category_id && this.state === true) {
+                    this.form = await this.showCategory(this.category_id);
+                }
+            }
         }
-    }
+    },
 }
 </script>
 

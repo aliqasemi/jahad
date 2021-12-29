@@ -17,10 +17,7 @@ export default {
     },
     async showCategory({commit}, id) {
         try {
-            commit("SET_LOADING", false);
-            const category = await repository.show(id);
-            commit("SET_LOADING", true);
-            return category;
+            return await repository.show(id);
         } catch (e) {
             return e;
         }
@@ -40,6 +37,7 @@ export default {
             commit("UPDATE_CATEGORY", category);
             return category;
         } catch (e) {
+            console.log(e);
             return e;
         }
     },
