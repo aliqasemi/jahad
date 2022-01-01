@@ -14,13 +14,13 @@ class Category extends Model
         'name', 'parent_id'
     ];
 
-    public function services(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function services(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsTo(Service::class);
+        return $this->hasMany(Service::class);
     }
 
-    public function requirements(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function requirements(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsTo(Requirement::class);
+        return $this->hasMany(Requirement::class);
     }
 }
