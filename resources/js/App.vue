@@ -40,3 +40,13 @@ export default {
     },
 };
 </script>
+<style>
+@font-face {
+    font-family: "Iransans";
+    src: local("Iransans"), url("../fonts/Sans a4fran3.woff") format("woff");
+}
+
+* {
+    font-family: "Iransans";
+}
+</style>
