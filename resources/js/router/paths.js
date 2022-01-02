@@ -10,6 +10,8 @@ import Services from "../views/Service/Services";
 import AddService from "../views/Service/Add";
 import Requirements from "../views/Requirement/Requirements";
 import AddRequirement from "../views/Requirement/Add";
+import AttachByRequirement from "../views/Attachment/AttachByRequirement";
+import AttachByService from "../views/Attachment/AttachByService";
 
 Vue.use(VueRouter)
 
@@ -81,6 +83,21 @@ const routes = [
         path: '/requirements/edit/:requirement_id',
         name: 'EditRequirement',
         component: AddRequirement,
+        beforeEnter: isAuthenticated,
+        props: true,
+    },
+    //attachment
+    {
+        path: '/attachment/requirement/:requirement_id',
+        name: 'AttachByRequirement',
+        component: AttachByRequirement,
+        beforeEnter: isAuthenticated,
+        props: true,
+    },
+    {
+        path: '/attachment/service/:service_id',
+        name: 'AttachByService',
+        component: AttachByService,
         beforeEnter: isAuthenticated,
         props: true,
     },

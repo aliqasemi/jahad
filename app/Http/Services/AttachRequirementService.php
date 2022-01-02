@@ -26,7 +26,7 @@ class AttachRequirementService
             $indexValue = [];
             foreach ($categories as $category) {
                 $category = Category::findOrfail(Arr::get($category, 'id'));
-                $services = $category->services()->get()->toArray();
+                $services = $category->services()->with(['user', 'city', 'category'])->get()->toArray();
                 foreach ($services as $service) {
                     $indexValue[] = $service;
                 }
@@ -39,7 +39,7 @@ class AttachRequirementService
     private function processSameLevel($category): array
     {
         $arrayByIndex = [];
-        $services = $category->services()->get()->toArray();
+        $services = $category->services()->with(['user', 'city', 'category'])->get()->toArray();
         foreach ($services as $service) {
             $arrayByIndex[] = $service;
         }

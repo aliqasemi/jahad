@@ -10,6 +10,7 @@ const getJson = (data) => {
         thumbnail: data.main_image ? data.main_image.image : null,
         url: data.main_image ? data.main_image.image : null,
         category_id: data.category ? data.category.id : null,
+        category: data.category,
         user: data.user,
         city: data.city.name,
         city_id: data.city.id,

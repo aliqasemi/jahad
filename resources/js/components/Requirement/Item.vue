@@ -10,6 +10,19 @@
             {{ item.user.firstname + ' ' + item.user.lastname }}
         </v-col>
         <v-col lg="5" style="text-align: left">
+            <router-link :to="{name:'AttachByRequirement',  params: { requirement_id: item.id },}">
+                <v-tooltip>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            slot="activator"
+                        >
+                            <v-icon dark>fa-paperclip</v-icon>
+                        </v-btn>
+
+                    </template>
+                    <span>ویرایش</span>
+                </v-tooltip>
+            </router-link>
             <router-link :to="{name:'EditRequirement',  params: { requirement_id: item.id },}">
                 <v-tooltip>
 

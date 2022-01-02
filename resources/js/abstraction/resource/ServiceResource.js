@@ -10,11 +10,13 @@ const getJson = (data) => {
         thumbnail: data.main_image ? data.main_image.image : null,
         url: data.main_image ? data.main_image.image : null,
         category_id: data.category ? data.category.id : null,
+        category: data.category ? data.category : null,
         user: data.user,
         city: data.city.name,
         city_id: data.city.id,
         county: data.city.county.name,
         province: data.city.county.province.name,
+        available_province: data.available_province,
     };
     if (data.available_province) {
         result.available_province_ids = data.available_province.map((e) => {

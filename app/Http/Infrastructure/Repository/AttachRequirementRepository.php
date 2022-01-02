@@ -4,9 +4,7 @@ namespace App\Http\Infrastructure\Repository;
 
 use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
 use App\Http\Services\AttachRequirementService;
-use App\Models\Category;
 use App\Models\Requirement;
-use Illuminate\Support\Arr;
 
 class AttachRequirementRepository implements AttachRequirementInterface
 {
