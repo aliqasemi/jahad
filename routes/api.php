@@ -40,6 +40,10 @@ Route::group(['prefix' => 'jahad'], function () {
         //attach requirement service
         Route::get('attach-requirement-service', \App\Http\Controllers\Api\AttachRequirementService::class);
         Route::get('attach-requirement-service/{requirement}', [\App\Http\Controllers\Api\AttachRequirementService::class, 'indexAttach']);
+
+        //attach service requirement
+        Route::get('attach-service-requirement', \App\Http\Controllers\Api\AttachServiceRequirement::class);
+        Route::get('attach-service-requirement/{service}', [\App\Http\Controllers\Api\AttachServiceRequirement::class, 'indexAttach']);
     });
 });
 
