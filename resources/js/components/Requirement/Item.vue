@@ -20,7 +20,7 @@
                         </v-btn>
 
                     </template>
-                    <span>ویرایش</span>
+                    <span>خدمات ارایه شده</span>
                 </v-tooltip>
             </router-link>
             <router-link :to="{name:'EditRequirement',  params: { requirement_id: item.id },}">

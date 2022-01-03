@@ -10,6 +10,19 @@
             {{ item.user.firstname + ' ' + item.user.lastname }}
         </v-col>
         <v-col lg="5" style="text-align: left">
+            <router-link :to="{name:'AttachByService',  params: { service_id: item.id },}">
+                <v-tooltip>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            slot="activator"
+                        >
+                            <v-icon dark>fa-paperclip</v-icon>
+                        </v-btn>
+
+                    </template>
+                    <span>نیازمندی های ارایه شده</span>
+                </v-tooltip>
+            </router-link>
             <router-link :to="{name:'EditService',  params: { service_id: item.id },}">
                 <v-tooltip>
 

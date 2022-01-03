@@ -13,4 +13,13 @@ export default class AttachmentRepository {
             return e;
         }
     }
+
+    async indexAttachmentByService(serviceId) {
+        try {
+            let response = await axios.get('http://127.0.0.1:8000/api/jahad/attach-service-requirement/' + serviceId);
+            return getArray(response.data.data)
+        } catch (e) {
+            return e;
+        }
+    }
 }

@@ -110,14 +110,23 @@
                 </v-col>
             </v-row>
         </v-container>
+
+        <v-row v-if="attachment" style="direction: rtl;">
+             نیازمندی پیشنهاد شده
+        </v-row>
+        <br>
+        <hr v-if="attachment" style="display: block; width: 75%"/>
+        <Items v-if="attachment" :service_id="service_id"/>
     </div>
 </template>
 
 <script>
 import {mapActions} from "vuex";
+import Items from "../../components/AttachServiceRequirement/AttachByService/Items";
 
 export default {
     name: "AttachByService",
+    components: {Items},
     props: {
         service_id: null,
         attachment: {default: true},

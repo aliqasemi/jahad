@@ -18,21 +18,24 @@ class AttachRequirementService
     public function attach(Requirement $requirement): array
     {
         $map = [];
-        $map['0'] = $this->processSameLevel($category = $requirement->category()->first());
+        if (!is_null($category = $requirement->category()->first())) {
+            $map['0'] = $this->processSameLevel($category);
 
-        $this->processTree(Arr::get(Category::descendantsAndSelf($category->id)->toTree()->first()->toArray(), 'children'));
+            $this->processTree(Arr::get(Category::descendantsAndSelf($category->id)->toTree()->first()->toArray(), 'children'));
 
-        foreach ($this->categoriesIndex as $key => $categories) {
-            $indexValue = [];
-            foreach ($categories as $category) {
-                $category = Category::findOrfail(Arr::get($category, 'id'));
-                $services = $category->services()->with(['user', 'city', 'category'])->get()->toArray();
-                foreach ($services as $service) {
-                    $indexValue[] = $service;
+            foreach ($this->categoriesIndex as $key => $categories) {
+                $indexValue = [];
+                foreach ($categories as $category) {
+                    $category = Category::findOrfail(Arr::get($category, 'id'));
+                    $services = $category->services()->with(['user', 'city', 'category'])->get()->toArray();
+                    foreach ($services as $service) {
+                        $indexValue[] = $service;
+                    }
                 }
+                $map[$key] = $indexValue;
             }
-            $map[$key] = $indexValue;
         }
+
         return $this->attachPoint($map);
     }
 

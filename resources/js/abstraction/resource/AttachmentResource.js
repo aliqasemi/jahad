@@ -12,6 +12,7 @@ const getJson = (data) => {
                     address: data[key].address,
                     description: data[key].description,
                     category: data[key].category,
+                    available_province: data[key].available_province,
                 }
             )
         }
