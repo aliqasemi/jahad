@@ -66,7 +66,7 @@ class SmsService extends AbstractSmsService
                 $this->setSmsGenerate(true);
             });
         } else {
-            this->setSmsGenerate(false);
+            $this->setSmsGenerate(false);
             throw new ErrorException('Sms Send Failed', ['status' => false]);
         }
     }
