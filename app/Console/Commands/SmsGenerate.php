@@ -43,9 +43,9 @@ class SmsGenerate extends Command
         $response = Http::accept('application/json')
             ->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->post('https://RestfulSms.com/api/Token', [
-                'UserApiKey' => Arr::get(config('sms'), 'UserApiKey'),
-                'SecretKey' => Arr::get(config('sms'), 'SecretKey'),
+            ])->post(config('sms.tokenRequestApi'), [
+                'UserApiKey' => config('sms.UserApiKey'),
+                'SecretKey' => config('sms.SecretKey'),
             ])->json();
 
         if (Arr::get($response, 'IsSuccessful')) {
