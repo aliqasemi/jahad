@@ -3,9 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
+use App\Http\Infrastructure\InterfaceRepository\AttachServiceInterface;
 use App\Jobs\SendSmsBatch;
 use App\Models\Requirement;
+use App\Models\Service;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 class SendSmsAttachmentBatch extends Command
 {
@@ -41,12 +44,28 @@ class SendSmsAttachmentBatch extends Command
      */
     public function handle()
     {
+        $usersRequirement = [];
         foreach (Requirement::get() as $requirement) {
             $attachment = app()->make(AttachRequirementInterface::class)->attachByRequirement($requirement->id);
             if (count($attachment)) {
-                $user = $requirement->user()->first();
-                SendSmsBatch::dispatch($user, " کاربر گرامی $user->firstname $user->lastname برای مشاهده سرویس های ارایه شده جهاد سازندگی برای نیازمندی شما پنل خود را چک بفرمایید ");
+                $usersRequirement = Arr::add($usersRequirement, $requirement->user()->first()->id, $requirement->user()->first());
             }
+        }
+
+        foreach ($usersRequirement as $user) {
+            SendSmsBatch::dispatch($user, " کاربر گرامی $user->firstname $user->lastname برای مشاهده سرویس های ارایه شده جهاد سازندگی برای نیازمندی شما پنل خود را چک بفرمایید ");
+        }
+
+        $usersService = [];
+        foreach (Service::get() as $service) {
+            $attachment = app()->make(AttachServiceInterface::class)->attachByService($service->id);
+            if (count($attachment)) {
+                $usersService = Arr::add($usersService, $service->user()->first()->id, $service->user()->first());
+            }
+        }
+
+        foreach ($usersService as $user) {
+            SendSmsBatch::dispatch($user, " کاربر گرامی $user->firstname $user->lastname برای مشاهده نیازمندی های ارایه شده جهاد سازندگی برای خدمت شما پنل خود را چک بفرمایید ");
         }
     }
 }

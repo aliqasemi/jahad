@@ -5,5 +5,4 @@ return [
     'tokenRequestApi' => 'https://RestfulSms.com/api/Token',
     'sendSmsRequestApi' => 'https://RestfulSms.com/api/MessageSend',
     'LineAttachmentNumber' => '30002101001326',
-    'mobileNumber' => '09195884064',
 ];
