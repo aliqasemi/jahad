@@ -20,7 +20,6 @@ const routes = [
         path: '/',
         component: Main,
         name: "Main",
-        beforeEnter: isGuest,
     },
     {
         path: '/login',

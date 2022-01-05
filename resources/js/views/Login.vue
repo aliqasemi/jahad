@@ -90,7 +90,7 @@ export default {
             let response = await this.login(body);
 
             if (!(response instanceof Error)) {
-                await this.$router.replace("/home");
+                await this.$router.replace("/");
             }
         },
     }
