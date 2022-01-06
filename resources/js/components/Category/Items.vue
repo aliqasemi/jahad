@@ -7,13 +7,14 @@
                 indeterminate
                 rounded
                 height="10"
-                style="margin: 10px"
+                style="margin: 10px;background: linear-gradient(30deg, #AED6D1, azure);border-radius: 10px"
             ></v-progress-linear>
             <v-col v-else xs="12" lg="12" md="12" mb-3>
                 <recursive-panels
                     :items="getTreeCategories"
                     list-view="tree"
                     parent-id-key="parent_id"
+                    style="background: linear-gradient(30deg, cadetblue, #b1b1b1);"
                 >
                     <template v-slot:default="{ item, subCategoriesCount, index }">
                         <item
@@ -27,9 +28,18 @@
 
         </v-row>
 
-        <v-btn @click="plusDialog = true">
-            اضافه کردن
-        </v-btn>
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn icon @click="plusDialog = true"
+                       class="add"
+                       v-bind="attrs"
+                       v-on="on"
+                >
+                    <v-icon>fa fa-plus</v-icon>
+                </v-btn>
+            </template>
+            <span>اضافه کردن دسته بندی</span>
+        </v-tooltip>
 
         <add-modal v-model="plusDialog"/>
     </v-container>
@@ -52,7 +62,7 @@ export default {
         Item,
     },
     computed: {
-        ...mapGetters('category', ['getTreeCategories','getCategoryLoading'])
+        ...mapGetters('category', ['getTreeCategories', 'getCategoryLoading'])
     },
     methods: {
         ...mapActions('category', ['loadCategoryList'])
@@ -64,4 +74,16 @@ export default {
 </script>
 
 <style scoped>
+.add {
+    display: flex;
+    position: fixed;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 10px;
+    bottom: 25px;
+    right: 25px;
+    width: 75px;
+    height: 75px;
+    background-color: cadetblue;
+}
 </style>

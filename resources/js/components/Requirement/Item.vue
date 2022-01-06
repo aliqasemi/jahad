@@ -10,11 +10,13 @@
             {{ item.user.firstname + ' ' + item.user.lastname }}
         </v-col>
         <v-col lg="5" style="text-align: left">
-            <router-link :to="{name:'AttachByRequirement',  params: { requirement_id: item.id },}">
-                <v-tooltip>
-                    <template v-slot:activator="{ on }">
+            <router-link :to="{name:'AttachByRequirement',  params: { requirement_id: item.id },}" style="text-decoration: none;">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on,attrs }">
                         <v-btn
                             slot="activator"
+                            v-bind="attrs"
+                            v-on="on"
                         >
                             <v-icon dark>fa-paperclip</v-icon>
                         </v-btn>
@@ -23,13 +25,15 @@
                     <span>خدمات ارایه شده</span>
                 </v-tooltip>
             </router-link>
-            <router-link :to="{name:'EditRequirement',  params: { requirement_id: item.id },}">
-                <v-tooltip>
+            <router-link :to="{name:'EditRequirement',  params: { requirement_id: item.id },}" style="text-decoration: none;">
+                <v-tooltip top>
 
-                    <template v-slot:activator="{ on }">
+                    <template v-slot:activator="{ on ,attrs}">
 
                         <v-btn
                             slot="activator"
+                            v-bind="attrs"
+                            v-on="on"
                         >
                             <v-icon dark>fa-edit</v-icon>
                         </v-btn>
@@ -38,11 +42,13 @@
                     <span>ویرایش</span>
                 </v-tooltip>
             </router-link>
-            <v-tooltip>
-                <template v-slot:activator="{ on }">
+            <v-tooltip top>
+                <template v-slot:activator="{ on,attrs }">
                     <v-btn
                         slot="activator"
                         @click.native="deleteDialog = true"
+                        v-bind="attrs"
+                        v-on="on"
                     >
                         <v-icon dark>fa-trash</v-icon>
                     </v-btn>

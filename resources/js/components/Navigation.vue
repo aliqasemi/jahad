@@ -4,7 +4,7 @@
             <v-icon @click.stop="drawer = !drawer">fa fa-bars</v-icon>
         </v-container>
 
-        <v-navigation-drawer v-model="drawer" app temporary right width="420">
+        <v-navigation-drawer v-model="drawer" app temporary right width="420" class="navigation">
             <v-list class="pa-1">
                 <v-row style="text-align: end;" class="ma-0">
                     <v-col lg="9" class="flex-justified-right">
@@ -110,5 +110,20 @@ export default {
     position: absolute;
     right: 20px;
     top: 20px;
+}
+.navigation{
+    animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #b1b1b1;
+    }
+    50%{
+        background-color: #8DCCC4;
+    }
+    100% {
+        background-color: cadetblue;
+    }
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
     <v-expansion-panels flat>
-        <v-expansion-panel v-for="(item, i) in items" :key="i">
+        <v-expansion-panel v-for="(item, i) in items" :key="i"
+                           style="background: #AED6D1;padding: 10px">
             <v-expansion-panel-header expand-icon="WMi-down-open">
                 <slot :item="item" :subCategoriesCount="getSubCategoriesCount(item)" :index="i"></slot>
             </v-expansion-panel-header>
@@ -41,10 +42,11 @@ export default {
     border: 1px solid #eeeeee;
     border-radius: 5px;
     transition: 0.2s;
+    background: #AED6D1;
 }
 
 .v-expansion-panel-header:hover {
     border: 1px solid #000;
-    background-color: #f5f5f5;
+    background: #55706D;
 }
 </style>

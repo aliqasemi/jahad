@@ -10,21 +10,25 @@
             </v-col>
             <v-col xl="4" lg="4" sm="4" class="flex-justified-left">
                 <v-row justify="center" style="padding: 5px; margin: 0 auto">
-                    <v-tooltip>
-                        <template v-slot:activator="{ on }">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                 slot="activator"
                                 @click="editDialog = true"
+                                v-bind="attrs"
+                                v-on="on"
                             >
                                 <v-icon dark>fa-edit</v-icon>
                             </v-btn>
                         </template>
                         <span>ویرایش</span>
                     </v-tooltip>
-                    <v-tooltip>
-                        <template v-slot:activator="{ on }">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on,attrs }">
                             <v-btn
                                 slot="activator"
+                                v-bind="attrs"
+                                v-on="on"
                                 @click.native="deleteDialog = true"
                             >
                                 <v-icon dark>fa-trash</v-icon>
@@ -32,10 +36,12 @@
                         </template>
                         <span>حذف</span>
                     </v-tooltip>
-                    <v-tooltip>
-                        <template v-slot:activator="{ on }">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs}">
                             <v-btn
                                 slot="activator"
+                                v-bind="attrs"
+                                v-on="on"
                                 @click.native="plusDialog = true"
                             >
                                 <v-icon dark>fa-plus</v-icon>

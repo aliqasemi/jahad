@@ -19,7 +19,7 @@
                 </template>
             </v-breadcrumbs>
         </div>
-        <v-row style="direction: rtl;">
+        <v-row style="direction: rtl;padding-top: 20px">
             نیازمندی
         </v-row>
         <br>

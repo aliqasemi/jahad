@@ -49,14 +49,14 @@
             <v-col lg="12">
                 <router-link :to="{name:'ListServices'}" style="text-decoration: none;color: black">
                     <div class="flex-justified-space-between title-big">
-                        <div class="justified-right">
-                            <div class="texts">
+                        <div>
+                            <div>
                                 <div class="desc"> جهت مشاهده لیست خدمات و اضافه کردن خدمت درخواستی کلیک کنید</div>
-                                <div :class="`Fa Bold text-gradient title-fa`"> خدمت ها</div>
+                                <div class="title-fa"> خدمت ها</div>
                             </div>
                         </div>
                         <div class="title-en En Bold">
-                            <div class="text"> services</div>
+                            <div style="position: absolute;text-align: left"> services</div>
                         </div>
                     </div>
                 </router-link>
@@ -64,15 +64,15 @@
             <v-col lg="12">
                 <router-link :to="{name:'ListRequirements'}" style="text-decoration: none;color: black">
                     <div class="flex-justified-space-between title-big">
-                        <div class="justified-right">
+                        <div>
                             <div class="texts">
                                 <div class="desc"> جهت مشاهده لیست نیازمندی ها و اضافه کردن نیازمندی درخواستی کلیک کنید
                                 </div>
-                                <div :class="`Fa Bold text-gradient title-fa`"> نیازمندی ها</div>
+                                <div class="title-fa"> نیازمندی ها</div>
                             </div>
                         </div>
                         <div class="title-en">
-                            <div>Requirement</div>
+                            <div style="position: absolute;text-align: left">Requirement</div>
                         </div>
                     </div>
                 </router-link>
@@ -80,14 +80,14 @@
             <v-col lg="12">
                 <router-link :to="{name:'ListCategories'}" style="text-decoration: none;color: black">
                     <div class="flex-justified-space-between title-big">
-                        <div class="justified-right">
-                            <div class="texts">
+                        <div>
+                            <div>
                                 <div class="desc"> جهت مشاهده دسته بندی و بررسی آن ها کلیک کنید</div>
-                                <div :class="`Fa Bold text-gradient title-fa`"> دسته بندی</div>
+                                <div class="title-fa"> دسته بندی</div>
                             </div>
                         </div>
                         <div class="title-en">
-                            <div class="text"> Category</div>
+                            <div style="position: absolute;text-align: left"> Category</div>
                         </div>
                     </div>
                 </router-link>
@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped type="scss">
 .bredRoute:hover {
     background-color: cadetblue;
     color: white;
@@ -128,20 +128,35 @@ export default {
 }
 
 .title-big {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #f5f5f5;
-    margin-bottom: 15px;
-    background-color: #b1b1b1;
-    border-radius: 10px;
-    padding: 10px;
+    border: 5px solid transparent;
+    background: #AED6D1;
+    color: #55706D;
+    border-radius: 40px;
+    padding: 15px 30px;
+    overflow: hidden;
+    width: 80%;
+    transition: all 1.2s,
+    border 0.5s 1.2s,
+    box-shadow 0.3s 1.5s;
+    white-space: nowrap;
+    text-indent: 23px;
+    font-weight: bold;
 }
 
 .title-big:hover {
-    background-color: cadetblue;
-    transition: 1s;
-    border: inset 10px;
+    text-indent: 0;
+    background: #55706D;
+    color: #FFE8A3;
+    width: 100%;
+    border: 10px solid #8DCCC4;
+    box-shadow: 3px 3px 2px rgba(black, 0.15);
+}
+
+.title-big:hover .desc {
+    color: white;
+    transition: 0.5s;
+    transform: translateX(0);
+    opacity: 1;
 }
 
 .title-big * {
@@ -153,12 +168,15 @@ export default {
 }
 
 .title-big .desc {
-    font-size: 16px;
-    opacity: 0.8;
+    display: inline-block;
+    transform: translateX(300px);
+    font-weight: normal;
+    opacity: 0;
+    transition: opacity 0.1s 0.5s,
+    transform 0.4s 0.5s;
 }
 
 .title-big .title-en {
-    position: relative;
     width: 300px;
     height: 160px;
     letter-spacing: 3px;

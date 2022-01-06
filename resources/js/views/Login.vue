@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-form @submit.prevent="loginRequest">
-            <v-container style="background: antiquewhite; margin-top: 20px; width: 50%">
+            <v-container class="login">
                 <v-row style="margin: 0 auto">
                     <v-col style="margin: 0 auto"
                            cols="12"
@@ -44,7 +44,7 @@
                            cols="12"
                            md="4"
                     >
-                        <router-link to="register">
+                        <router-link to="register" style="text-decoration: none">
                             <v-btn type="submit" elevation="2" block>
                                 ثبت نام
                             </v-btn>
@@ -56,7 +56,7 @@
                            cols="12"
                            md="4"
                     >
-                        <router-link to="/">
+                        <router-link to="/" style="text-decoration: none">
                             <v-btn type="submit" elevation="2" block>
                                 صفحه اصلی
                             </v-btn>
@@ -96,3 +96,12 @@ export default {
     }
 }
 </script>
+<style>
+.login {
+    animation: pulse 5s infinite;
+    margin-top: 20px;
+    width: 50%;
+    background: linear-gradient(30deg, #b1b1b1, cadetblue);
+    border-radius: 20px;
+}
+</style>

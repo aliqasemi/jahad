@@ -26,8 +26,8 @@
         <hr style="display: block; width: 75%"/>
         <items/>
 
-        <router-link :to="{name:'AddService'}">
-            <v-btn>اضافه کردن حدمت جدید</v-btn>
+        <router-link :to="{name:'AddService'}" style="text-decoration: none">
+            <v-btn>اضافه کردن خدمت جدید</v-btn>
         </router-link>
     </div>
 </template>
