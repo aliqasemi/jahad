@@ -47,7 +47,7 @@ class SendSmsAttachmentBatch extends Command
         $usersRequirement = [];
         foreach (Requirement::get() as $requirement) {
             $attachment = app()->make(AttachRequirementInterface::class)->attachByRequirement($requirement->id);
-            if (count($attachment)) {
+            if (count($attachment) !== 1) {
                 $usersRequirement = Arr::add($usersRequirement, $requirement->user()->first()->id, $requirement->user()->first());
             }
         }
@@ -59,7 +59,7 @@ class SendSmsAttachmentBatch extends Command
         $usersService = [];
         foreach (Service::get() as $service) {
             $attachment = app()->make(AttachServiceInterface::class)->attachByService($service->id);
-            if (count($attachment)) {
+            if (count($attachment) !== 1) {
                 $usersService = Arr::add($usersService, $service->user()->first()->id, $service->user()->first());
             }
         }

@@ -26,7 +26,7 @@
         <hr style="display: block; width: 75%"/>
         <items/>
 
-        <router-link :to="{name:'AddRequirement'}">
+        <router-link :to="{name:'AddRequirement'}" style="text-decoration: none">
             <v-btn>اضافه کردن نیازمندی جدید</v-btn>
         </router-link>
     </div>

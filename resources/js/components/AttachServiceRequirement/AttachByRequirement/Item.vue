@@ -19,11 +19,13 @@
             {{ item.category.name }}
         </v-col>
         <v-col lg="2">
-            <router-link :to="{name:'AttachByService',  params: { service_id: item.id , attachment: false}}">
-                <v-tooltip>
-                    <template v-slot:activator="{ on }">
+            <router-link :to="{name:'AttachByService',  params: { service_id: item.id , attachment: false}}" style="text-decoration: none">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on ,attrs}">
                         <v-btn
                             slot="activator"
+                            v-bind="attrs"
+                            v-on="on"
                         >
                             <v-icon dark>fa-info-circle</v-icon>
                         </v-btn>

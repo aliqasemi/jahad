@@ -3,7 +3,7 @@
         <tree-select
             style="direction: ltr;text-align:right;margin: 0 auto"
             search-nested
-            v-model="selectItem.flat(1).length !== 0 ? selectItem : null"
+            v-model="selectItem"
             :value="selectItem"
             :multiple="true"
             :options="getTreeCategories"
@@ -30,7 +30,7 @@ export default {
     },
     data() {
         return {
-            selectItem: []
+            selectItem: null
         }
     },
     computed: {
