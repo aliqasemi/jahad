@@ -3,7 +3,7 @@
         <tree-select
             style="direction: ltr;text-align:right;margin: 0 auto"
             search-nested
-            v-model="selectItem"
+            v-model="selectItem.flat(1).length !== 0 ? selectItem : null"
             :value="selectItem"
             :multiple="true"
             :options="getTreeCategories"
