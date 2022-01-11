@@ -14,6 +14,16 @@ class Category extends Model
         'name', 'parent_id'
     ];
 
+    public static function getModel()
+    {
+        return new Category();
+    }
+
+    public static function getCacheName(): string
+    {
+        return 'categories';
+    }
+
     public function services(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Service::class);
