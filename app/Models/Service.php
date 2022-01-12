@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\HasMedia;
-use App\Http\Services\CacheManagement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
@@ -17,6 +16,16 @@ class Service extends Model implements HasMediaInterface
     ];
 
     public function getTable(): string
+    {
+        return 'services';
+    }
+
+    public static function getModel()
+    {
+        return new Service();
+    }
+
+    public static function getCacheName(): string
     {
         return 'services';
     }

@@ -20,6 +20,16 @@ class Requirement extends Model implements HasMediaInterface
         return 'requirements';
     }
 
+    public static function getModel()
+    {
+        return new Requirement();
+    }
+
+    public static function getCacheName(): string
+    {
+        return 'requirements';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

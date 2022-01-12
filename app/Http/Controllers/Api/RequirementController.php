@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Requirement\StoreRequirementRequest;
 use App\Http\Requests\Requirement\UpdateRequirementRequest;
 use App\Http\Resources\RequirementResource;
+use App\Http\Services\CacheManagement;
 use App\Models\Requirement;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -22,7 +23,7 @@ class RequirementController extends Controller
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return RequirementResource::collection(
-            Requirement::with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'))
+            CacheManagement::buildList(Requirement::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], request('per_page'))
         );
     }
 
@@ -40,7 +41,9 @@ class RequirementController extends Controller
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
             $requirement->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
+
         $requirement->save();
+        CacheManagement::popItems($requirement);
 
         return new RequirementResource($requirement->load(['main_image', 'city.county.province', 'user', 'category']));
     }
@@ -54,7 +57,7 @@ class RequirementController extends Controller
     public function show(Requirement $requirement): RequirementResource
     {
         return new RequirementResource(
-            $requirement->load(['main_image', 'category', 'city.county.province', 'user'])
+            CacheManagement::buildItem(Requirement::getModel(), $requirement->id, ['main_image', 'category', 'city.county.province', 'user'], [])
         );
     }
 
@@ -74,6 +77,7 @@ class RequirementController extends Controller
         }
 
         $requirement->save();
+        CacheManagement::popItems($requirement, $requirement->id);
 
         return new RequirementResource($requirement->load(['main_image', 'category', 'city.county.province', 'user']));
     }
@@ -87,6 +91,8 @@ class RequirementController extends Controller
     public function destroy(Requirement $requirement): Response
     {
         $requirement->delete();
+        CacheManagement::popItems($requirement, $requirement->id);
+
         return response('ok');
     }
 }

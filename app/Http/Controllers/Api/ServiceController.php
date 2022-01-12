@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Service\StoreServiceRequest;
 use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Http\Resources\ServiceResource;
+use App\Http\Services\CacheManagement;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -22,7 +23,7 @@ class ServiceController extends Controller
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ServiceResource::collection(
-            Service::with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'))
+            CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], request('per_page'))
         );
     }
 
@@ -46,6 +47,7 @@ class ServiceController extends Controller
         }
 
         $service->save();
+        CacheManagement::popItems($service);
 
         return new ServiceResource($service->load(['main_image', 'city.county.province', 'user', 'category', 'available_province']));
     }
@@ -59,7 +61,7 @@ class ServiceController extends Controller
     public function show(Service $service): ServiceResource
     {
         return new ServiceResource(
-            $service->load(['main_image', 'category', 'city.county.province', 'user', 'available_province'])
+            CacheManagement::buildItem(Service::getModel(), $service->id, ['main_image', 'category', 'city.county.province', 'user', 'available_province'], [])
         );
     }
 
@@ -83,6 +85,7 @@ class ServiceController extends Controller
         }
 
         $service->save();
+        CacheManagement::popItems($service, $service->id);
 
         return new ServiceResource($service->load(['main_image', 'category', 'city.county.province', 'user', 'available_province']));
     }
@@ -96,6 +99,8 @@ class ServiceController extends Controller
     public function destroy(Service $service): Response
     {
         $service->delete();
+        CacheManagement::popItems($service, $service->id);
+
         return response('ok');
     }
 }

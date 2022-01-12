@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
         $category = new Category($request->all());
         $category->save();
-        CategoryCacheManagement::reBuild($category, $category->id, [], ['descendants', 'children']);
+        CategoryCacheManagement::popItems($category);
 
         return new CategoryResource($category);
     }
@@ -63,7 +63,7 @@ class CategoryController extends Controller
     {
         $category->fill($request->all());
         $category->save();
-        CategoryCacheManagement::reBuild($category, $category->id, [], ['descendants', 'children']);
+        CategoryCacheManagement::popItems($category, $category->id);
         return new CategoryResource($category);
     }
 
@@ -76,7 +76,7 @@ class CategoryController extends Controller
     public function destroy(Category $category): Response
     {
         $category->delete();
-        CategoryCacheManagement::reBuild($category, $category->id, [], ['descendants', 'children']);
+        CategoryCacheManagement::popItems($category, $category->id);
         return response('عملیات با موفقیت انجام شد');
     }
 }
