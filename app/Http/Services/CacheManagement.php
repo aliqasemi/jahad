@@ -10,7 +10,7 @@ class CacheManagement
     public static function buildList(Model $model, $relation = [], $relationCount = [], $params = null)
     {
         return Cache::remember($model::getCacheName(), 30000, function () use ($params, $relationCount, $relation, $model) {
-            return $model->with($relation)->withCount($relationCount)->paginate($params);
+            return $model->with($relation)->withCount($relationCount)->paginate();
         });
     }
 

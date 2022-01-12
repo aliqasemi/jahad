@@ -14,6 +14,8 @@ class Category extends Model
         'name', 'parent_id'
     ];
 
+    public static $relationsCache = ['services', 'requirements'];
+
     public static function getModel()
     {
         return new Category();
