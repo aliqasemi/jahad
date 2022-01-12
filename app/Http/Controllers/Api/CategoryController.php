@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
-use App\Http\Services\CacheManagement;
+use App\Http\Services\CategoryCacheManagement;
 use App\Models\Category;
 use Illuminate\Http\Response;
 
@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
         return CategoryResource::collection(
-            CacheManagement::build(Category::getModel())->withCount(['descendants', 'children'])->get()->toTree()
+            CategoryCacheManagement::buildList(Category::getModel(), [], ['descendants', 'children'])
         );
     }
 
@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
         $category = new Category($request->all());
         $category->save();
-        CacheManagement::build(Category::getModel());
+        CategoryCacheManagement::reBuild($category, $category->id, [], ['descendants', 'children']);
 
         return new CategoryResource($category);
     }
@@ -48,10 +48,8 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return new CategoryResource(
-            CacheManagement::build(Category::getModel(), $category->id)->descendantsAndSelf($category->id)
-                ->loadCount(['descendants', 'children'])
-                ->toTree()
-                ->first());
+            CategoryCacheManagement::buildItem(Category::getModel(), $category->id, [], ['descendants', 'children'])
+        );
     }
 
     /**
@@ -65,7 +63,7 @@ class CategoryController extends Controller
     {
         $category->fill($request->all());
         $category->save();
-        CacheManagement::reBuild(Category::getModel(), $category->id);
+        CategoryCacheManagement::reBuild($category, $category->id, [], ['descendants', 'children']);
         return new CategoryResource($category);
     }
 
@@ -78,7 +76,7 @@ class CategoryController extends Controller
     public function destroy(Category $category): Response
     {
         $category->delete();
-        CacheManagement::reBuild(Category::getModel(), $category->id);
+        CategoryCacheManagement::reBuild($category, $category->id, [], ['descendants', 'children']);
         return response('عملیات با موفقیت انجام شد');
     }
 }

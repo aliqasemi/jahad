@@ -23,7 +23,7 @@ class Service extends Model implements HasMediaInterface
 
     public function category()
     {
-        return $this->belongsTo(CacheManagement::build(Category::getModel()));
+        return $this->belongsTo(Category::getModel());
     }
 
     public function user()

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\HasMedia;
-use App\Http\Services\CacheManagement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
@@ -23,7 +22,7 @@ class Requirement extends Model implements HasMediaInterface
 
     public function category()
     {
-        return $this->belongsTo(CacheManagement::build(Category::getModel()));
+        return $this->belongsTo(Category::class);
     }
 
     public function user()
