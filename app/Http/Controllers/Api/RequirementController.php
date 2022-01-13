@@ -43,7 +43,6 @@ class RequirementController extends Controller
         }
 
         $requirement->save();
-        CacheManagement::popItems($requirement);
 
         return new RequirementResource($requirement->load(['main_image', 'city.county.province', 'user', 'category']));
     }
@@ -77,7 +76,6 @@ class RequirementController extends Controller
         }
 
         $requirement->save();
-        CacheManagement::popItems($requirement, $requirement->id);
 
         return new RequirementResource($requirement->load(['main_image', 'category', 'city.county.province', 'user']));
     }
@@ -91,8 +89,6 @@ class RequirementController extends Controller
     public function destroy(Requirement $requirement): Response
     {
         $requirement->delete();
-        CacheManagement::popItems($requirement, $requirement->id);
-
         return response('ok');
     }
 }

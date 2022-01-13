@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Http\Services\CacheManagement;
+use App\Http\Services\CategoryCacheManagement;
 use App\Models\Category;
 
 class CategoryObserver
@@ -15,6 +16,7 @@ class CategoryObserver
      */
     public function saving(Category $category)
     {
+        CategoryCacheManagement::popItems($category, $category->id);
         foreach (Category::$relationsCache as $relation) {
             $models = $category->$relation()->get();
             if (count($models)) {
@@ -33,6 +35,7 @@ class CategoryObserver
      */
     public function deleted(Category $category)
     {
+        CategoryCacheManagement::popItems($category, $category->id);
         foreach (Category::$relationsCache as $relation) {
             $models = $category->$relation()->get();
             if (count($models)) {

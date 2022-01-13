@@ -47,7 +47,6 @@ class ServiceController extends Controller
         }
 
         $service->save();
-        CacheManagement::popItems($service);
 
         return new ServiceResource($service->load(['main_image', 'city.county.province', 'user', 'category', 'available_province']));
     }
@@ -85,7 +84,6 @@ class ServiceController extends Controller
         }
 
         $service->save();
-        CacheManagement::popItems($service, $service->id);
 
         return new ServiceResource($service->load(['main_image', 'category', 'city.county.province', 'user', 'available_province']));
     }
@@ -99,8 +97,6 @@ class ServiceController extends Controller
     public function destroy(Service $service): Response
     {
         $service->delete();
-        CacheManagement::popItems($service, $service->id);
-
         return response('ok');
     }
 }
