@@ -20,7 +20,7 @@ class Service extends Model implements HasMediaInterface
         return 'services';
     }
 
-    public static function getModel()
+    public static function getModel(): Service
     {
         return new Service();
     }
@@ -30,17 +30,17 @@ class Service extends Model implements HasMediaInterface
         return 'services';
     }
 
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Category::getModel());
+        return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function city()
+    public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(City::class);
     }
@@ -48,5 +48,10 @@ class Service extends Model implements HasMediaInterface
     public function available_province(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Province::class, (new AvailableProvince)->getTable());
+    }
+
+    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Project::class);
     }
 }

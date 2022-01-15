@@ -20,7 +20,7 @@ class Requirement extends Model implements HasMediaInterface
         return 'requirements';
     }
 
-    public static function getModel()
+    public static function getModel(): Requirement
     {
         return new Requirement();
     }
@@ -30,18 +30,23 @@ class Requirement extends Model implements HasMediaInterface
         return 'requirements';
     }
 
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function city()
+    public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Project::class);
     }
 }
