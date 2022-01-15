@@ -10,7 +10,7 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description', 'step_id'
+        'description', 'step_id', 'failed'
     ];
 
     public function getTable(): string
@@ -38,4 +38,8 @@ class Project extends Model
         return $this->belongsTo(Requirement::class);
     }
 
+    public function step(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Step::class);
+    }
 }

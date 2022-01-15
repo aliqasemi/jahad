@@ -48,6 +48,11 @@ Route::group(['prefix' => 'jahad'], function () {
         //project routes
         Route::resource('projects', \App\Http\Controllers\Api\ProjectController::class);
 
+        //step routes
+        Route::resource('steps', \App\Http\Controllers\Api\StepController::class);
+        Route::post('steps/move-up/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveUp']);
+        Route::post('steps/move-down/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveDown']);
+
     });
 });
 
