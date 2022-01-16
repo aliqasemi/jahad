@@ -35,4 +35,9 @@ class Step extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function template(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Template::class);
+    }
 }

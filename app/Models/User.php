@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Step::class);
     }
+
+    public function templates(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Template::class);
+    }
 }
