@@ -13,6 +13,16 @@ class Project extends Model
         'description', 'step_id', 'failed'
     ];
 
+    public $messageFields = [];
+
+    public $mapMessageFields = [
+        'step' => 'step:name',
+        'service' => 'service:name',
+        'requirement' => 'requirement:name',
+        'requirement_user_name' => 'requirement.user:name',
+        'service_user_name' => 'service.user:name',
+    ];
+
     public function getTable(): string
     {
         return 'projects';
