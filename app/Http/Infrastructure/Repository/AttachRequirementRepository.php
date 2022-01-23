@@ -3,8 +3,8 @@
 namespace App\Http\Infrastructure\Repository;
 
 use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
-use App\Http\Services\AttachRequirementService;
 use App\Models\Requirement;
+use App\Services\AttachRequirementService;
 
 class AttachRequirementRepository implements AttachRequirementInterface
 {

@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Http\Services\CacheManagement;
-use App\Http\Services\CategoryCacheManagement;
 use App\Models\Category;
+use App\Services\CacheManagement;
+use App\Services\CategoryCacheManagement;
 
 class CategoryObserver
 {

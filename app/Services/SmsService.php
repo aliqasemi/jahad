@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Exceptions\ErrorException;
 use App\Http\Infrastructure\AbstractClass\AbstractSmsService;
 use App\Models\SecureTokenSms;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+
 
 class SmsService extends AbstractSmsService
 {

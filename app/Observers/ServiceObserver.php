@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Http\Services\CacheManagement;
 use App\Models\Service;
+use App\Services\CacheManagement;
 
 class ServiceObserver
 {
