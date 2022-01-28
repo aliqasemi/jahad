@@ -9,6 +9,7 @@ use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Requirement;
 use App\Models\Service;
+use App\Models\Step;
 use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
@@ -21,7 +22,7 @@ class ProjectController extends Controller
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ProjectResource::collection(
-            Project::paginate(request('per_page'))
+            Project::with(['service', 'requirement', 'step'])->paginate(request('per_page'))
         );
     }
 
@@ -33,6 +34,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request): ProjectResource
     {
+
         $project = Project::create($request->validated());
 
         $service = Service::findOrFail(Arr::get($request->validated(), 'service_id'));
@@ -41,10 +43,14 @@ class ProjectController extends Controller
         $requirement = Requirement::findOrFail(Arr::get($request->validated(), 'requirement_id'));
         $requirement->projects()->save($project);
 
+        $step = Step::first();
+
+        $step->projects()->save($project);
+
         $project->save();
 
         return new ProjectResource(
-            $project->load(['service', 'requirement'])
+            $project->load(['service', 'requirement' . 'step'])
         );
     }
 
@@ -63,7 +69,8 @@ class ProjectController extends Controller
                 },
                 'requirement' => function ($query) {
                     return $query->with(['user', 'category']);
-                }
+                },
+                'step'
             ])
         );
     }
@@ -82,7 +89,7 @@ class ProjectController extends Controller
         $project->save();
 
         return new ProjectResource(
-            $project->load(['service', 'requirement'])
+            $project->load(['service', 'requirement', 'step'])
         );
     }
 
