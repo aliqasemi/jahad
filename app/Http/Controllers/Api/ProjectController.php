@@ -50,7 +50,7 @@ class ProjectController extends Controller
         $project->save();
 
         return new ProjectResource(
-            $project->load(['service', 'requirement' . 'step'])
+            $project->load(['service', 'requirement', 'step'])
         );
     }
 
