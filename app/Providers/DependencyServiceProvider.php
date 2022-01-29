@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
-use App\Http\Infrastructure\InterfaceRepository\AttachServiceInterface;
-use App\Http\Infrastructure\Repository\AttachRequirementRepository;
-use App\Http\Infrastructure\Repository\AttachServiceRepository;
+use App\Infrastructure\InterfaceRepository\AttachRequirementInterface;
+use App\Infrastructure\InterfaceRepository\AttachServiceInterface;
+use App\Infrastructure\Repository\AttachRequirementRepository;
+use App\Infrastructure\Repository\AttachServiceRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DependencyServiceProvider extends ServiceProvider

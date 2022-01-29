@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\ErrorException;
-use App\Http\Infrastructure\AbstractClass\AbstractSmsService;
+use App\Infrastructure\AbstractClass\AbstractSmsService;
 use App\Models\SecureTokenSms;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;

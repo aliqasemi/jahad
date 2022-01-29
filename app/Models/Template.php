@@ -26,6 +26,11 @@ class Template extends Model
         return 'templates';
     }
 
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function steps(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Step::class);

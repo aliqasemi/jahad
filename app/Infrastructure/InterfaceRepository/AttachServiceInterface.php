@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Infrastructure\InterfaceRepository;
+namespace App\Infrastructure\InterfaceRepository;
 
 interface AttachServiceInterface
 {

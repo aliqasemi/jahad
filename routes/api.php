@@ -53,6 +53,8 @@ Route::group(['prefix' => 'jahad'], function () {
         Route::post('steps/move-up/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveUp']);
         Route::post('steps/move-down/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveDown']);
 
+        //template
+        Route::resource('templates', \App\Http\Controllers\Api\TemplateController::class);
     });
 });
 

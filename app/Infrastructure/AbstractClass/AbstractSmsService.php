@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Infrastructure\AbstractClass;
+namespace App\Infrastructure\AbstractClass;
 
 abstract class AbstractSmsService
 {

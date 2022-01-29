@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Infrastructure\Repository;
+namespace App\Infrastructure\Repository;
 
-use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
+use App\Infrastructure\InterfaceRepository\AttachRequirementInterface;
 use App\Models\Requirement;
 use App\Services\AttachRequirementService;
 

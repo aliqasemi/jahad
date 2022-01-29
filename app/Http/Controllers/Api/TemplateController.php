@@ -67,6 +67,8 @@ class TemplateController extends Controller
     {
         $template = $template->fill($request->validated());
 
+        $template->save();
+
         return new TemplateResource(
             $template
         );

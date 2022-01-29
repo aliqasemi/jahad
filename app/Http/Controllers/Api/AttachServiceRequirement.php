@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Infrastructure\InterfaceRepository\AttachServiceInterface;
 use App\Http\Resources\AttachServiceResource;
+use App\Infrastructure\InterfaceRepository\AttachServiceInterface;
 use App\Models\Service;
 
 class AttachServiceRequirement extends Controller

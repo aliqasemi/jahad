@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
-use App\Http\Infrastructure\InterfaceRepository\AttachServiceInterface;
+use App\Infrastructure\InterfaceRepository\AttachRequirementInterface;
+use App\Infrastructure\InterfaceRepository\AttachServiceInterface;
 use App\Jobs\SendSmsBatch;
 use App\Models\Requirement;
 use App\Models\Service;

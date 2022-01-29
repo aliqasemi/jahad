@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Infrastructure\InterfaceRepository\AttachRequirementInterface;
 use App\Http\Resources\AttachRequirementResource;
+use App\Infrastructure\InterfaceRepository\AttachRequirementInterface;
 use App\Models\Requirement;
 
 class AttachRequirementService extends Controller
