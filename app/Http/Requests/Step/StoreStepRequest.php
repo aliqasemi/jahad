@@ -27,7 +27,8 @@ class StoreStepRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'nullable|string',
             'send_sms' => 'required',
-            'template_id' => 'nullable|integer'
+            'template_id' => 'nullable|integer',
+            'project_id' => 'required|integer'
         ];
     }
 }

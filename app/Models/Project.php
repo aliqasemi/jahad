@@ -52,4 +52,9 @@ class Project extends Model
     {
         return $this->belongsTo(Step::class);
     }
+
+    public function steps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Step::class);
+    }
 }

@@ -8,9 +8,9 @@ use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Requirement;
-use App\Models\Service;
 use App\Models\Step;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -34,17 +34,27 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request): ProjectResource
     {
+        $project = Project::where('requirement_id', Arr::get($request->validated(), 'requirement_id'))->first();
 
-        $project = Project::create($request->validated());
+        if (!$project) {
+            $project = Project::create($request->validated());
+        }
 
-        $project->services()->sync(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
+        $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
 
         $requirement = Requirement::findOrFail(Arr::get($request->validated(), 'requirement_id'));
         $requirement->projects()->save($project);
 
-        $step = Step::first();
-
-        $step->projects()->save($project);
+        if (!$project->steps()->first()) {
+            $step = Step::create([
+                'name' => 'مرحله اول',
+                'project_id' => $project->id,
+                'send_sms' => 0,
+                'template_id' => 0,
+                'user_id' => Auth::id()
+            ]);
+            $step->project()->save($project);
+        }
 
         $project->save();
 
@@ -85,7 +95,7 @@ class ProjectController extends Controller
     {
         $project->fill($request->validated());
 
-        $project->services()->sync(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
+        $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
 
         $project->save();
 

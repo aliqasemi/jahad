@@ -15,8 +15,8 @@ class CreateProjectServiceTable extends Migration
     {
         Schema::create('project_service', function (Blueprint $table) {
             $table->id();
-            $table->integer('project_id');
-            $table->integer('service_id');
+            $table->unsignedInteger('project_id');
+            $table->unsignedInteger('service_id');
         });
     }
 

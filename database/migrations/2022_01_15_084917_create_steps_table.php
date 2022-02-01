@@ -21,6 +21,7 @@ class CreateStepsTable extends Migration
             $table->integer('sort')->default(1);
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('template_id');
+            $table->unsignedInteger('project_id');
             $table->timestamps();
         });
     }

@@ -21,10 +21,10 @@ class StepController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         return StepResource::collection(
-            Step::orderBy('sort', 'asc')->get()
+            Step::where('project_id', Arr::get($request->all(), 'project_id'))->orderBy('sort', 'asc')->get()
         );
     }
 
@@ -37,7 +37,7 @@ class StepController extends Controller
     public function store(StoreStepRequest $request)
     {
         $data = $request->validated();
-        $maxSort = Step::max('sort');
+        $maxSort = Step::where('project_id', Arr::get($request->validated(), 'project_id'))->max('sort');
 
         if (is_null($maxSort)) {
             Arr::set($data, 'sort', 1);
@@ -98,13 +98,14 @@ class StepController extends Controller
     /**
      * @throws ErrorException
      */
-    public function moveUp(Step $step)
+    public function moveUp(Request $request, Step $step)
     {
         $sort = $step->sort;
 
         if ($sort > 1) {
-            DB::transaction(function ($query) use ($sort, $step) {
-                Step::where('sort', $sort - 1)->update(['sort' => $sort]);
+            DB::transaction(function ($query) use ($sort, $step, $request) {
+                Step::where('project_id', Arr::get($request->all(), 'project_id'))
+                    ->where('sort', $sort - 1)->update(['sort' => $sort]);
                 $step->update(['sort' => $sort - 1]);
             });
             DB::commit();
@@ -114,14 +115,18 @@ class StepController extends Controller
         }
     }
 
-    public function moveDown(Step $step)
+    public function moveDown(Request $request, Step $step)
     {
         $sort = $step->sort;
         $maxSort = $step::max('sort');
 
         if ($sort < $maxSort) {
-            Step::where('sort', $sort + 1)->update(['sort' => $sort]);
-            $step->update(['sort' => $sort + 1]);
+            DB::transaction(function ($query) use ($sort, $step, $request) {
+                Step::where('project_id', Arr::get($request->all(), 'project_id'))
+                    ->where('sort', $sort + 1)->update(['sort' => $sort]);
+                $step->update(['sort' => $sort + 1]);
+            });
+            DB::commit();
             return response('ok');
         } else {
             return throw new ErrorException('step move down last');

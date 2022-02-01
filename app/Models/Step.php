@@ -9,7 +9,7 @@ class Step extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'sort', 'send_sms', 'template_id'];
+    protected $fillable = ['name', 'description', 'sort', 'send_sms', 'template_id', 'project_id', 'user_id'];
 
     public function getTable(): string
     {
@@ -26,9 +26,9 @@ class Step extends Model
         return 'steps';
     }
 
-    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function project(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasMany(Project::class);
+        return $this->hasOne(Project::class);
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
