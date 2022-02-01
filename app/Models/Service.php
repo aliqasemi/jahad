@@ -50,8 +50,8 @@ class Service extends Model implements HasMediaInterface
         return $this->belongsToMany(Province::class, (new AvailableProvince)->getTable());
     }
 
-    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function projects(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class, (new ProjectService())->getTable());
     }
 }

@@ -26,6 +26,8 @@ class UpdateProjectRequest extends FormRequest
         return [
             'description' => 'nullable|string',
             'step_id' => 'nullable|integer',
+            'services' => 'nullable|array',
+            'services.*.id' => 'required|integer|exists:services,id',
         ];
     }
 }

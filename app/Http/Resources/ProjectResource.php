@@ -17,7 +17,7 @@ class ProjectResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'service' => new ServiceResource($this->whenLoaded('service')),
+            'service' => ServiceResource::collection($this->whenLoaded('services')),
             'requirement' => new RequirementResource($this->whenLoaded('requirement')),
             'step' => new StepResource($this->whenLoaded('step')),
         ];

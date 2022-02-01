@@ -17,7 +17,6 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('description')->nullable();
             $table->unsignedInteger('step_id')->nullable();
-            $table->unsignedInteger('service_id')->nullable();
             $table->unsignedInteger('requirement_id')->nullable();
             $table->boolean('failed')->default(false);
             $table->timestamps();

@@ -22,7 +22,7 @@ class ProjectController extends Controller
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ProjectResource::collection(
-            Project::with(['service', 'requirement', 'step'])->paginate(request('per_page'))
+            Project::with(['services', 'requirement', 'step'])->paginate(request('per_page'))
         );
     }
 
@@ -37,8 +37,7 @@ class ProjectController extends Controller
 
         $project = Project::create($request->validated());
 
-        $service = Service::findOrFail(Arr::get($request->validated(), 'service_id'));
-        $service->projects()->save($project);
+        $project->services()->sync(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
 
         $requirement = Requirement::findOrFail(Arr::get($request->validated(), 'requirement_id'));
         $requirement->projects()->save($project);
@@ -50,7 +49,7 @@ class ProjectController extends Controller
         $project->save();
 
         return new ProjectResource(
-            $project->load(['service', 'requirement', 'step'])
+            $project->load(['services', 'requirement', 'step'])
         );
     }
 
@@ -64,7 +63,7 @@ class ProjectController extends Controller
     {
         return new ProjectResource(
             $project->load([
-                'service' => function ($query) {
+                'services' => function ($query) {
                     return $query->with(['user', 'category']);
                 },
                 'requirement' => function ($query) {
@@ -86,10 +85,12 @@ class ProjectController extends Controller
     {
         $project->fill($request->validated());
 
+        $project->services()->sync(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
+
         $project->save();
 
         return new ProjectResource(
-            $project->load(['service', 'requirement', 'step'])
+            $project->load(['services', 'requirement', 'step'])
         );
     }
 

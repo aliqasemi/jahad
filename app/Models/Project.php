@@ -38,9 +38,9 @@ class Project extends Model
         return 'projects';
     }
 
-    public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function services(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsToMany(Service::class, (new ProjectService())->getTable());
     }
 
     public function requirement(): \Illuminate\Database\Eloquent\Relations\BelongsTo
