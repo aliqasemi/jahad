@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Step\StoreStepRequest;
 use App\Http\Requests\Step\UpdateStepRequest;
 use App\Http\Resources\StepResource;
+use App\Models\Project;
 use App\Models\Step;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,10 +22,10 @@ class StepController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Project $project)
     {
         return StepResource::collection(
-            Step::where('project_id', Arr::get($request->all(), 'project_id'))->orderBy('sort', 'asc')->get()
+            Step::where('project_id', $project->id)->orderBy('sort', 'asc')->get()
         );
     }
 
@@ -34,10 +35,10 @@ class StepController extends Controller
      * @param Request $request
      * @return StepResource
      */
-    public function store(StoreStepRequest $request)
+    public function store(StoreStepRequest $request, Project $project)
     {
         $data = $request->validated();
-        $maxSort = Step::where('project_id', Arr::get($request->validated(), 'project_id'))->max('sort');
+        $maxSort = Step::where('project_id', $project->id)->max('sort');
 
         if (is_null($maxSort)) {
             Arr::set($data, 'sort', 1);
