@@ -74,10 +74,10 @@ class ProjectController extends Controller
         return new ProjectResource(
             $project->load([
                 'services' => function ($query) {
-                    return $query->with(['user', 'category']);
+                    return $query->with(['user', 'category', 'city.county.province']);
                 },
                 'requirement' => function ($query) {
-                    return $query->with(['user', 'category']);
+                    return $query->with(['user', 'category', 'city.county.province']);
                 },
                 'step'
             ])
@@ -95,7 +95,9 @@ class ProjectController extends Controller
     {
         $project->fill($request->validated());
 
-        $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
+        if (Arr::get($request->validated(), 'services')) {
+            $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
+        }
 
         $project->save();
 
