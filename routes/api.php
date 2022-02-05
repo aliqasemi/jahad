@@ -52,8 +52,8 @@ Route::group(['prefix' => 'jahad'], function () {
         Route::get('project/{project}/steps', [\App\Http\Controllers\Api\StepController::class, 'index']);
         Route::get('/steps/{step}', [\App\Http\Controllers\Api\StepController::class, 'show']);
         Route::post('project/{project}/steps', [\App\Http\Controllers\Api\StepController::class, 'store']);
-        Route::post('/{project}/steps/{step}', [\App\Http\Controllers\Api\StepController::class, 'update']);
-        Route::post('/steps/{step}', [\App\Http\Controllers\Api\StepController::class, 'destroy']);
+        Route::put('/steps/{step}', [\App\Http\Controllers\Api\StepController::class, 'update']);
+        Route::delete('/steps/{step}', [\App\Http\Controllers\Api\StepController::class, 'destroy']);
         Route::post('steps/move-up/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveUp']);
         Route::post('steps/move-down/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveDown']);
 

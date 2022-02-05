@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\CheckTemplateRelation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Template\StoreTemplateRequest;
 use App\Http\Requests\Template\UpdateTemplateRequest;
 use App\Http\Resources\TemplateResource;
 use App\Models\Template;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
+    use CheckTemplateRelation;
+
     /**
      * Display a listing of the resource.
      *
@@ -82,7 +84,12 @@ class TemplateController extends Controller
      */
     public function destroy(Template $template): \Illuminate\Http\Response
     {
-        $template->delete();
-        return response('ok');
+        if ($this->canDelete($template)){
+            $template->delete();
+            return response('ok');
+        }
+        else{
+            return response('امکان پاک شدن این مرحله وجود ندارد');
+        }
     }
 }

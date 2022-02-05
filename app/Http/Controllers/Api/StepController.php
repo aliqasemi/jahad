@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Exceptions\ErrorException;
+use App\Helpers\CheckStepRelation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Step\StoreStepRequest;
 use App\Http\Requests\Step\UpdateStepRequest;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\DB;
 
 class StepController extends Controller
 {
+
+    use CheckStepRelation;
+
     /**
      * Display a listing of the resource.
      *
@@ -79,6 +83,8 @@ class StepController extends Controller
     {
         $step = $step->fill($request->validated());
 
+        $step->save();
+
         return new StepResource(
             $step->load(['user'])
         );
@@ -90,10 +96,14 @@ class StepController extends Controller
      * @param Step $step
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Step $step)
+    public function destroy(Step $step): \Illuminate\Http\Response
     {
-        $step->delete();
-        return response('ok');
+        if ($this->canDelete($step)) {
+            $step->delete();
+            return response('ok');
+        } else {
+            return response('این مرحله توسط یک پروژه در حال انجام است');
+        }
     }
 
     /**
@@ -105,8 +115,7 @@ class StepController extends Controller
 
         if ($sort > 1) {
             DB::transaction(function ($query) use ($sort, $step, $request) {
-                Step::where('project_id', Arr::get($request->all(), 'project_id'))
-                    ->where('sort', $sort - 1)->update(['sort' => $sort]);
+                Step::where('sort', $sort - 1)->update(['sort' => $sort]);
                 $step->update(['sort' => $sort - 1]);
             });
             DB::commit();
@@ -123,8 +132,7 @@ class StepController extends Controller
 
         if ($sort < $maxSort) {
             DB::transaction(function ($query) use ($sort, $step, $request) {
-                Step::where('project_id', Arr::get($request->all(), 'project_id'))
-                    ->where('sort', $sort + 1)->update(['sort' => $sort]);
+                Step::where('sort', $sort + 1)->update(['sort' => $sort]);
                 $step->update(['sort' => $sort + 1]);
             });
             DB::commit();
