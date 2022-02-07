@@ -8,7 +8,7 @@ use App\Http\Requests\Requirement\UpdateRequirementRequest;
 use App\Http\Resources\RequirementResource;
 use App\Models\Requirement;
 use App\Models\User;
-use App\Services\CacheManagement;
+use App\Services\CacheManagement\CacheManagement;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;

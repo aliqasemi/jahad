@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Attachment;
 
 use App\Models\Category;
-use App\Models\Service;
+use App\Models\Requirement;
 use Illuminate\Support\Arr;
 
-class AttachServiceRequirement
+class AttachRequirementService
 {
     private $categoriesIndex = [];
 
-    public static function build(Service $service): array
+    public static function build(Requirement $requirement): array
     {
-        return (new static())->attach($service);
+        return (new static())->attach($requirement);
     }
 
-    public function attach(Service $service): array
+    public function attach(Requirement $requirement): array
     {
         $map = [];
-        if (!is_null($category = $service->category()->first())) {
+        if (!is_null($category = $requirement->category()->first())) {
             $map['0'] = $this->processSameLevel($category);
 
             $this->processTree(Arr::get(Category::descendantsAndSelf($category->id)->toTree()->first()->toArray(), 'children'));
@@ -27,23 +27,24 @@ class AttachServiceRequirement
                 $indexValue = [];
                 foreach ($categories as $category) {
                     $category = Category::findOrfail(Arr::get($category, 'id'));
-                    $requirements = $category->requirements()->with(['user', 'city', 'category'])->get()->toArray();
-                    foreach ($requirements as $requirement) {
-                        $indexValue[] = $requirement;
+                    $services = $category->services()->with(['user', 'city', 'category'])->get()->toArray();
+                    foreach ($services as $service) {
+                        $indexValue[] = $service;
                     }
                 }
                 $map[$key] = $indexValue;
             }
         }
+
         return $this->attachPoint($map);
     }
 
     private function processSameLevel($category): array
     {
         $arrayByIndex = [];
-        $requirements = $category->requirements()->with(['user', 'city', 'category'])->get()->toArray();
-        foreach ($requirements as $requirement) {
-            $arrayByIndex[] = $requirement;
+        $services = $category->services()->with(['user', 'city', 'category'])->get()->toArray();
+        foreach ($services as $service) {
+            $arrayByIndex[] = $service;
         }
         return $arrayByIndex;
     }

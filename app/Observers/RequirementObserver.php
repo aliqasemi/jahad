@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Requirement;
-use App\Services\CacheManagement;
+use App\Services\CacheManagement\CacheManagement;
 
 class RequirementObserver
 {

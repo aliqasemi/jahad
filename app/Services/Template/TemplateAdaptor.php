@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Template;
 
 use Illuminate\Database\Eloquent\Model;
+use function App\Services\str_contains;
+use function App\Services\strtr;
 
 class TemplateAdaptor
 {

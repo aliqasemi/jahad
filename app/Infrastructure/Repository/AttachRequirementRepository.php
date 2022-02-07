@@ -4,7 +4,7 @@ namespace App\Infrastructure\Repository;
 
 use App\Infrastructure\InterfaceRepository\AttachRequirementInterface;
 use App\Models\Requirement;
-use App\Services\AttachRequirementService;
+use App\Services\Attachment\AttachRequirementService;
 
 class AttachRequirementRepository implements AttachRequirementInterface
 {

@@ -7,7 +7,7 @@ use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use App\Services\CategoryCacheManagement;
+use App\Services\CacheManagement\CategoryCacheManagement;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller

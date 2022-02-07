@@ -3,8 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Category;
-use App\Services\CacheManagement;
-use App\Services\CategoryCacheManagement;
+use App\Services\CacheManagement\CacheManagement;
+use App\Services\CacheManagement\CategoryCacheManagement;
 
 class CategoryObserver
 {

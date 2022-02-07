@@ -8,7 +8,7 @@ use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use App\Models\User;
-use App\Services\CacheManagement;
+use App\Services\CacheManagement\CacheManagement;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
