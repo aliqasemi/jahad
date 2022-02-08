@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\Filter\Model\ProjectFilter;
 use App\Services\Filter\Model\RequirementFilter;
+use App\Services\Filter\Model\ServiceFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ class Project extends Model
 
     protected $mapFilter = [
         'requirement_title' => ['requirement:title' => RequirementFilter::class],
-        'service_title' => ['services:title' => ProjectFilter::class],
+        'service_title' => ['services:title' => ServiceFilter::class],
     ];
 
     public $mapMessageFields = [
