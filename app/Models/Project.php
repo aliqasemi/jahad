@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Services\Filter\Model\ProjectFilter;
+use App\Services\Filter\Model\RequirementFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Project extends Model
 {
@@ -13,7 +17,13 @@ class Project extends Model
         'description', 'step_id', 'failed'
     ];
 
-    public $messageFields = [];
+    protected $filters = [
+        'description' => ProjectFilter::class,
+    ];
+
+    protected $mapFilter = [
+        'title' => ['requirement:title' => RequirementFilter::class]
+    ];
 
     public $mapMessageFields = [
         'step' => 'step:name',
@@ -31,6 +41,11 @@ class Project extends Model
     public static function getModel(): Project
     {
         return new Project();
+    }
+
+    public function scopeFilter(Builder $builder, Request $request): Builder
+    {
+        return ProjectFilter::build($request, $this->filters, $this->mapFilter)->filter($builder);
     }
 
     public static function getCacheName(): string

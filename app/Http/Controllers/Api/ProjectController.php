@@ -19,11 +19,12 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index()
     {
-        return ProjectResource::collection(
-            Project::with(['services', 'requirement', 'step'])->paginate(request('per_page'))
-        );
+        return Project::filter(request())->get();
+//        return ProjectResource::collection(
+//            Project::with(['services', 'requirement', 'step'])->paginate(request('per_page'))
+//        );
     }
 
     /**
