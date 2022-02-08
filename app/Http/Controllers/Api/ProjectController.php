@@ -21,10 +21,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::filter(request())->get();
-//        return ProjectResource::collection(
-//            Project::with(['services', 'requirement', 'step'])->paginate(request('per_page'))
-//        );
+        return ProjectResource::collection(
+            Project::filter(request())->with(['services', 'requirement', 'step'])->paginate(request('per_page'))
+        );
     }
 
     /**

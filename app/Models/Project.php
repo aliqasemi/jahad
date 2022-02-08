@@ -22,7 +22,8 @@ class Project extends Model
     ];
 
     protected $mapFilter = [
-        'title' => ['requirement:title' => RequirementFilter::class]
+        'requirement_title' => ['requirement:title' => RequirementFilter::class],
+        'service_title' => ['services:title' => ProjectFilter::class],
     ];
 
     public $mapMessageFields = [
