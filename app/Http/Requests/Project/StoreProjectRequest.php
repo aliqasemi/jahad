@@ -24,6 +24,7 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|string',
             'description' => 'nullable|string',
             'services' => 'required|array',
             'services.*.id' => 'required|integer|exists:services,id',

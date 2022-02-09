@@ -24,6 +24,7 @@ class UpdateProjectRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'nullable|string',
             'description' => 'nullable|string',
             'step_id' => 'nullable|integer',
             'services' => 'nullable|array',

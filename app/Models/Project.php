@@ -15,10 +15,11 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description', 'step_id', 'failed'
+        'name', 'description', 'step_id', 'failed'
     ];
 
     protected $filters = [
+        'name' => ProjectFilter::class,
         'description' => ProjectFilter::class,
     ];
 

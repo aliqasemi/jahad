@@ -23,27 +23,39 @@ abstract class AbstractFilter
 
     public function filter(Builder $builder)
     {
-        foreach ($this->getFilters() as $filter => $value) {
-            $builder = $this->resolveFilter($filter)::filterElement($builder, $filter, $value, $this->isOr);
+        if (!(is_null($this->getFilters()))) {
+            foreach ($this->getFilters() as $filter => $value) {
+                $builder = $this->resolveFilter($filter)::filterElement($builder, $filter, $value, $this->isOr);
+            }
         }
 
-        foreach ($this->getRelationFilter() as $filter => $value) {
-            $relation = Arr::first(explode(':', Arr::first(array_keys($this->relations[$filter]))));
-            $attribute = Arr::last(explode(':', Arr::first(array_keys($this->relations[$filter]))));
-            $builder = $this->resolveRelationFilter($filter)::filterRelationElement($builder, $attribute, $value, $relation, $this->isOr);
+        if (!(is_null($this->getRelationFilter()))) {
+            foreach ($this->getRelationFilter() as $filter => $value) {
+                $relation = Arr::first(explode(':', Arr::first(array_keys($this->relations[$filter]))));
+                $attribute = Arr::last(explode(':', Arr::first(array_keys($this->relations[$filter]))));
+                $builder = $this->resolveRelationFilter($filter)::filterRelationElement($builder, $attribute, $value, $relation, $this->isOr);
+            }
         }
 
         return $builder;
     }
 
-    protected function getFilters(): array
+    protected function getFilters(): ?array
     {
-        return $this->request->only(array_keys($this->filters));
+        if (!(is_null($this->request->get('filter')))) {
+            return Arr::only($this->request->get('filter'), array_keys($this->filters));
+        } else {
+            return null;
+        }
     }
 
-    protected function getRelationFilter(): array
+    protected function getRelationFilter(): ?array
     {
-        return $this->request->only(array_keys($this->relations));
+        if (!(is_null($this->request->get('filter')))) {
+            return Arr::only($this->request->get('filter'), array_keys($this->relations));
+        } else {
+            return null;
+        }
     }
 
     protected function resolveFilter($filter)

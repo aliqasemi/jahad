@@ -26,6 +26,13 @@ class ProjectController extends Controller
         );
     }
 
+    public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        return ProjectResource::collection(
+            Project::filter(request())->with(['services', 'requirement'])->get()
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      *
