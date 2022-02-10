@@ -56,7 +56,7 @@ class RequirementController extends Controller
     public function show(Requirement $requirement): RequirementResource
     {
         return new RequirementResource(
-            CacheManagement::buildItem(Requirement::getModel(), $requirement->id, ['main_image', 'category', 'city.county.province', 'user'], [])
+            CacheManagement::buildItem(Requirement::getModel(), $requirement->id, ['main_image', 'category', 'city.county.province', 'user', 'project.services'], [])
         );
     }
 

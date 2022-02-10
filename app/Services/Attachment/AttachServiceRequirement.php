@@ -27,7 +27,7 @@ class AttachServiceRequirement
                 $indexValue = [];
                 foreach ($categories as $category) {
                     $category = Category::findOrfail(Arr::get($category, 'id'));
-                    $requirements = $category->requirements()->with(['user', 'city', 'category'])->get()->toArray();
+                    $requirements = $category->requirements()->with(['user', 'city', 'category', 'project'])->get()->toArray();
                     foreach ($requirements as $requirement) {
                         $indexValue[] = $requirement;
                     }

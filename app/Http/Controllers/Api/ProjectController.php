@@ -50,7 +50,7 @@ class ProjectController extends Controller
         $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
 
         $requirement = Requirement::findOrFail(Arr::get($request->validated(), 'requirement_id'));
-        $requirement->projects()->save($project);
+        $requirement->project()->save($project);
 
         if (!$project->steps()->first()) {
             $step = Step::create([

@@ -45,8 +45,8 @@ class Requirement extends Model implements HasMediaInterface
         return $this->belongsTo(City::class);
     }
 
-    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function project(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasMany(Project::class);
+        return $this->hasOne(Project::class);
     }
 }

@@ -20,6 +20,7 @@ class RequirementResource extends JsonResource
             'address' => $this->address,
             'description' => $this->description,
             'main_image' => new MediaResource($this->whenLoaded('main_image')),
+            'project' => new ProjectResource($this->whenLoaded('project')),
             'category' => new CategoryResource($this->whenLoaded('category')),
             'user' => new UserResource($this->whenLoaded('user')),
             'city' => new CityResource($this->whenLoaded('city')),

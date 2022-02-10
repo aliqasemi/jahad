@@ -17,7 +17,7 @@ class CacheManagement
     public static function buildItem(Model $model, int $modelId, $relation = [], $relationCount = [])
     {
         return Cache::remember($model::getCacheName() . $modelId, 30000, function () use ($modelId, $relationCount, $relation, $model) {
-            return $model->findOrFail($modelId)->load(['main_image', 'category', 'city.county.province', 'user'])->loadCount($relationCount);
+            return $model->findOrFail($modelId)->load($relation)->loadCount($relationCount);
         });
     }
 
