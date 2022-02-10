@@ -122,6 +122,6 @@ class ProjectController extends Controller
     public function destroy(Project $project): \Illuminate\Http\Response
     {
         $project->delete();
-        return response('ok');
+        return response('عملیات با موفقیت انجام شد');
     }
 }

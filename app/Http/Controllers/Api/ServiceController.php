@@ -97,6 +97,6 @@ class ServiceController extends Controller
     public function destroy(Service $service): Response
     {
         $service->delete();
-        return response('ok');
+        return response('عملیات با موفقیت انجام شد');
     }
 }

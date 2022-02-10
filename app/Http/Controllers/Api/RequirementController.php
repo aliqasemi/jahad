@@ -89,6 +89,6 @@ class RequirementController extends Controller
     public function destroy(Requirement $requirement): Response
     {
         $requirement->delete();
-        return response('ok');
+        return response('عملیات با موفقیت انجام شد');
     }
 }

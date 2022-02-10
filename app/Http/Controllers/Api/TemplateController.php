@@ -86,7 +86,7 @@ class TemplateController extends Controller
     {
         if ($this->canDelete($template)){
             $template->delete();
-            return response('ok');
+            return response('عملیات با موفقیت انجام شد');
         }
         else{
             return response('امکان پاک شدن این مرحله وجود ندارد');
