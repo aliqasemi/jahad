@@ -24,7 +24,10 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer',
+            'branch_id' => 'required|integer',
         ];
     }
 }
