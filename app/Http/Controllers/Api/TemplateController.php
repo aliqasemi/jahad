@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\CheckTemplateRelation;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Template\StoreTemplateRequest;
-use App\Http\Requests\Template\UpdateTemplateRequest;
+use App\Http\Requests\Template\StoreBranchRequest;
+use App\Http\Requests\Template\UpdateBranchRequest;
 use App\Http\Resources\TemplateResource;
 use App\Models\Template;
 use App\Models\User;
@@ -30,10 +30,10 @@ class TemplateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTemplateRequest $request
+     * @param StoreBranchRequest $request
      * @return TemplateResource
      */
-    public function store(StoreTemplateRequest $request): TemplateResource
+    public function store(StoreBranchRequest $request): TemplateResource
     {
         $template = new Template($request->validated());
 
@@ -61,11 +61,11 @@ class TemplateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateTemplateRequest $request
+     * @param UpdateBranchRequest $request
      * @param \App\Models\Template $template
      * @return TemplateResource
      */
-    public function update(UpdateTemplateRequest $request, Template $template): TemplateResource
+    public function update(UpdateBranchRequest $request, Template $template): TemplateResource
     {
         $template = $template->fill($request->validated());
 
