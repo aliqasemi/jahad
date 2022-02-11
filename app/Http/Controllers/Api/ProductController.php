@@ -8,6 +8,7 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Support\Arr;
 
 
 class ProductController extends Controller
@@ -22,7 +23,7 @@ class ProductController extends Controller
     public function index()
     {
         return ProductResource::collection(
-            Product::with([])->paginate(request('per_page'))
+            Product::with(['main_image'])->paginate(request('per_page'))
         );
     }
 
@@ -34,8 +35,15 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): ProductResource
     {
-        $product = Product::create($request->validated());
-        return new ProductResource($product);
+        $product = new Product($request->validated());
+
+        if (!is_null(Arr::get($request->all(), 'main_image'))) {
+            $product->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
+        }
+
+        $product->save();
+
+        return new ProductResource($product->load(['main_image']));
     }
 
     /**
@@ -47,7 +55,7 @@ class ProductController extends Controller
     public function show(Product $product): ProductResource
     {
         return new ProductResource(
-            $product->load([])
+            $product->load(['main_image'])
         );
     }
 
@@ -61,8 +69,13 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
         $product = $product->fill($request->validated());
+        $product->main_image()->delete();
+        if (!is_null(Arr::get($request->all(), 'main_image'))) {
+            $product->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
+        }
+
         $product->save();
-        return new ProductResource($product);
+        return new ProductResource($product->load(['main_image']));
     }
 
     /**
