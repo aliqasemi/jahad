@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Template\StoreBranchRequest;
-use App\Http\Requests\Template\UpdateBranchRequest;
+use App\Http\Requests\Branch\StoreBranchRequest;
+use App\Http\Requests\Branch\UpdateBranchRequest;
 use App\Http\Resources\BranchResource;
 use App\Models\Branch;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class BranchController extends Controller

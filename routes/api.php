@@ -63,6 +63,9 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //product
         Route::resource('products', \App\Http\Controllers\Api\ProductController::class);
+
+        //branch
+        Route::resource('branches', \App\Http\Controllers\Api\BranchController::class);
     });
 });
 
