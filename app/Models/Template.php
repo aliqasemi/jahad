@@ -2,14 +2,22 @@
 
 namespace App\Models;
 
+use App\Services\Filter\Model\TemplateFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class Template extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'template'];
+
+    protected $filters = [
+        'name' => TemplateFilter::class,
+        'template' => TemplateFilter::class,
+    ];
 
     public static $WELCOME = 1;
     public static $SING_IN = 2;
@@ -26,6 +34,11 @@ class Template extends Model
     public static function getModel(): Template
     {
         return new Template();
+    }
+
+    public function scopeFilter(Builder $builder, Request $request): Builder
+    {
+        return TemplateFilter::build($request, $this->filters, $this->mapFilter)->filter($builder);
     }
 
     public static function getCacheName(): string

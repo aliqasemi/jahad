@@ -51,7 +51,7 @@ abstract class AbstractFilter
 
     protected function getRelationFilter(): ?array
     {
-        if (!(is_null($this->request->get('filter')))) {
+        if (!(is_null($this->request->get('filter'))) and !is_null($this->relations)) {
             return Arr::only($this->request->get('filter'), array_keys($this->relations));
         } else {
             return null;

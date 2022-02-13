@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\CheckTemplateRelation;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Template\StoreBranchRequest;
-use App\Http\Requests\Template\UpdateBranchRequest;
+use App\Http\Requests\Template\StoreTemplateRequest;
+use App\Http\Requests\Template\UpdateTemplateRequest;
 use App\Http\Resources\TemplateResource;
 use App\Models\Template;
 use App\Models\User;
@@ -27,13 +27,20 @@ class TemplateController extends Controller
         );
     }
 
+    public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        return TemplateResource::collection(
+            Template::filter(request())->get()
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreBranchRequest $request
+     * @param StoreTemplateRequest $request
      * @return TemplateResource
      */
-    public function store(StoreBranchRequest $request): TemplateResource
+    public function store(StoreTemplateRequest $request): TemplateResource
     {
         $template = new Template($request->validated());
 
@@ -61,11 +68,11 @@ class TemplateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateBranchRequest $request
+     * @param UpdateTemplateRequest $request
      * @param \App\Models\Template $template
      * @return TemplateResource
      */
-    public function update(UpdateBranchRequest $request, Template $template): TemplateResource
+    public function update(UpdateTemplateRequest $request, Template $template): TemplateResource
     {
         $template = $template->fill($request->validated());
 
@@ -84,11 +91,10 @@ class TemplateController extends Controller
      */
     public function destroy(Template $template): \Illuminate\Http\Response
     {
-        if ($this->canDelete($template)){
+        if ($this->canDelete($template)) {
             $template->delete();
             return response('عملیات با موفقیت انجام شد');
-        }
-        else{
+        } else {
             return response('امکان پاک شدن این مرحله وجود ندارد');
         }
     }

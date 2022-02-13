@@ -56,7 +56,9 @@ class StepController extends Controller
 
         $step->save();
 
-        return new StepResource($step);
+        return new StepResource(
+            $step->load(['user', 'template'])
+        );
     }
 
     /**
@@ -68,7 +70,7 @@ class StepController extends Controller
     public function show(Step $step)
     {
         return new StepResource(
-            $step->load(['user'])
+            $step->load(['user', 'template'])
         );
     }
 
@@ -86,7 +88,7 @@ class StepController extends Controller
         $step->save();
 
         return new StepResource(
-            $step->load(['user'])
+            $step->load(['user', 'template'])
         );
     }
 

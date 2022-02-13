@@ -19,6 +19,7 @@ class StepResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'sort' => $this->sort,
+            'send_sms' => $this->send_sms,
             'user' => new UserResource($this->whenLoaded('user')),
             'template' => new TemplateResource($this->whenLoaded('template')),
         ];

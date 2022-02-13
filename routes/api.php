@@ -60,6 +60,7 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //template
         Route::resource('templates', \App\Http\Controllers\Api\TemplateController::class);
+        Route::get('templates-filter', [\App\Http\Controllers\Api\TemplateController::class, 'indexFilter']);
 
         //product
         Route::resource('products', \App\Http\Controllers\Api\ProductController::class);
