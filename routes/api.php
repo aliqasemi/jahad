@@ -67,6 +67,7 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //branch
         Route::resource('branches', \App\Http\Controllers\Api\BranchController::class);
+        Route::get('branches-filter', [\App\Http\Controllers\Api\BranchController::class, 'indexFilter']);
     });
 });
 

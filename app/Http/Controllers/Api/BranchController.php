@@ -23,6 +23,13 @@ class BranchController extends Controller
         );
     }
 
+    public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        return BranchResource::collection(
+            Branch::filter(request())->with(['city'])->get()
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      *

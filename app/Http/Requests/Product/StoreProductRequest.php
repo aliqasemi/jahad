@@ -26,8 +26,10 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'stock' => 'required|integer',
-            'branch_id' => 'required|integer',
+            'branches' => 'required|array',
+            'branches.*.branch_id' => 'required|integer',
+            'branches.*.description' => 'nullable|string',
+            'branches.*.stock' => 'required|integer',
         ];
     }
 }

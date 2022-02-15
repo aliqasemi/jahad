@@ -22,4 +22,9 @@ class Product extends Model implements HasMediaInterface
     {
         return new Product();
     }
+
+    public function branches(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Branch::class, (new BranchProduct())->getTable())->withPivot(['stock', 'description']);
+    }
 }

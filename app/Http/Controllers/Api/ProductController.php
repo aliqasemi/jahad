@@ -43,7 +43,11 @@ class ProductController extends Controller
 
         $product->save();
 
-        return new ProductResource($product->load(['main_image']));
+        if ($branches = Arr::get($request->all(), 'branches')) {
+            $product->branches()->sync($this->prepareBranchesForSync($branches));
+        }
+
+        return new ProductResource($product->load(['main_image', 'branches']));
     }
 
     /**
@@ -55,7 +59,7 @@ class ProductController extends Controller
     public function show(Product $product): ProductResource
     {
         return new ProductResource(
-            $product->load(['main_image'])
+            $product->load(['main_image', 'branches'])
         );
     }
 
@@ -70,12 +74,18 @@ class ProductController extends Controller
     {
         $product = $product->fill($request->validated());
         $product->main_image()->delete();
+
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
             $product->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
 
         $product->save();
-        return new ProductResource($product->load(['main_image']));
+
+        if ($branches = Arr::get($request->all(), 'branches')) {
+            $product->branches()->sync($this->prepareBranchesForSync($branches));
+        }
+
+        return new ProductResource($product->load(['main_image', 'branches']));
     }
 
     /**
@@ -89,4 +99,19 @@ class ProductController extends Controller
         $product->delete();
         return response('عملیات با موفقیت انجام شد');
     }
+
+    private function prepareBranchesForSync(array $branches): array
+    {
+        $result = [];
+
+        foreach ($branches as $branch) {
+            $result[$branch['branch_id']] = [
+                'description' => $branch ['description'],
+                'stock' => $branch ['stock']
+            ];
+        }
+
+        return $result;
+    }
+
 }

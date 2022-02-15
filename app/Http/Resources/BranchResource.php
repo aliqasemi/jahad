@@ -14,6 +14,7 @@ class BranchResource extends JsonResource
      */
     public function toArray($request)
     {
+//        dd($this);
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -24,6 +25,7 @@ class BranchResource extends JsonResource
             'phone_number' => $this->phone_number,
             'city' => new CityResource($this->whenLoaded('city')),
             'main_image' => new MediaResource($this->whenLoaded('main_image')),
+            'branch_product' => new BranchProductResource($this->whenLoaded('pivot')),
         ];
     }
 }
