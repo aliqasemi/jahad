@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\StoreProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Infrastructure\InterfaceRepository\ProjectInterface;
 use App\Models\Project;
-use App\Models\Requirement;
-use App\Models\Step;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -22,7 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         return ProjectResource::collection(
-            Project::filter(request())->with(['services', 'requirement', 'step'])->paginate(request('per_page'))
+            app()->make(ProjectInterface::class)->index(request('per_page'))
         );
     }
 
@@ -41,32 +39,8 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request): ProjectResource
     {
-        $project = Project::where('requirement_id', Arr::get($request->validated(), 'requirement_id'))->first();
-
-        if (!$project) {
-            $project = Project::create($request->validated());
-        }
-
-        $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
-
-        $requirement = Requirement::findOrFail(Arr::get($request->validated(), 'requirement_id'));
-        $requirement->project()->save($project);
-
-        if (!$project->steps()->first()) {
-            $step = Step::create([
-                'name' => 'مرحله اول',
-                'project_id' => $project->id,
-                'send_sms' => 0,
-                'template_id' => 0,
-                'user_id' => Auth::id()
-            ]);
-            $step->project()->save($project);
-        }
-
-        $project->save();
-
         return new ProjectResource(
-            $project->load(['services', 'requirement', 'step'])
+            app()->make(ProjectInterface::class)->store($request->validated())
         );
     }
 
@@ -79,15 +53,7 @@ class ProjectController extends Controller
     public function show(Project $project): ProjectResource
     {
         return new ProjectResource(
-            $project->load([
-                'services' => function ($query) {
-                    return $query->with(['user', 'category', 'city.county.province']);
-                },
-                'requirement' => function ($query) {
-                    return $query->with(['user', 'category', 'city.county.province']);
-                },
-                'step'
-            ])
+            app()->make(ProjectInterface::class)->show($project->id)
         );
     }
 
@@ -100,16 +66,8 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project): ProjectResource
     {
-        $project->fill($request->validated());
-
-        if (Arr::get($request->validated(), 'services')) {
-            $project->services()->syncWithoutDetaching(Arr::pluck(Arr::get($request->validated(), 'services'), 'id'));
-        }
-
-        $project->save();
-
         return new ProjectResource(
-            $project->load(['services', 'requirement', 'step'])
+            app()->make(ProjectInterface::class)->update($request->validated(), $project->id)
         );
     }
 
@@ -121,7 +79,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project): \Illuminate\Http\Response
     {
-        $project->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return app()->make(ProjectInterface::class)->delete($project->id);
     }
 }

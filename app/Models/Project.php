@@ -75,4 +75,9 @@ class Project extends Model
     {
         return $this->hasMany(Step::class);
     }
+
+    public function requireProducts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(RequireProduct::class);
+    }
 }

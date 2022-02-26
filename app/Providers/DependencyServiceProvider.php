@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use App\Infrastructure\InterfaceRepository\AttachRequirementInterface;
 use App\Infrastructure\InterfaceRepository\AttachServiceInterface;
+use App\Infrastructure\InterfaceRepository\ProjectInterface;
 use App\Infrastructure\Repository\AttachRequirementRepository;
 use App\Infrastructure\Repository\AttachServiceRepository;
+use App\Infrastructure\Repository\ProjectRepository;
+use App\Models\Project;
 use Illuminate\Support\ServiceProvider;
 
 class DependencyServiceProvider extends ServiceProvider
@@ -19,6 +22,7 @@ class DependencyServiceProvider extends ServiceProvider
     {
         $this->app->bind(AttachRequirementInterface::class, AttachRequirementRepository::class);
         $this->app->bind(AttachServiceInterface::class, AttachServiceRepository::class);
+        $this->app->bind(ProjectInterface::class, ProjectRepository::class);
     }
 
     /**
@@ -35,7 +39,8 @@ class DependencyServiceProvider extends ServiceProvider
     {
         return [
             AttachRequirementInterface::class,
-            AttachServiceInterface::class
+            AttachServiceInterface::class,
+            ProjectInterface::class,
         ];
     }
 }
