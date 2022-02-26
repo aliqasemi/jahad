@@ -29,6 +29,10 @@ class UpdateProjectRequest extends FormRequest
             'step_id' => 'nullable|integer',
             'services' => 'nullable|array',
             'services.*.id' => 'required|integer|exists:services,id',
+            'require_products' => 'nullable|array',
+            'require_products.*.name' => 'required|string',
+            'require_products.*.description' => 'required|string',
+            'require_products.*.number' => 'required|integer',
         ];
     }
 }

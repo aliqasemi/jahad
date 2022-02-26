@@ -43,7 +43,7 @@ class ProjectRepository implements ProjectInterface
         if (Arr::has($data, 'require_products')) {
             foreach (Arr::get($data, 'require_products') as $require_product) {
                 $project->requireProducts()->updateOrCreate(
-                    ['id' => $require_product->id],
+                    ['id' => Arr::get($require_product, 'id')],
                     $require_product
                 );
             }
@@ -51,7 +51,7 @@ class ProjectRepository implements ProjectInterface
 
         $project->save();
 
-        return $project->load(['services', 'requirement', 'step']);
+        return $project->load(['services', 'requirement', 'step', 'requireProducts']);
     }
 
     public function show(int $projectId)
@@ -65,7 +65,8 @@ class ProjectRepository implements ProjectInterface
             'requirement' => function ($query) {
                 return $query->with(['user', 'category', 'city.county.province']);
             },
-            'step'
+            'step',
+            'requireProducts'
         ]);
     }
 
@@ -82,7 +83,7 @@ class ProjectRepository implements ProjectInterface
         if (Arr::has($data, 'require_products')) {
             foreach (Arr::get($data, 'require_products') as $require_product) {
                 $project->requireProducts()->updateOrCreate(
-                    ['id' => $require_product->id],
+                    ['id' => Arr::get($require_product, 'id')],
                     $require_product
                 );
             }
@@ -90,7 +91,7 @@ class ProjectRepository implements ProjectInterface
 
         $project->save();
 
-        return $project->load(['services', 'requirement', 'step']);
+        return $project->load(['services', 'requirement', 'step', 'requireProducts']);
     }
 
     public function delete(int $projectId)

@@ -30,6 +30,10 @@ class StoreProjectRequest extends FormRequest
             'services.*.id' => 'required|integer|exists:services,id',
             'requirement_id' => 'required|integer',
             'step_id' => 'nullable|integer',
+            'require_products' => 'nullable|array',
+            'require_products.*.name' => 'required|string',
+            'require_products.*.description' => 'required|string',
+            'require_products.*.number' => 'required|integer',
         ];
     }
 }

@@ -21,6 +21,7 @@ class ProjectResource extends JsonResource
             'services' => ServiceResource::collection($this->whenLoaded('services')),
             'requirement' => new RequirementResource($this->whenLoaded('requirement')),
             'step' => new StepResource($this->whenLoaded('step')),
+            'require_products' => RequireProductResource::collection($this->whenLoaded('requireProducts')),
         ];
     }
 }
