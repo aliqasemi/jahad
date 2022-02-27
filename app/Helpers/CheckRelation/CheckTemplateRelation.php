@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\CheckRelation;
 
 use App\Models\Template;
 

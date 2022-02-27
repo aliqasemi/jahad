@@ -68,6 +68,10 @@ Route::group(['prefix' => 'jahad'], function () {
         //branch
         Route::resource('branches', \App\Http\Controllers\Api\BranchController::class);
         Route::get('branches-filter', [\App\Http\Controllers\Api\BranchController::class, 'indexFilter']);
+
+        //require product
+        Route::get('project/{project}/require-products', [\App\Http\Controllers\Api\RequireProductController::class, 'index']);
+        Route::post('attach-product/{requireProduct}', [\App\Http\Controllers\Api\RequireProductController::class, 'attach']);
     });
 });
 

@@ -8,7 +8,6 @@ use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Infrastructure\InterfaceRepository\ProjectInterface;
 use App\Models\Project;
-use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
 {

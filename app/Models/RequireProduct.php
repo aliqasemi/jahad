@@ -26,8 +26,13 @@ class RequireProduct extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Product::class, (new RequireProductProduct())->getTable())->withPivot(['number', 'description']);
+    }
+
+    public function productRequireProduct(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(RequireProductProduct::class);
     }
 }
