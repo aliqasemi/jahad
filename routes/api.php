@@ -64,6 +64,7 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //product
         Route::resource('products', \App\Http\Controllers\Api\ProductController::class);
+        Route::get('products-filter', [\App\Http\Controllers\Api\ProductController::class, 'indexFilter']);
 
         //branch
         Route::resource('branches', \App\Http\Controllers\Api\BranchController::class);
@@ -71,8 +72,7 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //require product
         Route::get('project/{project}/require-products', [\App\Http\Controllers\Api\RequireProductController::class, 'index']);
+        Route::delete('require-product-products/{requireProductProduct}', [\App\Http\Controllers\Api\RequireProductController::class, 'destroy']);
         Route::post('attach-product/{requireProduct}', [\App\Http\Controllers\Api\RequireProductController::class, 'attach']);
     });
 });
-
-

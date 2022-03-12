@@ -20,6 +20,8 @@ class RequireProductResource extends JsonResource
             'description' => $this->description,
             'number' => $this->number,
             'product_require_product' => ProductRequireProductResource::collection($this->whenLoaded('productRequireProduct')),
+            'products' => ProductResource::collection($this->whenLoaded('products')),
+            'project' => new ProjectResource($this->whenLoaded('project')),
         ];
     }
 }

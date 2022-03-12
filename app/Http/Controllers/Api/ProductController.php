@@ -27,6 +27,14 @@ class ProductController extends Controller
         );
     }
 
+    public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        return ProductResource::collection(
+            Product::filter(request())->get()
+        );
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

@@ -15,9 +15,9 @@ class ProductRequireProductResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'number' => $this->number,
             'description' => $this->description,
-            'total_number' => $this->total_number,
             'product' => new ProductResource($this->whenLoaded('product')),
             'branch' => new BranchResource($this->whenLoaded('branch'))
         ];
