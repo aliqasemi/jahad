@@ -3,7 +3,10 @@
 namespace App\Services\Template;
 
 use App\Exceptions\ErrorException;
+use App\Jobs\SendSmsBatch;
 use App\Models\Project;
+use App\Models\User;
+use App\Services\Sms\SmsService;
 use Illuminate\Support\Arr;
 
 class ChangeStepTemplateManager
@@ -11,6 +14,7 @@ class ChangeStepTemplateManager
     private $template;
     private $userIds = [];
     private $project;
+    private $messages = [];
 
     public function __construct(Project $project, array $data)
     {
@@ -28,25 +32,43 @@ class ChangeStepTemplateManager
      */
     public static function buildToSend(Project $project, array $data)
     {
-        (new ChangeStepTemplateManager($project, $data))->send();
+        (new ChangeStepTemplateManager($project, $data))->build()->send();
     }
 
     /**
      * @throws ErrorException
      */
-    private function send(): void
+    private function build(): ChangeStepTemplateManager
     {
-        $message = [];
         if ($this->template && $this->userIds) {
             foreach ($this->userIds as $key => $user_ids) {
                 foreach ($user_ids as $value) {
-                    $message[$key][$value] = TemplateAdaptor::buildTemplate($this->template, [$key => $value])->fill($this->project);
+                    $this->setMessages(TemplateAdaptor::buildTemplate($this->template, [$key => $value])->fill($this->project), $key, $value);
                 }
             }
-            dd($message);
+            return $this;
         } else {
             throw new ErrorException("don't have template or user ids");
         }
+    }
 
+    /**
+     * @throws ErrorException
+     */
+    private function send()
+    {
+        foreach ($this->messages as $group) {
+            foreach ($group as $userId => $message) {
+                SendSmsBatch::dispatch(User::query()->findOrFail($userId), $message);
+            }
+        }
+    }
+
+    /**
+     * @param array $messages
+     */
+    private function setMessages(string $message, $key, $value): void
+    {
+        $this->messages[$key][$value] = $message;
     }
 }

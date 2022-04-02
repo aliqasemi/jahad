@@ -75,9 +75,13 @@ class TemplateAdaptor
             $first_related = substr($related, 0, strpos($related, '.'));
             $resume_related = substr(substr($related, strpos($related, '.')), 1);
             if ($model->$first_related instanceof \Illuminate\Support\Collection) {
-                $model->$first_related = $model->$first_related->where($base_on, $this->queryValue[key($this->queryValue)])->first();
+                if (key($this->queryValue) == $first_related) {
+                    $model->$first_related = $model->$first_related->where($base_on, $this->queryValue[key($this->queryValue)])->first();
+                }
             }
-            return $this->getRelationAttribute($model->$first_related, $resume_related, $attribute);
+            if (!($model->$first_related instanceof \Illuminate\Support\Collection) && !is_null($model->$first_related)) {
+                return $this->getRelationAttribute($model->$first_related, $resume_related, $attribute);
+            }
         }
     }
 }

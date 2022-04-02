@@ -80,6 +80,8 @@ class ProjectRepository implements ProjectInterface
 
         ChangeStepTemplateManager::buildToSend($project, $data);
 
+        $project = Project::findOrFail($projectId);
+
         $project->fill($data);
 
         if (Arr::get($data, 'services')) {
