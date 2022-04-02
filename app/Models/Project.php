@@ -29,11 +29,13 @@ class Project extends Model
     ];
 
     public $mapMessageFields = [
-        'step' => 'step:name',
-        'service' => 'service:name',
-        'requirement' => 'requirement:name',
-        'requirement_user_name' => 'requirement.user:name',
-        'service_user_name' => 'service.user:name',
+        'step_name' => 'step:name',
+        'service_name' => 'services(user_id):title',
+        'requirement_name' => 'requirement:title',
+        'requirement_user_firstname' => 'requirement.user:firstname',
+        'requirement_user_lastname' => 'requirement.user:lastname',
+        'service_user_firstname' => 'services(user_id).user:firstname',
+        'service_user_lastname' => 'services(user_id).user:lastname',
     ];
 
     public function getTable(): string

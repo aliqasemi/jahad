@@ -6,6 +6,7 @@ use App\Infrastructure\InterfaceRepository\ProjectInterface;
 use App\Models\Project;
 use App\Models\Requirement;
 use App\Models\Step;
+use App\Services\Template\ChangeStepTemplateManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,9 +71,14 @@ class ProjectRepository implements ProjectInterface
         ]);
     }
 
+    /**
+     * @throws \App\Exceptions\ErrorException
+     */
     public function update(array $data, int $projectId)
     {
         $project = Project::findOrFail($projectId);
+
+        ChangeStepTemplateManager::buildToSend($project, $data);
 
         $project->fill($data);
 

@@ -11,17 +11,24 @@ class TemplateAdaptor
     /**
      * @var string
      */
-    protected $pattern;
+    protected string $pattern;
+    protected array $queryValue;
 
-    public function __construct($pattern)
+    public function __construct($pattern, $queryValues)
     {
         $this->pattern = $pattern;
+        $this->queryValue = $queryValues;
+    }
+
+    public static function buildTemplate($pattern, $queryValue): TemplateAdaptor
+    {
+        return new TemplateAdaptor($pattern, $queryValue);
     }
 
     public function fill($model): string
     {
         $replacements = $this->findReplacements($model);
-        return strtr($this->pattern, $replacements);
+        return \strtr($this->pattern, $replacements);
     }
 
     protected function findReplacements($model, $prefix = '{', $postfix = '}'): array
@@ -46,21 +53,30 @@ class TemplateAdaptor
     {
 
         list($related, $attribute) = explode(':', $relation);
-        $value = $this->getRelationAttribute($model, $related, $attribute);
+        if (\str_contains($related, '(') && \str_contains($related, ')')) {
+            $value = $this->getRelationAttribute($model, strtok($related, '(') . substr($related, strpos($related, ')') + 1), $attribute, substr($related, strpos($related, '(') + 1, strpos($related, ')') - strpos($related, '(') - 1));
+        } else {
+            $value = $this->getRelationAttribute($model, $related, $attribute);
+        }
         return [$messageField, $value];
     }
 
-    protected function getRelationAttribute(Model $model, string $related, string $attribute)
+    protected function getRelationAttribute(Model $model, string $related, string $attribute, $base_on = null)
     {
-        if (!str_contains($related, '.')) {
+        if (!\str_contains($related, '.')) {
             if ($model->$related instanceof \Illuminate\Support\Collection) {
-                return $model->$related[0]->$attribute;
+                if (key($this->queryValue) == $related) {
+                    return $model->$related->where($base_on, $this->queryValue[key($this->queryValue)])->first()->$attribute;
+                }
             } else {
                 return $model->$related->$attribute;
             }
         } else {
             $first_related = substr($related, 0, strpos($related, '.'));
             $resume_related = substr(substr($related, strpos($related, '.')), 1);
+            if ($model->$first_related instanceof \Illuminate\Support\Collection) {
+                $model->$first_related = $model->$first_related->where($base_on, $this->queryValue[key($this->queryValue)])->first();
+            }
             return $this->getRelationAttribute($model->$first_related, $resume_related, $attribute);
         }
     }
