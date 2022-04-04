@@ -23,7 +23,7 @@ class ServiceController extends Controller
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ServiceResource::collection(
-            CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], request('per_page'))
+            CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
         );
     }
 

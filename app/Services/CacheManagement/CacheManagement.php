@@ -3,14 +3,15 @@
 namespace App\Services\CacheManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
 class CacheManagement
 {
     public static function buildList(Model $model, $relation = [], $relationCount = [], $params = null)
     {
-        return Cache::remember($model::getCacheName(), 30000, function () use ($params, $relationCount, $relation, $model) {
-            return $model->with($relation)->withCount($relationCount)->paginate();
+        return Cache::remember($model::getCacheName() . 'page' . (Arr::get($params, 'page')), 30000, function () use ($params, $relationCount, $relation, $model) {
+            return $model->with($relation)->withCount($relationCount)->paginate(Arr::get($params, 'per_page'), ['*'], 'page', Arr::get($params, 'page'));
         });
     }
 
@@ -23,7 +24,14 @@ class CacheManagement
 
     protected static function pop(Model $model, int $modelId = null)
     {
-        return Cache::forget($model::getCacheName() . $modelId);
+        if (is_null($modelId)) {
+            $perPage = 1;
+            while (!is_null(Cache::get($model::getCacheName() . 'page' . $perPage))) {
+                Cache::forget($model::getCacheName() . 'page' . $perPage++);
+            }
+        } else {
+            Cache::forget($model::getCacheName() . $modelId);
+        }
     }
 
     public static function popItems(Model $model, int $modelId = null)

@@ -6,7 +6,6 @@ use App\Exceptions\ErrorException;
 use App\Jobs\SendSmsBatch;
 use App\Models\Project;
 use App\Models\User;
-use App\Services\Sms\SmsService;
 use Illuminate\Support\Arr;
 
 class ChangeStepTemplateManager

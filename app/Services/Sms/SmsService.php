@@ -2,6 +2,7 @@
 
 namespace App\Services\Sms;
 
+use App\Console\Commands\SmsGenerate;
 use App\Exceptions\ErrorException;
 use App\Infrastructure\AbstractClass\AbstractSmsService;
 use App\Models\SecureTokenSms;
@@ -64,6 +65,7 @@ class SmsService extends AbstractSmsService
      */
     public function send()
     {
+        (new SmsGenerate)->handle();
         if (!($this->sendApi())) {
             throw new ErrorException('Sms Send Failed', ['status' => false]);
         }
