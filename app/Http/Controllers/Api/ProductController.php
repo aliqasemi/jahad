@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function index()
     {
         return ProductResource::collection(
-            Product::with(['main_image'])->paginate(request('per_page'))
+            Product::with(['main_image'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 

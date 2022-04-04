@@ -19,7 +19,7 @@ class BranchController extends Controller
     public function index()
     {
         return BranchResource::collection(
-            Branch::with(['city'])->paginate(request('per_page'))
+            Branch::with(['city'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 

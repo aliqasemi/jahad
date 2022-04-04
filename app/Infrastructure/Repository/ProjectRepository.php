@@ -14,7 +14,7 @@ class ProjectRepository implements ProjectInterface
 {
     public function index($data)
     {
-        return Project::filter(request())->with(['services', 'requirement', 'step'])->paginate($data);
+        return Project::filter(request())->with(['services', 'requirement', 'step'])->paginate(Arr::get($data, 'per_page'), ['*'], 'page', Arr::get($data, 'page'));
     }
 
     public function store(array $data)

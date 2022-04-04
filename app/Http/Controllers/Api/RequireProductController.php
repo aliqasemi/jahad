@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RequireProduct\AttachRequireProductRequest;
 use App\Http\Resources\RequireProductResource;
 use App\Models\BranchProduct;
-use App\Models\Product;
 use App\Models\Project;
 use App\Models\RequireProduct;
 use App\Models\RequireProductProduct;

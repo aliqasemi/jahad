@@ -19,7 +19,7 @@ class ProjectController extends Controller
     public function index()
     {
         return ProjectResource::collection(
-            app()->make(ProjectInterface::class)->index(request('per_page'))
+            app()->make(ProjectInterface::class)->index(['per_page' => request('per_page'), 'page' => request('page')])
         );
     }
 
