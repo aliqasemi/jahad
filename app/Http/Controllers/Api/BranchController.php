@@ -71,8 +71,8 @@ class BranchController extends Controller
     {
         $branch = $branch->fill($request->validated());
 
-        $branch->main_image()->delete();
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
+            $branch->main_image()->delete();
             $branch->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
 

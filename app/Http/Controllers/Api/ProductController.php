@@ -81,9 +81,9 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
         $product = $product->fill($request->validated());
-        $product->main_image()->delete();
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
+            $product->main_image()->delete();
             $product->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
 

@@ -12,6 +12,7 @@ use App\Services\CacheManagement\CacheManagement;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class ServiceController extends Controller
 {
@@ -74,8 +75,9 @@ class ServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service): ServiceResource
     {
         $service->fill($request->all());
-        $service->main_image()->delete();
+
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
+            $service->main_image()->delete();
             $service->addMedia(Arr::get($request->all(), 'main_image'))->toMediaCollection('main_image');
         }
 

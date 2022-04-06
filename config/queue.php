@@ -42,6 +42,14 @@ return [
             'after_commit' => false,
         ],
 
+        'confirm' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'high',
+            'retry_after' => 5,
+            'after_commit' => false,
+        ],
+
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => 'localhost',
