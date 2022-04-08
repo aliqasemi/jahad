@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\User\RegisterUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
+use App\Models\PasswordReset;
 use App\Models\Template;
 use App\Models\User;
 use App\Services\Confirmation\Confirmation;
@@ -55,8 +56,7 @@ class AuthController extends Controller
             $user->verify();
             $user->save();
             return response()->json('کد احراز هویت با موفقیت تایید شد', 200);
-        }
-        else{
+        } else {
             return response()->json('کد احراز هویت معتبر نیست', 400);
         }
     }
@@ -105,9 +105,71 @@ class AuthController extends Controller
         return response()->json('شما با موفقیت خارج شدید.');
     }
 
-    public function changePassword()
+    public function changePassword(Request $request): \Illuminate\Http\JsonResponse
     {
+        $request->validate([
+            'password' => 'required|string|confirmed',
+        ]);
 
+        auth('api')->user()->password = bcrypt($request->password);
+        auth('api')->user()->save();
+        return response()->json('رمز شما با موفقیت تغییر یافت');
+    }
+
+    public function forgotPassword(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'phoneNumber' => 'required|integer|exists:users,phoneNumber',
+        ]);
+
+        $user = User::query()->where('phoneNumber', $request->phoneNumber)->firstOrFail();
+        $user->update(['phone_verified_at' => null]);
+
+        $randNumber = rand(100000, 999999);
+        $resetPassword = PasswordReset::query()->updateOrCreate(
+            ['phoneNumber' => $user->phoneNumber],
+            [
+                'phoneNumber' => $user->phoneNumber,
+                'token' => $randNumber
+            ]
+        );
+
+        if ($resetPassword) {
+            Confirmation::build('reset_password_phone_number', $user, Template::$RESET_PASSWORD, false);
+
+            return response()->json('کد احراز هویت با موفقیت ارسال شد', 200);
+        } else {
+            return response()->json('خطای سیستمی', 404);
+        }
+    }
+
+    public function verifyForgotPassword(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'code' => 'required|string',
+            'phoneNumber' => 'required|string|email',
+        ]);
+        $resetPassword = PasswordReset::query()->where('code', $request->code)->first();
+        if (!$resetPassword || $resetPassword->phoneNumber !== $request->phoneNumber) {
+            return response()->json('کد احراز هویت معتبر نیست', 400);
+        }
+        if (Carbon::parse($resetPassword->updated_at)->addMinutes(2000)->isPast()) {
+            $resetPassword->delete();
+            return response()->json('کد احراز هویت معتبر نیست', 400);
+        }
+
+        $user = User::query()->where('phoneNumber', $resetPassword->phoneNumber)->firstOrFail();
+        $user->verify();
+        $user->save();
+        $resetPassword->delete();
+
+        $accessToken = $user->createToken('Personal Client')->accessToken;
+
+        return response()->json([
+            'user' => new UserResource($user),
+            'token' => $accessToken,
+            'token_type' => 'Bearer'
+        ]);
     }
 
     /**

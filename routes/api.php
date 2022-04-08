@@ -17,6 +17,9 @@ Route::group(['prefix' => 'jahad'], function () {
     Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
     Route::post('/confirm-register/{user}', [\App\Http\Controllers\Api\AuthController::class, 'confirmRegister']);
     Route::post('/verify-register/{user}', [\App\Http\Controllers\Api\AuthController::class, 'verifyRegister']);
+    Route::post('/change-password', [\App\Http\Controllers\Api\AuthController::class, 'changePassword']);
+    Route::post('/forgot-password/', [\App\Http\Controllers\Api\AuthController::class, 'forgotPassword']);
+    Route::post('/verify-forgot-password/', [\App\Http\Controllers\Api\AuthController::class, 'verifyForgotPassword']);
     Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
     Route::middleware('auth:api')->group(function () {

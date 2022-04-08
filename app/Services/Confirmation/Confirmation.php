@@ -13,17 +13,19 @@ class Confirmation
     private int $templateId;
     private string $type;
     private User $user;
+    private bool $isCache;
 
-    public function __construct(string $type, User $user, int $templateId)
+    public function __construct(string $type, User $user, int $templateId, bool $isCache)
     {
         $this->templateId = $templateId;
         $this->user = $user;
         $this->type = $type;
+        $this->isCache = $isCache;
     }
 
-    public static function build($type, User $user, $templateId)
+    public static function build($type, User $user, $templateId, $isCache = true)
     {
-        (new Confirmation($type, $user, $templateId))->confirm();
+        (new Confirmation($type, $user, $templateId, $isCache))->confirm();
     }
 
     /**
@@ -37,7 +39,9 @@ class Confirmation
     public function confirm()
     {
         $randNumber = rand(1000000, 9999999);
-        Cache::put($this->type . $randNumber, $this->user->id, 1000);
+        if ($this->isCache) {
+            Cache::put($this->type . $randNumber, $this->user->id, 1000);
+        }
         $template = Template::query()->findOrFail($this->templateId)->template;
         $message = TemplateAdaptor::buildTemplate($template, [])->setReplacementWithoutModel($randNumber)->fill($this->user);
         SendSmsBatch::dispatch($this->user, $message)->onConnection('confirm');
