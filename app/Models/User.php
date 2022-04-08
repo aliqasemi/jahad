@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
+        'confirm'
     ];
 
     /**
@@ -46,14 +48,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin()
+    public $mapMessageFields = [
+        'user_firstname' => ':firstname',
+        'user_lastname' => ':lastname',
+        'confirm_code' => '!confirm_code',
+    ];
+
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-    public function isAccess(string $role)
+    public function isAccess(string $role): bool
     {
         return $this->role === $role;
+    }
+
+    public function verify(): static
+    {
+        $this->phone_verified_at = Carbon::now();
+        return $this;
+    }
+
+    public function isVerify(): bool
+    {
+        return !is_null($this->phone_verified_at);
     }
 
     public function services()

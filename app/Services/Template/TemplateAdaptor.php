@@ -13,6 +13,7 @@ class TemplateAdaptor
      */
     protected string $pattern;
     protected array $queryValue;
+    protected string $valueReplace;
 
     public function __construct($pattern, $queryValues)
     {
@@ -41,6 +42,12 @@ class TemplateAdaptor
         return $replacements;
     }
 
+    public function setReplacementWithoutModel($value): static
+    {
+        $this->valueReplace = $value;
+        return $this;
+    }
+
     /**
      * Check if given field contains relation name
      *
@@ -51,6 +58,9 @@ class TemplateAdaptor
      */
     protected function getFieldValue(Model $model, string $messageField, string $relation): array
     {
+        if (\str_contains($relation, '!')) {
+            return [strtok($relation, '!'), $this->valueReplace];
+        }
 
         list($related, $attribute) = explode(':', $relation);
         if (\str_contains($related, '(') && \str_contains($related, ')')) {
@@ -63,6 +73,9 @@ class TemplateAdaptor
 
     protected function getRelationAttribute(Model $model, string $related, string $attribute, $base_on = null)
     {
+        if (strlen($related) == 0) {
+            return $model->$attribute;
+        }
         if (!\str_contains($related, '.')) {
             if ($model->$related instanceof \Illuminate\Support\Collection) {
                 if (key($this->queryValue) == $related) {
