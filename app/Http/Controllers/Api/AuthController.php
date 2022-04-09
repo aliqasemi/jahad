@@ -119,7 +119,7 @@ class AuthController extends Controller
     public function forgotPassword(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
-            'phoneNumber' => 'required|integer|exists:users,phoneNumber',
+            'phoneNumber' => 'required|exists:users,phoneNumber',
         ]);
 
         $user = User::query()->where('phoneNumber', $request->phoneNumber)->firstOrFail();
@@ -130,13 +130,11 @@ class AuthController extends Controller
             ['phoneNumber' => $user->phoneNumber],
             [
                 'phoneNumber' => $user->phoneNumber,
-                'token' => $randNumber
+                'token' =>  Confirmation::build('reset_password_phone_number', $user, Template::$RESET_PASSWORD, false)
             ]
         );
 
         if ($resetPassword) {
-            Confirmation::build('reset_password_phone_number', $user, Template::$RESET_PASSWORD, false);
-
             return response()->json('کد احراز هویت با موفقیت ارسال شد', 200);
         } else {
             return response()->json('خطای سیستمی', 404);
@@ -147,9 +145,10 @@ class AuthController extends Controller
     {
         $request->validate([
             'code' => 'required|string',
-            'phoneNumber' => 'required|string|email',
+            'phoneNumber' => 'required|exists:users,phoneNumber',
+            'password' => 'required|string|confirmed',
         ]);
-        $resetPassword = PasswordReset::query()->where('code', $request->code)->first();
+        $resetPassword = PasswordReset::query()->where('token', $request->code)->first();
         if (!$resetPassword || $resetPassword->phoneNumber !== $request->phoneNumber) {
             return response()->json('کد احراز هویت معتبر نیست', 400);
         }
@@ -159,6 +158,7 @@ class AuthController extends Controller
         }
 
         $user = User::query()->where('phoneNumber', $resetPassword->phoneNumber)->firstOrFail();
+        $user->password = bcrypt($request->password);
         $user->verify();
         $user->save();
         $resetPassword->delete();
