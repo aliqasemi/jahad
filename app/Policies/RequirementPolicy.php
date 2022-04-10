@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Template;
+use App\Models\Requirement;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TemplatePolicy
+class RequirementPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class TemplatePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAccess('user');
+        return $user->isAccess('user') || $user->isAccess('admin');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Requirement  $requirement
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Template $template)
+    public function view(User $user, Requirement $requirement)
     {
-        return $user->isAdmin();
+        return $user->isAccess('user') || $user->isAccess('admin');
     }
 
     /**
@@ -41,41 +41,41 @@ class TemplatePolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAccess('user') || $user->isAccess('admin');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Requirement  $requirement
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Template $template)
+    public function update(User $user,  Requirement $requirement)
     {
-        return $user->isSuperAdmin();
+        return $user->isAccess('user') || $user->isAccess('admin');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Requirement  $requirement
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Template $template)
+    public function delete(User $user, Requirement $requirement)
     {
-        return $user->isSuperAdmin();
+        return $user->isAccess('user') || $user->isAccess('admin');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Template $template)
+    public function restore(User $user, Requirement $requirement)
     {
         //
     }
@@ -84,10 +84,10 @@ class TemplatePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Requirement  $requirement
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Template $template)
+    public function forceDelete(User $user, Requirement $requirement)
     {
         //
     }

@@ -15,8 +15,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        //'App\Models\Template' => 'App\Policies\TemplatePolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy',
+        'App\Models\Template' => 'App\Policies\TemplatePolicy',
+        'App\Models\Service' => 'App\Policies\ServicePolicy',
+        'App\Models\Requirement' => 'App\Policies\RequirementPolicy',
     ];
 
     /**
@@ -28,10 +30,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             Passport::routes();
         }
 
         Passport::personalAccessTokensExpireIn(Carbon::now()->addHours(12));
+
+        Gate::before(function ($user) {
+            return $user->isSuperAdmin() ? true : null;
+        });
     }
 }

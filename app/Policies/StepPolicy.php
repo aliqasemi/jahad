@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Template;
+use App\Models\Step;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TemplatePolicy
+class StepPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class TemplatePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Template $template)
+    public function view(User $user, Step $step)
     {
         return $user->isAdmin();
     }
@@ -48,10 +48,10 @@ class TemplatePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Template $template)
+    public function update(User $user, Step $step)
     {
         return $user->isSuperAdmin();
     }
@@ -60,10 +60,10 @@ class TemplatePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Template $template)
+    public function delete(User $user, Step $step)
     {
         return $user->isSuperAdmin();
     }
@@ -72,10 +72,10 @@ class TemplatePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Template $template)
+    public function restore(User $user, Step $step)
     {
         //
     }
@@ -84,10 +84,10 @@ class TemplatePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Template  $template
+     * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Template $template)
+    public function forceDelete(User $user, Step $step)
     {
         //
     }
