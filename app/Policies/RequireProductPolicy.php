@@ -28,30 +28,18 @@ class RequireProductPolicy
      * @param \App\Models\RequireProduct $requireProduct
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, RequireProduct $requireProduct)
+    public function view(User $user)
     {
         return $user->isAdmin();
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can attach models.
      *
      * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
-    {
-        return $user->isSuperAdmin();
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\RequireProduct $requireProduct
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, RequireProduct $requireProduct)
+    public function attach(User $user)
     {
         return $user->isSuperAdmin();
     }
@@ -63,7 +51,7 @@ class RequireProductPolicy
      * @param \App\Models\RequireProduct $requireProduct
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, RequireProduct $requireProduct)
+    public function delete(User $user)
     {
         return $user->isSuperAdmin();
     }

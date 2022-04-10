@@ -19,16 +19,24 @@ class TemplateController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Template::class);
+
         return TemplateResource::collection(
             Template::get()
         );
     }
 
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Template::class);
+
         return TemplateResource::collection(
             Template::filter(request())->get()
         );
@@ -39,9 +47,12 @@ class TemplateController extends Controller
      *
      * @param StoreTemplateRequest $request
      * @return TemplateResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(StoreTemplateRequest $request): TemplateResource
     {
+        $this->authorize('create', Template::class);
+
         $template = new Template($request->validated());
 
         $user = User::findOrFail(Auth::id());
@@ -57,9 +68,12 @@ class TemplateController extends Controller
      *
      * @param \App\Models\Template $template
      * @return TemplateResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Template $template): TemplateResource
     {
+        $this->authorize('view', Template::class);
+
         return new TemplateResource(
             $template
         );
@@ -71,9 +85,12 @@ class TemplateController extends Controller
      * @param UpdateTemplateRequest $request
      * @param \App\Models\Template $template
      * @return TemplateResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateTemplateRequest $request, Template $template): TemplateResource
     {
+        $this->authorize('update', Template::class);
+
         $template = $template->fill($request->validated());
 
         $template->save();
@@ -91,6 +108,8 @@ class TemplateController extends Controller
      */
     public function destroy(Template $template): \Illuminate\Http\Response
     {
+        $this->authorize('delete', Template::class);
+
         if ($this->canDelete($template)) {
             $template->delete();
             return response('عملیات با موفقیت انجام شد');

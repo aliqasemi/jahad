@@ -25,10 +25,9 @@ class BranchPolicy
      * Determine whether the user can view the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Branch $branch
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Branch $branch)
+    public function view(User $user)
     {
         return $user->isAdmin();
     }
@@ -48,10 +47,9 @@ class BranchPolicy
      * Determine whether the user can update the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Branch $branch
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Branch $branch)
+    public function update(User $user)
     {
         return $user->isSuperAdmin();
     }
@@ -60,10 +58,9 @@ class BranchPolicy
      * Determine whether the user can delete the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Branch $branch
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Branch $branch)
+    public function delete(User $user)
     {
         return $user->isSuperAdmin();
     }
@@ -72,10 +69,9 @@ class BranchPolicy
      * Determine whether the user can restore the model.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Step $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Branch $branch)
+    public function restore(User $user)
     {
         //
     }

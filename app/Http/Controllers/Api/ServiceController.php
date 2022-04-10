@@ -12,7 +12,6 @@ use App\Services\CacheManagement\CacheManagement;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 
 class ServiceController extends Controller
 {
@@ -23,6 +22,8 @@ class ServiceController extends Controller
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Service::class);
+
         return ServiceResource::collection(
             CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
         );
@@ -36,6 +37,8 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request): ServiceResource
     {
+        $this->authorize('create', Service::class);
+
         $user = User::findOrFail(Auth::id());
         $service = new Service($request->all());
         $user->services()->save($service);
@@ -60,6 +63,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service): ServiceResource
     {
+        $this->authorize('view', Service::class);
+
         return new ServiceResource(
             CacheManagement::buildItem(Service::getModel(), $service->id, ['main_image', 'category', 'city.county.province', 'user', 'available_province'], [])
         );
@@ -74,6 +79,8 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service): ServiceResource
     {
+        $this->authorize('update', Service::class);
+
         $service->fill($request->all());
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
@@ -98,6 +105,8 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service): Response
     {
+        $this->authorize('delete', Service::class);
+
         $service->delete();
         return response('عملیات با موفقیت انجام شد');
     }

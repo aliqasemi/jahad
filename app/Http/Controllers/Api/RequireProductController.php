@@ -23,6 +23,7 @@ class RequireProductController extends Controller
      */
     public function index(Project $project)
     {
+        $this->authorize('view', RequireProduct::class);
 
         return RequireProductResource::collection(
             RequireProduct::where('project_id', $project->id)->with([
@@ -35,6 +36,8 @@ class RequireProductController extends Controller
 
     public function attach(RequireProduct $requireProduct, AttachRequireProductRequest $request)
     {
+        $this->authorize('attach', RequireProduct::class);
+
         if ($this->canAttach($request->validated())) {
             foreach (Arr::get($request->validated(), 'products') as $product) {
                 $diffNumber = 0;
@@ -65,6 +68,8 @@ class RequireProductController extends Controller
 
     public function destroy(RequireProductProduct $requireProductProduct)
     {
+        $this->authorize('delete', RequireProduct::class);
+
         $branchProduct = BranchProduct::where('product_id', Arr::get($requireProductProduct, 'product_id'))
             ->where('branch_id', Arr::get($requireProductProduct, 'branch_id'))->first();
 

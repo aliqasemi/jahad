@@ -28,7 +28,7 @@ class TemplatePolicy
      * @param  \App\Models\Template  $template
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Template $template)
+    public function view(User $user)
     {
         return $user->isAdmin();
     }
@@ -51,7 +51,7 @@ class TemplatePolicy
      * @param  \App\Models\Template  $template
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Template $template)
+    public function update(User $user)
     {
         return $user->isSuperAdmin();
     }
@@ -63,7 +63,7 @@ class TemplatePolicy
      * @param  \App\Models\Template  $template
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Template $template)
+    public function delete(User $user)
     {
         return $user->isSuperAdmin();
     }

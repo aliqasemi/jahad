@@ -15,16 +15,24 @@ class ProjectController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', Project::class);
+
         return ProjectResource::collection(
             app()->make(ProjectInterface::class)->index(['per_page' => request('per_page'), 'page' => request('page')])
         );
     }
 
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Project::class);
+
         return ProjectResource::collection(
             Project::filter(request())->with(['services', 'requirement'])->get()
         );
@@ -35,9 +43,12 @@ class ProjectController extends Controller
      *
      * @param StoreProjectRequest $request
      * @return ProjectResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(StoreProjectRequest $request): ProjectResource
     {
+        $this->authorize('create', Project::class);
+
         return new ProjectResource(
             app()->make(ProjectInterface::class)->store($request->validated())
         );
@@ -48,9 +59,12 @@ class ProjectController extends Controller
      *
      * @param Project $project
      * @return ProjectResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Project $project): ProjectResource
     {
+        $this->authorize('view', Project::class);
+
         return new ProjectResource(
             app()->make(ProjectInterface::class)->show($project->id)
         );
@@ -62,9 +76,12 @@ class ProjectController extends Controller
      * @param UpdateProjectRequest $request
      * @param Project $project
      * @return ProjectResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateProjectRequest $request, Project $project): ProjectResource
     {
+        $this->authorize('update', Project::class);
+
         return new ProjectResource(
             app()->make(ProjectInterface::class)->update($request->validated(), $project->id)
         );
@@ -75,9 +92,12 @@ class ProjectController extends Controller
      *
      * @param Project $project
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Project $project): \Illuminate\Http\Response
     {
+        $this->authorize('delete', Project::class);
+
         return app()->make(ProjectInterface::class)->delete($project->id);
     }
 }

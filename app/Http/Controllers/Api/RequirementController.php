@@ -22,6 +22,8 @@ class RequirementController extends Controller
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Requirement::class);
+
         return RequirementResource::collection(
             CacheManagement::buildList(Requirement::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
         );
@@ -35,6 +37,8 @@ class RequirementController extends Controller
      */
     public function store(StoreRequirementRequest $request): RequirementResource
     {
+        $this->authorize('create', Requirement::class);
+
         $user = User::findOrFail(Auth::id());
         $requirement = new Requirement($request->all());
         $user->requirements()->save($requirement);
@@ -55,6 +59,8 @@ class RequirementController extends Controller
      */
     public function show(Requirement $requirement): RequirementResource
     {
+        $this->authorize('view', Requirement::class);
+
         return new RequirementResource(
             CacheManagement::buildItem(Requirement::getModel(), $requirement->id, ['main_image', 'category', 'city.county.province', 'user', 'project.services'], [])
         );
@@ -69,6 +75,8 @@ class RequirementController extends Controller
      */
     public function update(UpdateRequirementRequest $request, Requirement $requirement): RequirementResource
     {
+        $this->authorize('update', Requirement::class);
+
         $requirement->fill($request->all());
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
@@ -89,6 +97,8 @@ class RequirementController extends Controller
      */
     public function destroy(Requirement $requirement): Response
     {
+        $this->authorize('delete', Requirement::class);
+
         $requirement->delete();
         return response('عملیات با موفقیت انجام شد');
     }

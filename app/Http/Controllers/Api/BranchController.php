@@ -15,16 +15,24 @@ class BranchController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', Branch::class);
+
         return BranchResource::collection(
             Branch::with(['city'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Branch::class);
+
         return BranchResource::collection(
             Branch::filter(request())->with(['city'])->get()
         );
@@ -35,9 +43,12 @@ class BranchController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @return BranchResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(StoreBranchRequest $request)
     {
+        $this->authorize('create', Branch::class);
+
         $branch = new Branch($request->validated());
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
@@ -54,9 +65,12 @@ class BranchController extends Controller
      *
      * @param \App\Models\Branch $branch
      * @return BranchResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Branch $branch)
     {
+        $this->authorize('view', Branch::class);
+
         return new BranchResource($branch->load(['city', 'main_image']));
     }
 
@@ -66,9 +80,12 @@ class BranchController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Branch $branch
      * @return BranchResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateBranchRequest $request, Branch $branch)
     {
+        $this->authorize('update', Branch::class);
+
         $branch = $branch->fill($request->validated());
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
@@ -86,9 +103,12 @@ class BranchController extends Controller
      *
      * @param \App\Models\Branch $branch
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Branch $branch)
     {
+        $this->authorize('delete', Branch::class);
+
         $branch->delete();
         return response('عملیات با موفقیت انجام شد');
     }

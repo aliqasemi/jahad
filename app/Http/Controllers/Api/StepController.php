@@ -28,6 +28,8 @@ class StepController extends Controller
      */
     public function index(Project $project)
     {
+        $this->authorize('view', Step::class);
+
         return StepResource::collection(
             Step::where('project_id', $project->id)->orderBy('sort', 'asc')->get()
         );
@@ -41,6 +43,8 @@ class StepController extends Controller
      */
     public function store(StoreStepRequest $request, Project $project)
     {
+        $this->authorize('create', Step::class);
+
         $data = $request->validated();
         $maxSort = Step::where('project_id', $project->id)->max('sort');
 
@@ -69,6 +73,8 @@ class StepController extends Controller
      */
     public function show(Step $step)
     {
+        $this->authorize('view', Step::class);
+
         return new StepResource(
             $step->load(['user', 'template'])
         );
@@ -83,6 +89,8 @@ class StepController extends Controller
      */
     public function update(UpdateStepRequest $request, Step $step): StepResource
     {
+        $this->authorize('update', Step::class);
+
         $step = $step->fill($request->validated());
 
         $step->save();
@@ -100,6 +108,8 @@ class StepController extends Controller
      */
     public function destroy(Step $step): \Illuminate\Http\Response
     {
+        $this->authorize('delete', Step::class);
+
         if ($this->canDelete($step)) {
             $step->delete();
             return response('عملیات با موفقیت انجام شد');

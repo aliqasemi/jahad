@@ -19,16 +19,24 @@ class ProductController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', Product::class);
+
         return ProductResource::collection(
             Product::with(['main_image'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function indexFilter(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $this->authorize('view', Product::class);
+
         return ProductResource::collection(
             Product::filter(request())->get()
         );
@@ -40,9 +48,12 @@ class ProductController extends Controller
      *
      * @param StoreProductRequest $request
      * @return ProductResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(StoreProductRequest $request): ProductResource
     {
+        $this->authorize('create', Product::class);
+
         $product = new Product($request->validated());
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
@@ -63,9 +74,12 @@ class ProductController extends Controller
      *
      * @param \App\Models\Product $product
      * @return ProductResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Product $product): ProductResource
     {
+        $this->authorize('view', Product::class);
+
         return new ProductResource(
             $product->load(['main_image', 'branches'])
         );
@@ -77,9 +91,12 @@ class ProductController extends Controller
      * @param UpdateProductRequest $request
      * @param \App\Models\Product $product
      * @return ProductResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
+        $this->authorize('update', Product::class);
+
         $product = $product->fill($request->validated());
 
         if (!is_null(Arr::get($request->all(), 'main_image'))) {
@@ -101,9 +118,12 @@ class ProductController extends Controller
      *
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Product $product): \Illuminate\Http\Response
     {
+        $this->authorize('delete', Product::class);
+
         $product->delete();
         return response('عملیات با موفقیت انجام شد');
     }

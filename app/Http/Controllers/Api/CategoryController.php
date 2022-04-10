@@ -16,9 +16,12 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', Category::class);
+
         return CategoryResource::collection(
             CategoryCacheManagement::buildList(Category::getModel(), [], ['descendants', 'children'])
         );
@@ -29,9 +32,12 @@ class CategoryController extends Controller
      *
      * @param StoreCategoryRequest $request
      * @return CategoryResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(StoreCategoryRequest $request): CategoryResource
     {
+        $this->authorize('create', Category::class);
+
         $category = new Category($request->all());
         $category->save();
 
@@ -43,9 +49,12 @@ class CategoryController extends Controller
      *
      * @param Category $category
      * @return CategoryResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Category $category)
     {
+        $this->authorize('view', Category::class);
+
         return new CategoryResource(
             CategoryCacheManagement::buildItem(Category::getModel(), $category->id, [], ['descendants', 'children'])
         );
@@ -57,9 +66,12 @@ class CategoryController extends Controller
      * @param UpdateCategoryRequest $request
      * @param Category $category
      * @return CategoryResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateCategoryRequest $request, Category $category): CategoryResource
     {
+        $this->authorize('update', Category::class);
+
         $category->fill($request->all());
         $category->save();
         return new CategoryResource($category);
@@ -70,9 +82,12 @@ class CategoryController extends Controller
      *
      * @param Category $category
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Category $category): Response
     {
+        $this->authorize('delete', Category::class);
+
         $category->delete();
         return response('عملیات با موفقیت انجام شد');
     }

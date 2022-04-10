@@ -28,7 +28,7 @@ class StepPolicy
      * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Step $step)
+    public function view(User $user)
     {
         return $user->isAdmin();
     }
@@ -51,7 +51,7 @@ class StepPolicy
      * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Step $step)
+    public function update(User $user)
     {
         return $user->isSuperAdmin();
     }
@@ -63,7 +63,7 @@ class StepPolicy
      * @param  \App\Models\Step  $step
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Step $step)
+    public function delete(User $user)
     {
         return $user->isSuperAdmin();
     }
