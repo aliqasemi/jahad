@@ -130,7 +130,7 @@ class AuthController extends Controller
             ['phoneNumber' => $user->phoneNumber],
             [
                 'phoneNumber' => $user->phoneNumber,
-                'token' =>  Confirmation::build('reset_password_phone_number', $user, Template::$RESET_PASSWORD, false)
+                'token' => Confirmation::build('reset_password_phone_number', $user, Template::$RESET_PASSWORD, false)
             ]
         );
 
@@ -176,11 +176,11 @@ class AuthController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function userAuthorize(User $user, Request $ability): \Illuminate\Http\JsonResponse
+    public function assignRole(User $user, Request $ability): \Illuminate\Http\JsonResponse
     {
         $this->authorize('update', User::class);
         $this->validate($ability, [
-            'ability' => 'required|string|in:user,admin',
+            'ability' => 'required|string|in:user,admin,superAdmin',
         ]);
 
         $user->role = $ability->ability;
@@ -190,8 +190,14 @@ class AuthController extends Controller
         return response()->json('عملیات با موفقیت انجام شد.');
     }
 
+    public function userRole(User $user)
+    {
+        return $user->role;
+    }
+
     public function user(): UserResource
     {
         return new UserResource(auth()->user());
     }
+
 }

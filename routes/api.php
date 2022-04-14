@@ -17,16 +17,23 @@ Route::group(['prefix' => 'jahad'], function () {
     Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
     Route::post('/confirm-register/{user}', [\App\Http\Controllers\Api\AuthController::class, 'confirmRegister']);
     Route::post('/verify-register/{user}', [\App\Http\Controllers\Api\AuthController::class, 'verifyRegister']);
-    Route::post('/change-password', [\App\Http\Controllers\Api\AuthController::class, 'changePassword']);
     Route::post('/forgot-password', [\App\Http\Controllers\Api\AuthController::class, 'forgotPassword']);
     Route::post('/verify-forgot-password', [\App\Http\Controllers\Api\AuthController::class, 'verifyForgotPassword']);
     Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
     Route::middleware('auth:api')->group(function () {
+
+        //reset password route
+        Route::post('/change-password', [\App\Http\Controllers\Api\AuthController::class, 'changePassword']);
+
         //auth routes
         Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
         Route::get('/users', [\App\Http\Controllers\Api\AuthController::class, 'user']);
-        Route::post('/authorize/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userAuthorize']);
+
+        //authorize route
+        Route::get('/assign-role/{user}', [\App\Http\Controllers\Api\AuthController::class, 'assignRole']);
+        Route::get('/role/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userRole']);
+
         //category routes
         Route::resource('categories', \App\Http\Controllers\Api\CategoryController::class);
 
@@ -63,19 +70,19 @@ Route::group(['prefix' => 'jahad'], function () {
         Route::post('steps/move-up/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveUp']);
         Route::post('steps/move-down/{step}', [\App\Http\Controllers\Api\StepController::class, 'moveDown']);
 
-        //template
+        //template route
         Route::resource('templates', \App\Http\Controllers\Api\TemplateController::class);
         Route::get('templates-filter', [\App\Http\Controllers\Api\TemplateController::class, 'indexFilter']);
 
-        //product
+        //product route
         Route::resource('products', \App\Http\Controllers\Api\ProductController::class);
         Route::get('products-filter', [\App\Http\Controllers\Api\ProductController::class, 'indexFilter']);
 
-        //branch
+        //branch route
         Route::resource('branches', \App\Http\Controllers\Api\BranchController::class);
         Route::get('branches-filter', [\App\Http\Controllers\Api\BranchController::class, 'indexFilter']);
 
-        //require product
+        //require product route
         Route::get('project/{project}/require-products', [\App\Http\Controllers\Api\RequireProductController::class, 'index']);
         Route::delete('require-product-products/{requireProductProduct}', [\App\Http\Controllers\Api\RequireProductController::class, 'destroy']);
         Route::post('attach-product/{requireProduct}', [\App\Http\Controllers\Api\RequireProductController::class, 'attach']);
