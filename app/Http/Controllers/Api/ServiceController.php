@@ -22,7 +22,7 @@ class ServiceController extends Controller
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $this->authorize('view', Service::class);
+        $this->authorize('viewAny', Service::class);
 
         return ServiceResource::collection(
             CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
@@ -63,7 +63,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service): ServiceResource
     {
-        $this->authorize('view', Service::class);
+        $this->authorize('view', $service);
 
         return new ServiceResource(
             CacheManagement::buildItem(Service::getModel(), $service->id, ['main_image', 'category', 'city.county.province', 'user', 'available_province'], [])
@@ -79,7 +79,7 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service): ServiceResource
     {
-        $this->authorize('update', Service::class);
+        $this->authorize('update', $service);
 
         $service->fill($request->all());
 
@@ -105,7 +105,7 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service): Response
     {
-        $this->authorize('delete', Service::class);
+        $this->authorize('delete', $service);
 
         $service->delete();
         return response('عملیات با موفقیت انجام شد');

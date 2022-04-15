@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\HasMedia;
+use App\Scopes\UserPermissionScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
@@ -14,6 +15,11 @@ class Service extends Model implements HasMediaInterface
     protected $fillable = [
         'title', 'category_id', 'city_id', 'address', 'description', 'user_id'
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserPermissionScope);
+    }
 
     public function getTable(): string
     {

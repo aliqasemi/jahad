@@ -23,7 +23,7 @@ class RequireProductController extends Controller
      */
     public function index(Project $project)
     {
-        $this->authorize('view', RequireProduct::class);
+        $this->authorize('viewAttachment', RequireProduct::class);
 
         return RequireProductResource::collection(
             RequireProduct::where('project_id', $project->id)->with([

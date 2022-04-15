@@ -30,7 +30,7 @@ class TemplatePolicy
      */
     public function view(User $user)
     {
-        return $user->isAdmin();
+        return $user->isSuperAdmin();
     }
 
     /**

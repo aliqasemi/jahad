@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\RequireProduct;
 use Carbon\Carbon;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Product' => 'App\Policies\ProductPolicy',
         'App\Models\Category' => 'App\Policies\CategoryPolicy',
         'App\Models\Branch' => 'App\Policies\BranchPolicy',
+        'App\Models\RequireProduct' => 'App\Policies\RequireProductPolicy',
     ];
 
     /**

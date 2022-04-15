@@ -13,64 +13,64 @@ class RequirementPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isAccess('user') || $user->isAdmin();
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Requirement  $requirement
+     * @param \App\Models\User $user
+     * @param \App\Models\Requirement $requirement
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user, Requirement $requirement)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isSuperAdmin() || $user->isAdmin() || $requirement->user_id == $user->id;
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isAccess('user') || $user->isAdmin();
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, Requirement $requirement)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isSuperAdmin() || $user->isAdmin() || $requirement->user_id == $user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, Requirement $requirement)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isSuperAdmin() || $user->isAdmin() || $requirement->user_id == $user->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Service  $service
+     * @param \App\Models\User $user
+     * @param \App\Models\Service $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function restore(User $user, Requirement $requirement)
@@ -81,8 +81,8 @@ class RequirementPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Requirement  $requirement
+     * @param \App\Models\User $user
+     * @param \App\Models\Requirement $requirement
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function forceDelete(User $user, Requirement $requirement)

@@ -45,6 +45,17 @@ class RequireProductPolicy
     }
 
     /**
+     * Determine whether the user can attach models.
+     *
+     * @param \App\Models\User $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAttachment(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param \App\Models\User $user

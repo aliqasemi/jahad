@@ -28,7 +28,7 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //auth routes
         Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
-        Route::get('/users', [\App\Http\Controllers\Api\AuthController::class, 'user']);
+        Route::get('/auth-user', [\App\Http\Controllers\Api\AuthController::class, 'user']);
 
         //authorize route
         Route::get('/assign-role/{user}', [\App\Http\Controllers\Api\AuthController::class, 'assignRole']);

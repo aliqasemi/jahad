@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -17,7 +18,7 @@ class ServicePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isAccess('user') || $user->isAdmin();
     }
 
     /**
@@ -27,9 +28,9 @@ class ServicePolicy
      * @param \App\Models\Service $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user, Service $service)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isSuperAdmin() || $user->isAdmin() || $service->user_id == $user->id;
     }
 
     /**
@@ -40,7 +41,7 @@ class ServicePolicy
      */
     public function create(User $user)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isAccess('user') || $user->isAdmin();
     }
 
     /**
@@ -50,9 +51,9 @@ class ServicePolicy
      * @param \App\Models\Service $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, Service $service)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isSuperAdmin() || $user->isAdmin() || $service->user_id == $user->id;
     }
 
     /**
@@ -62,9 +63,9 @@ class ServicePolicy
      * @param \App\Models\Service $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, Service $service)
     {
-        return $user->isAccess('user') || $user->isAccess('admin');
+        return $user->isSuperAdmin() || $user->isAdmin() || $service->user_id == $user->id;
     }
 
     /**
