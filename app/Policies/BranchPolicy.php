@@ -40,7 +40,7 @@ class BranchPolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -51,7 +51,7 @@ class BranchPolicy
      */
     public function update(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -62,7 +62,7 @@ class BranchPolicy
      */
     public function delete(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**

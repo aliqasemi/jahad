@@ -41,7 +41,7 @@ class StepPolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class StepPolicy
      */
     public function update(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class StepPolicy
      */
     public function delete(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**

@@ -43,7 +43,7 @@ class AttachRequirementServicePolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -56,7 +56,7 @@ class AttachRequirementServicePolicy
      */
     public function update(User $user, Service $service, Requirement $requirement)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -69,7 +69,7 @@ class AttachRequirementServicePolicy
      */
     public function delete(User $user, Service $service, Requirement $requirement)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**

@@ -41,7 +41,7 @@ class RequireProductPolicy
      */
     public function attach(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -64,7 +64,7 @@ class RequireProductPolicy
      */
     public function delete(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**

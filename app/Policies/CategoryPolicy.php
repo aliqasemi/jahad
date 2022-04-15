@@ -40,7 +40,7 @@ class CategoryPolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -51,7 +51,7 @@ class CategoryPolicy
      */
     public function update(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAdmin();
     }
 
     /**
