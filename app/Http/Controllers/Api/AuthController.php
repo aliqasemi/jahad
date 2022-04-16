@@ -13,6 +13,7 @@ use App\Services\Confirmation\Confirmation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class AuthController extends Controller
@@ -178,18 +179,22 @@ class AuthController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function assignRole(User $user, Request $ability): \Illuminate\Http\JsonResponse
+    public function assignRole(User $user, Request $ability): UserResource
     {
-        $this->authorize('update', User::class);
+        $this->authorize('assignRole', $user);
+
         $this->validate($ability, [
             'ability' => 'required|string|in:user,admin,superAdmin',
         ]);
 
         $user->role = $ability->ability;
 
-        $user->save();
+        if (Auth::id() !== $user->id) {
+            $user->save();
+        }
 
-        return response()->json('عملیات با موفقیت انجام شد.', 200);
+        return new UserResource($user);
+
     }
 
     public function userRole(User $user)
