@@ -79,21 +79,24 @@ class AuthController extends Controller
             return response()->json('اهراز هویت تکمیل نشده است.', 401);
         }
 
-        $tokenResult = $user->createToken('userToken');
-        $tokenModel = $tokenResult->token;
+        if ($user->isActive()) {
+            $tokenResult = $user->createToken('userToken');
+            $tokenModel = $tokenResult->token;
 
-        if ($request->remember_me) {
-            $tokenModel->expires_at = Carbon::now()->addWeeks(1);
+            if ($request->remember_me) {
+                $tokenModel->expires_at = Carbon::now()->addWeeks(1);
+            }
+
+            $tokenModel->save();
+
+            return response()->json([
+                'user' => new UserResource($user),
+                'token' => $tokenResult->accessToken,
+                'token_type' => 'Bearer'
+            ]);
+        } else {
+            return response()->json('کاربر غیر فعال است', 422);
         }
-
-
-        $tokenModel->save();
-
-        return response()->json([
-            'user' => new UserResource($user),
-            'token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer'
-        ]);
 
     }
 
@@ -125,7 +128,6 @@ class AuthController extends Controller
         $user = User::query()->where('phoneNumber', $request->phoneNumber)->firstOrFail();
         $user->update(['phone_verified_at' => null]);
 
-        $randNumber = rand(100000, 999999);
         $resetPassword = PasswordReset::query()->updateOrCreate(
             ['phoneNumber' => $user->phoneNumber],
             [
@@ -187,7 +189,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        return response()->json('عملیات با موفقیت انجام شد.');
+        return response()->json('عملیات با موفقیت انجام شد.', 200);
     }
 
     public function userRole(User $user)
@@ -200,4 +202,23 @@ class AuthController extends Controller
         return new UserResource(auth()->user());
     }
 
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $this->authorize('viewAny', User::class);
+
+        return UserResource::collection(
+            User::filter(request())->paginate(request('per_page'), ['*'], 'page', request('page'))
+        );
+    }
+
+    public function active(Request $request, User $user): UserResource
+    {
+        $this->validate($request, [
+            'active' => 'required|boolean',
+        ]);
+
+        $user->update(['active' => $request->get('active')]);
+
+        return new UserResource($user);
+    }
 }

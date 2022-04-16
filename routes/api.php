@@ -21,7 +21,7 @@ Route::group(['prefix' => 'jahad'], function () {
     Route::post('/verify-forgot-password', [\App\Http\Controllers\Api\AuthController::class, 'verifyForgotPassword']);
     Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
-    Route::middleware('auth:api')->group(function () {
+    Route::middleware(['auth:api', 'active'])->group(function () {
 
         //reset password route
         Route::post('/change-password', [\App\Http\Controllers\Api\AuthController::class, 'changePassword']);
@@ -29,6 +29,10 @@ Route::group(['prefix' => 'jahad'], function () {
         //auth routes
         Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
         Route::get('/auth-user', [\App\Http\Controllers\Api\AuthController::class, 'user']);
+
+        //user route
+        Route::get('/users', [\App\Http\Controllers\Api\AuthController::class, 'index']);
+        Route::post('/active/{user}', [\App\Http\Controllers\Api\AuthController::class, 'active']);
 
         //authorize route
         Route::get('/assign-role/{user}', [\App\Http\Controllers\Api\AuthController::class, 'assignRole']);
