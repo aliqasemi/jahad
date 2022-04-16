@@ -20,12 +20,16 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index()
     {
         $this->authorize('viewAny', Service::class);
 
+//        return ServiceResource::collection(
+//            CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
+//        );
+
         return ServiceResource::collection(
-            CacheManagement::buildList(Service::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
+            Service::query()->with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 

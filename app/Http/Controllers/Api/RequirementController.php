@@ -24,9 +24,14 @@ class RequirementController extends Controller
     {
         $this->authorize('viewAny', Requirement::class);
 
+//        return RequirementResource::collection(
+//            CacheManagement::buildList(Requirement::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
+//        );
+
         return RequirementResource::collection(
-            CacheManagement::buildList(Requirement::getModel(), ['main_image', 'city.county.province', 'user', 'category'], [], ['per_page' => request('per_page'), 'page' => request('page')])
+            Requirement::query()->with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
+
     }
 
     /**
