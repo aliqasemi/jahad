@@ -33,6 +33,17 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     *
+     * @param \App\Models\User $user
+     * @return mixed
+     */
+    public function show(User $user)
+    {
+        return $user->isSuperAdmin();
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param \App\Models\User $user

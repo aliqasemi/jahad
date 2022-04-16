@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\User\RegisterUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
@@ -214,6 +215,21 @@ class AuthController extends Controller
         return UserResource::collection(
             User::filter(request())->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
+    }
+
+    public function show(User $user): UserResource
+    {
+        $this->authorize('show', User::class);
+
+        return new UserResource($user);
+    }
+
+    public function update(User $user, UpdateUserRequest $request): UserResource
+    {
+        $this->authorize('update', User::class);
+
+        $user->update($request->validated());
+        return new UserResource($user);
     }
 
     public function active(Request $request, User $user): UserResource

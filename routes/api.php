@@ -37,6 +37,8 @@ Route::group(['prefix' => 'jahad'], function () {
         //authorize route
         Route::post('/assign-role/{user}', [\App\Http\Controllers\Api\AuthController::class, 'assignRole']);
         Route::get('/role/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userRole']);
+        Route::get('/user/{user}', [\App\Http\Controllers\Api\AuthController::class, 'show']);
+        Route::put('/user/{user}', [\App\Http\Controllers\Api\AuthController::class, 'update']);
 
         //category routes
         Route::resource('categories', \App\Http\Controllers\Api\CategoryController::class);
