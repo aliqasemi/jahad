@@ -29,6 +29,8 @@ class UpdateUserRequest extends FormRequest
             'phoneNumber' => 'required|regex:/(09)[0-9]{9}/|digits:11',
             'email' => 'required|email',
             'address' => 'nullable|string|max:250',
+            'active' => 'required|boolean',
+            'role' => 'required|string|in:user,admin,superAdmin',
         ];
     }
 }
