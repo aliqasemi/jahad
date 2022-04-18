@@ -78,7 +78,9 @@ class ProjectRepository implements ProjectInterface
     {
         $project = Project::findOrFail($projectId);
 
-        ChangeStepTemplateManager::buildToSend($project, $data);
+        if ($project->step_id != Arr::get($data, 'step_id') && !is_null(Arr::get($data, 'step_id'))) {
+            ChangeStepTemplateManager::buildToSend($project, $data);
+        }
 
         $project = Project::findOrFail($projectId);
 
