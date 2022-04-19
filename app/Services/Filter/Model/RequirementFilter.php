@@ -11,7 +11,7 @@ class RequirementFilter extends AbstractFilter
 
     public static function build(Request $request, array $filters, $mapFilter = null): RequirementFilter
     {
-        return new RequirementFilter($request, $filters);
+        return new RequirementFilter($request, $filters, $mapFilter);
     }
 
     protected static function filterElement(Builder $builder, $filter, $value, $isOr): Builder

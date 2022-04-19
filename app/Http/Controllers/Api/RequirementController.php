@@ -29,7 +29,7 @@ class RequirementController extends Controller
 //        );
 
         return RequirementResource::collection(
-            Requirement::query()->with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'), ['*'], 'page', request('page'))
+            Requirement::query()->filter(request())->with(['main_image', 'city.county.province', 'user', 'category'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
 
     }
