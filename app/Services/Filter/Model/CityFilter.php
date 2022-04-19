@@ -6,12 +6,12 @@ use App\Services\Filter\AbstractFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class ServiceFilter extends AbstractFilter
+class CityFilter extends AbstractFilter
 {
 
-    public static function build(Request $request, array $filters, $mapFilter = null): ServiceFilter
+    public static function build(Request $request, array $filters, $mapFilter = null): CityFilter
     {
-        return new ServiceFilter($request, $filters, $mapFilter);
+        return new CityFilter($request, $filters, $mapFilter);
     }
 
     protected static function filterElement(Builder $builder, $filter, $value, $isOr): Builder
