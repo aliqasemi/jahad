@@ -35,7 +35,7 @@ class ProjectRepository implements ProjectInterface
                 'name' => 'مرحله اول',
                 'project_id' => $project->id,
                 'send_sms' => 0,
-                'template_id' => 0,
+                'template_id' => null,
                 'user_id' => Auth::id()
             ]);
             $step->project()->save($project);
