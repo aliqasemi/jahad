@@ -26,7 +26,7 @@ class ProductController extends Controller
         $this->authorize('view', Product::class);
 
         return ProductResource::collection(
-            Product::with(['main_image'])->paginate(request('per_page'), ['*'], 'page', request('page'))
+            Product::filter(request())->with(['main_image'])->withSum('branches', 'branch_product.stock')->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 
