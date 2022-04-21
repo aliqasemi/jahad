@@ -61,10 +61,10 @@ class ProjectRepository implements ProjectInterface
 
         return $project->load([
             'services' => function ($query) {
-                return $query->with(['user', 'category', 'city.county.province']);
+                return $query->with(['user', 'category', 'city.county.province', 'main_image']);
             },
             'requirement' => function ($query) {
-                return $query->with(['user', 'category', 'city.county.province']);
+                return $query->with(['user', 'category', 'city.county.province', 'main_image']);
             },
             'step',
             'requireProducts'
