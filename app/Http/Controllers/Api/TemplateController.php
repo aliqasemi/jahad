@@ -26,7 +26,7 @@ class TemplateController extends Controller
         $this->authorize('view', Template::class);
 
         return TemplateResource::collection(
-            Template::get()
+            Template::filter(request())->get()
         );
     }
 
