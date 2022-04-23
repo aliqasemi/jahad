@@ -22,7 +22,7 @@ class BranchController extends Controller
         $this->authorize('view', Branch::class);
 
         return BranchResource::collection(
-            Branch::with(['city'])->paginate(request('per_page'), ['*'], 'page', request('page'))
+            Branch::filter(request())->with(['city'])->paginate(request('per_page'), ['*'], 'page', request('page'))
         );
     }
 

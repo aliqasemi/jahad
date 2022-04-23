@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\HasMedia;
 use App\Services\Filter\Model\BranchFilter;
+use App\Services\Filter\Model\CityFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,11 @@ class Branch extends Model implements HasMediaInterface
     protected $filters = [
         'name' => BranchFilter::class,
         'description' => BranchFilter::class,
+        'cell_number' => BranchFilter::class,
+    ];
+
+    protected $mapFilter = [
+        'city' => ['city:name' => CityFilter::class],
     ];
 
     public function getTable(): string
