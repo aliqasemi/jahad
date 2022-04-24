@@ -41,7 +41,7 @@ class AttachServiceRequirement
     private function processSameLevel($category): array
     {
         $arrayByIndex = [];
-        $requirements = $category->requirements()->with(['user', 'city', 'category'])->get()->toArray();
+        $requirements = $category->requirements()->with(['user', 'city', 'category', 'project'])->get()->toArray();
         foreach ($requirements as $requirement) {
             $arrayByIndex[] = $requirement;
         }
