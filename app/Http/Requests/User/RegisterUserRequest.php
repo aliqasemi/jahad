@@ -27,9 +27,9 @@ class RegisterUserRequest extends FormRequest
             'firstname' => 'required|max:55',
             'lastname' => 'required|max:55',
             'phoneNumber' => 'required|regex:/(09)[0-9]{9}/|digits:11|unique:users',
-            'email' => 'required|email|unique:users',
+            'email' => 'nullable|email|unique:users',
             'address' => 'nullable|string|max:250|unique:users',
-            'password' => 'required|confirmed'
+            'password' => 'required|min:6|confirmed'
         ];
     }
 }

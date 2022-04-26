@@ -78,7 +78,10 @@ class AuthController extends Controller
         $user = auth()->user();
 
         if (!$user->isVerify()) {
-            return response()->json('اهراز هویت تکمیل نشده است.', 401);
+            return response()->json([
+                'user' => $user,
+                'verify' => false
+            ]);
         }
 
         if ($user->isActive()) {
