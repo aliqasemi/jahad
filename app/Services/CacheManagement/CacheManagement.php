@@ -28,9 +28,11 @@ class CacheManagement
             $perPage = 1;
             while (!is_null(Cache::get($model::getCacheName() . 'page' . $perPage))) {
                 Cache::forget($model::getCacheName() . 'page' . $perPage++);
+                Cache::forget($model::getCacheName());
             }
         } else {
             Cache::forget($model::getCacheName() . $modelId);
+            Cache::forget($model::getCacheName());
         }
     }
 
