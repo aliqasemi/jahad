@@ -23,6 +23,9 @@ Route::group(['prefix' => 'jahad'], function () {
 
     Route::middleware(['auth:api', 'active'])->group(function () {
 
+        //main information for chart
+        Route::get('/chart/info', [\App\Http\Controllers\Api\MainController::class, 'indexChartInformation']);
+
         //reset password route
         Route::post('/change-password', [\App\Http\Controllers\Api\AuthController::class, 'changePassword']);
 
