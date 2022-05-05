@@ -19,4 +19,17 @@ class ProjectObserver
             CacheManagement::popItems($project->requirement, $project->requirement->id);
         }
     }
+
+    /**
+     * Handle the Category "deleted" event.
+     *
+     * @param \App\Models\Requirement $requirement
+     * @return void
+     */
+    public function deleted(Project $project)
+    {
+        if ($project->requirement) {
+            CacheManagement::popItems($project->requirement, $project->requirement->id);
+        }
+    }
 }

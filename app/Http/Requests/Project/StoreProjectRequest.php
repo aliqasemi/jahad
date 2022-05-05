@@ -26,6 +26,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'timeout' => 'nullable|date',
             'services' => 'required|array',
             'services.*.id' => 'required|integer|exists:services,id',
             'requirement_id' => 'required|integer',

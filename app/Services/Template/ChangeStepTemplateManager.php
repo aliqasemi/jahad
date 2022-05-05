@@ -34,9 +34,6 @@ class ChangeStepTemplateManager
         (new ChangeStepTemplateManager($project, $data))->build()->send();
     }
 
-    /**
-     * @throws ErrorException
-     */
     private function build(): ChangeStepTemplateManager
     {
         if ($this->template && $this->userIds) {
@@ -45,10 +42,9 @@ class ChangeStepTemplateManager
                     $this->setMessages(TemplateAdaptor::buildTemplate($this->template, [$key => $value])->fill($this->project), $key, $value);
                 }
             }
-            return $this;
-        } else {
-            throw new ErrorException("don't have template or user ids");
+
         }
+        return $this;
     }
 
     /**

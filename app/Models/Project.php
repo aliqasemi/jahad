@@ -16,7 +16,7 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'step_id', 'failed'
+        'name', 'description', 'step_id', 'failed', 'timeout'
     ];
 
     protected $filters = [

@@ -26,6 +26,7 @@ class UpdateProjectRequest extends FormRequest
         return [
             'name' => 'nullable|string',
             'description' => 'nullable|string',
+            'timeout' => 'nullable|date',
             'step_id' => 'nullable|integer',
             'services' => 'nullable|array',
             'services.*.id' => 'required|integer|exists:services,id',
