@@ -26,6 +26,7 @@ class StoreServiceRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'nullable|string',
+            'timeout' => 'nullable|date',
             'category_id' => 'required|integer|exists:categories,id',
             'city_id' => 'required|integer|exists:cities,id',
             'address' => 'required|string',

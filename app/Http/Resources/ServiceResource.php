@@ -19,6 +19,7 @@ class ServiceResource extends JsonResource
             'title' => $this->title,
             'address' => $this->address,
             'description' => $this->description,
+            'timeout' => $this->timeout,
             'main_image' => new MediaResource($this->whenLoaded('main_image')),
             'category' => new CategoryResource($this->whenLoaded('category')),
             'user' => new UserResource($this->whenLoaded('user')),

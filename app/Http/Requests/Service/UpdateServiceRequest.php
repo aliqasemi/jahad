@@ -26,6 +26,7 @@ class UpdateServiceRequest extends FormRequest
         return [
             'title' => 'nullable|string',
             'description' => 'nullable|string',
+            'timeout' => 'nullable|date',
             'category_id' => 'nullable|integer|exists:categories,id',
             'city_id' => 'nullable|integer|exists:cities,id',
             'address' => 'nullable|string',

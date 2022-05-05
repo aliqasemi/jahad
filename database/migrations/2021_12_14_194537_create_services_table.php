@@ -17,6 +17,7 @@ class CreateServicesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description')->nullable();
+            $table->date('timeout')->nullable();
             $table->unsignedInteger('category_id');
             $table->string('address');
             $table->unsignedInteger('city_id');

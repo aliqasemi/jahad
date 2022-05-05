@@ -19,7 +19,7 @@ class Service extends Model implements HasMediaInterface
     use HasFactory, HasMedia;
 
     protected $fillable = [
-        'title', 'category_id', 'city_id', 'address', 'description', 'user_id'
+        'title', 'category_id', 'city_id', 'address', 'description', 'user_id', 'timeout'
     ];
 
     protected $filters = [
