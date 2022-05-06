@@ -26,6 +26,23 @@ class Template extends Model
     public static $SERVICES_REQUIREMENT = 5;
     public static $REQUIREMENTS_SERVICE = 6;
 
+    public static $TEMPLATE_VARIABLE = [
+        'user_management' => [
+            'user_firstname' => 'نام کاربر',
+            'user_lastname' => 'نام  خانوادگی کاربر',
+        ],
+        'service_management' => [
+            'requirement_user_firstname' => 'نام نیازمند',
+            'requirement_user_lastname' => 'نام خانوادگی نیازمند',
+            'service_user_firstname' => 'نام خدمت دهنده',
+            'service_user_lastname' => 'نام خانوادگی خدمت دهنده',
+            'step_name' => 'نام مرحله',
+            'requirement_name' => 'نام نیازمندی',
+            'service_name' => 'نام سرویس',
+            'category_name' => 'نام دسته بندی'
+        ]
+    ];
+
     public function getTable(): string
     {
         return 'templates';

@@ -9,6 +9,7 @@ use App\Http\Requests\Template\UpdateTemplateRequest;
 use App\Http\Resources\TemplateResource;
 use App\Models\Template;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
@@ -67,16 +68,36 @@ class TemplateController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Template $template
-     * @return TemplateResource
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Template $template): TemplateResource
+    public function show(Template $template): array
     {
         $this->authorize('view', Template::class);
 
-        return new TemplateResource(
-            $template
-        );
+        if (in_array($template->id, [
+            Template::$WELCOME,
+            Template::$SING_IN,
+            Template::$RESET_PASSWORD,
+            Template::$PASSWORD_CHANGE,
+            Template::$SERVICES_REQUIREMENT,
+            Template::$REQUIREMENTS_SERVICE
+        ])
+        ) {
+            return [
+                'id' => $template->id,
+                'name' => $template->name,
+                'template' => $template->template,
+                'variables' => Template::$TEMPLATE_VARIABLE['user_management'],
+            ];
+        } else {
+            return [
+                'id' => $template->id,
+                'name' => $template->name,
+                'template' => $template->template,
+                'variables' => Template::$TEMPLATE_VARIABLE['service_management'],
+            ];
+        }
     }
 
     /**
