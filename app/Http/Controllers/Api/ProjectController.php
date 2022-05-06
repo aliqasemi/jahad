@@ -8,6 +8,7 @@ use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Infrastructure\InterfaceRepository\ProjectInterface;
 use App\Models\Project;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -84,6 +85,27 @@ class ProjectController extends Controller
 
         return new ProjectResource(
             app()->make(ProjectInterface::class)->update($request->validated(), $project->id)
+        );
+    }
+
+    /**
+     * change step the specified resource in storage.
+     *
+     * @param UpdateProjectRequest $request
+     * @param Project $project
+     * @return ProjectResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function changeStep(Request $request, Project $project): ProjectResource
+    {
+        $this->authorize('update', Project::class);
+
+        $request->validate([
+            'step_id' => 'required|integer'
+        ]);
+
+        return new ProjectResource(
+            app()->make(ProjectInterface::class)->changeStep($request->only('step_id'), $project->id)
         );
     }
 

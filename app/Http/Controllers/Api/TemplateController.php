@@ -88,7 +88,8 @@ class TemplateController extends Controller
                 'id' => $template->id,
                 'name' => $template->name,
                 'template' => $template->template,
-                'variables' => Template::$TEMPLATE_VARIABLE['service_management'],
+                'service_variables' => Template::$TEMPLATE_VARIABLE['service_management'],
+                'requirement_variables' => Template::$TEMPLATE_VARIABLE['requirement_management'],
             ];
         }
     }

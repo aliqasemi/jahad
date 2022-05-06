@@ -20,7 +20,8 @@ class CreateStepsTable extends Migration
             $table->boolean('send_sms')->default(false);
             $table->integer('sort')->default(1);
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('template_id')->nullable();
+            $table->unsignedInteger('service_template_id')->nullable();
+            $table->unsignedInteger('requirement_template_id')->nullable();
             $table->unsignedInteger('project_id');
             $table->timestamps();
         });

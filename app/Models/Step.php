@@ -9,7 +9,7 @@ class Step extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'sort', 'send_sms', 'template_id', 'project_id', 'user_id'];
+    protected $fillable = ['name', 'description', 'sort', 'send_sms', 'service_template_id', 'requirement_template_id', 'project_id', 'user_id'];
 
     public function getTable(): string
     {
@@ -36,8 +36,13 @@ class Step extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function template(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function serviceTemplate(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Template::class);
+        return $this->belongsTo(Template::class, 'service_template_id');
+    }
+
+    public function requirementTemplate(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Template::class, 'requirement_template_id');
     }
 }

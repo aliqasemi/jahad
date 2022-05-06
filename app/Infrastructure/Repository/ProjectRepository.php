@@ -78,13 +78,6 @@ class ProjectRepository implements ProjectInterface
     {
         $project = Project::findOrFail($projectId);
 
-        if ($project->step_id != Arr::get($data, 'step_id') && !is_null(Arr::get($data, 'step_id'))) {
-            if (Step::query()->findOrFail(Arr::get($data, 'step_id'))->send_sms)
-                ChangeStepTemplateManager::buildToSend($project, $data);
-        }
-
-        $project = Project::findOrFail($projectId);
-
         $project->fill($data);
 
         if (Arr::get($data, 'services')) {
@@ -101,6 +94,19 @@ class ProjectRepository implements ProjectInterface
         }
 
         $project->save();
+
+        return $project->load(['services', 'requirement', 'step', 'requireProducts']);
+    }
+
+    public function changeStep(array $data, int $projectId)
+    {
+        $project = Project::query()->findOrFail($projectId);
+
+        if (Step::query()->findOrFail(Arr::get($data, 'step_id'))->send_sms)
+            ChangeStepTemplateManager::buildToSend($project, $data);
+
+        $project = Project::query()->findOrFail($projectId);
+        $project->update(['step_id' => Arr::get($data, 'step_id')]);
 
         return $project->load(['services', 'requirement', 'step', 'requireProducts']);
     }

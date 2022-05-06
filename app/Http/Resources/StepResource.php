@@ -21,7 +21,8 @@ class StepResource extends JsonResource
             'sort' => $this->sort,
             'send_sms' => $this->send_sms,
             'user' => new UserResource($this->whenLoaded('user')),
-            'template' => new TemplateResource($this->whenLoaded('template')),
+            'serviceTemplate' => new TemplateResource($this->whenLoaded('serviceTemplate')),
+            'requirementTemplate' => new TemplateResource($this->whenLoaded('requirementTemplate')),
         ];
     }
 }

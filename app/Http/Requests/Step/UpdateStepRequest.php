@@ -27,7 +27,8 @@ class UpdateStepRequest extends FormRequest
             'name' => 'nullable|string',
             'description' => 'nullable|string',
             'send_sms' => 'nullable',
-            'template_id' => 'nullable|integer'
+            'service_template_id' => 'nullable|integer',
+            'requirement_template_id' => 'nullable|integer',
         ];
     }
 }

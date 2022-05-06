@@ -12,5 +12,7 @@ interface ProjectInterface
 
     public function update(array $data, int $projectId);
 
+    public function changeStep(array $data, int $projectId);
+
     public function delete(int $projectId);
 }

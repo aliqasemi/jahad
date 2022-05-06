@@ -61,7 +61,7 @@ class StepController extends Controller
         $step->save();
 
         return new StepResource(
-            $step->load(['user', 'template'])
+            $step->load(['user', 'serviceTemplate', 'requirementTemplate'])
         );
     }
 
@@ -76,7 +76,7 @@ class StepController extends Controller
         $this->authorize('view', Step::class);
 
         return new StepResource(
-            $step->load(['user', 'template'])
+            $step->load(['user', 'serviceTemplate', 'requirementTemplate'])
         );
     }
 
@@ -96,7 +96,7 @@ class StepController extends Controller
         $step->save();
 
         return new StepResource(
-            $step->load(['user', 'template'])
+            $step->load(['user', 'serviceTemplate', 'requirementTemplate'])
         );
     }
 

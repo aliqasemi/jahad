@@ -39,7 +39,12 @@ class Template extends Model
             'step_name' => 'نام مرحله',
             'requirement_name' => 'نام نیازمندی',
             'service_name' => 'نام سرویس',
-            'category_name' => 'نام دسته بندی'
+        ],
+        'requirement_management' => [
+            'requirement_user_firstname' => 'نام نیازمند',
+            'requirement_user_lastname' => 'نام خانوادگی نیازمند',
+            'step_name' => 'نام مرحله',
+            'requirement_name' => 'نام نیازمندی',
         ]
     ];
 

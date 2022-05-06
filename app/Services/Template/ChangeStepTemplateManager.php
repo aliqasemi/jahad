@@ -10,7 +10,8 @@ use Illuminate\Support\Arr;
 
 class ChangeStepTemplateManager
 {
-    private $template;
+    private $serviceTemplate;
+    private $requirementTemplate;
     private $userIds = [];
     private $project;
     private $messages = [];
@@ -19,8 +20,10 @@ class ChangeStepTemplateManager
     {
         $this->project = $project;
         if (Arr::get($data, 'step_id') != $project->step_id) {
-            $template = $project->steps()->where('id', Arr::get($data, 'step_id'))->first()->template()->first();
-            $this->template = Arr::get($template, 'template');
+            $serviceTemplate = $project->steps()->where('id', Arr::get($data, 'step_id'))->first()->serviceTemplate()->first();
+            $requirementTemplate = $project->steps()->where('id', Arr::get($data, 'step_id'))->first()->requirementTemplate()->first();
+            $this->serviceTemplate = Arr::get($serviceTemplate, 'template');
+            $this->requirementTemplate = Arr::get($requirementTemplate, 'template');
             Arr::set($this->userIds, 'requirement', [$project->requirement()->first()->user_id]);
             Arr::set($this->userIds, 'services', $project->services()->pluck('user_id'));
         }
@@ -36,13 +39,16 @@ class ChangeStepTemplateManager
 
     private function build(): ChangeStepTemplateManager
     {
-        if ($this->template && $this->userIds) {
+        if ($this->requirementTemplate && $this->serviceTemplate && $this->userIds) {
             foreach ($this->userIds as $key => $user_ids) {
                 foreach ($user_ids as $value) {
-                    $this->setMessages(TemplateAdaptor::buildTemplate($this->template, [$key => $value])->fill($this->project), $key, $value);
+                    if ($key == 'requirement') {
+                        $this->setMessages(TemplateAdaptor::buildTemplate($this->requirementTemplate, [$key => $value])->fill($this->project), $key, $value);
+                    } else if ($key == 'services') {
+                        $this->setMessages(TemplateAdaptor::buildTemplate($this->serviceTemplate, [$key => $value])->fill($this->project), $key, $value);
+                    }
                 }
             }
-
         }
         return $this;
     }
