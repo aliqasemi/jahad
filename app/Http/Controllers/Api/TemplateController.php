@@ -75,14 +75,7 @@ class TemplateController extends Controller
     {
         $this->authorize('view', Template::class);
 
-        if (in_array($template->id, [
-            Template::$WELCOME,
-            Template::$SING_IN,
-            Template::$RESET_PASSWORD,
-            Template::$PASSWORD_CHANGE,
-            Template::$SERVICES_REQUIREMENT,
-            Template::$REQUIREMENTS_SERVICE
-        ])
+        if (in_array($template->id, Template::getDefaultTemplateIds())
         ) {
             return [
                 'id' => $template->id,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Template;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TemplateResource extends JsonResource
@@ -18,6 +19,7 @@ class TemplateResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'template' => $this->template,
+            'can_delete' => !in_array($this->id, Template::getDefaultTemplateIds()),
             'user' => new UserResource($this->whenLoaded('user')),
         ];
     }
