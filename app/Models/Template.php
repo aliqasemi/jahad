@@ -30,6 +30,7 @@ class Template extends Model
         'user_management' => [
             'user_firstname' => 'نام کاربر',
             'user_lastname' => 'نام  خانوادگی کاربر',
+            'confirm_code' => 'کد احرا هویت',
         ],
         'service_management' => [
             'requirement_user_firstname' => 'نام نیازمند',

@@ -134,7 +134,7 @@ class ProductController extends Controller
 
         foreach ($branches as $branch) {
             $result[$branch['branch_id']] = [
-                'description' => $branch ['description'],
+                'description' => Arr::has($branch, 'description') ? $branch ['description'] : null,
                 'stock' => $branch ['stock']
             ];
         }
