@@ -41,7 +41,7 @@ class AuthController extends Controller
     {
         Confirmation::build('register_phone_number', $user, Template::$SING_IN);
 
-        return response()->json(';کد احراز هویت با موفقیت ارسال شد', 200);
+        return response()->json(['error' => 'کد احراز هویت با موفقیت ارسال شد'], 200);
     }
 
     /**
@@ -57,9 +57,9 @@ class AuthController extends Controller
         if ($user->id == $userId) {
             $user->verify();
             $user->save();
-            return response()->json('کد احراز هویت با موفقیت تایید شد', 200);
+            return response()->json(['error' => 'کد احراز هویت با موفقیت تایید شد'], 200);
         } else {
-            return response()->json('کد احراز هویت معتبر نیست', 400);
+            return response()->json(['error' => 'کد احراز هویت معتبر نیست'], 400);
         }
     }
 
@@ -69,9 +69,13 @@ class AuthController extends Controller
 
         if (!auth()->attempt($data)) {
             if (Arr::get($data, 'phoneNumber')) {
-                return response()->json('شماره تلفن همراه یا رمز عبور اشتباه است.', 422);
+                return response()->json([
+                    'error' => 'شماره تلفن همراه یا رمز عبور اشتباه است.'
+                ], 422);
             } else {
-                return response()->json('ایمیل یا رمز عبور اشتباه است.', 422);
+                return response()->json([
+                    'error' => 'ایمیل یا رمز عبور اشتباه است.'
+                ], 422);
             }
         }
 
@@ -100,7 +104,9 @@ class AuthController extends Controller
                 'token_type' => 'Bearer'
             ]);
         } else {
-            return response()->json('کاربر غیر فعال است', 422);
+            return response()->json([
+                'error' => 'کاربر غیر فعال است'
+            ], 422);
         }
 
     }
@@ -110,7 +116,9 @@ class AuthController extends Controller
         /** @var User $user
          */
         $request->user()->token()->revoke();
-        return response()->json('شما با موفقیت خارج شدید.');
+        return response()->json([
+            'error' => 'شما با موفقیت خارج شدید.'
+        ], 200);
     }
 
     public function changePassword(Request $request): \Illuminate\Http\JsonResponse
@@ -121,7 +129,7 @@ class AuthController extends Controller
 
         auth('api')->user()->password = bcrypt($request->password);
         auth('api')->user()->save();
-        return response()->json('رمز شما با موفقیت تغییر یافت');
+        return response()->json(['error' => 'رمز شما با موفقیت تغییر یافت'], 200);
     }
 
     public function forgotPassword(Request $request): \Illuminate\Http\JsonResponse
@@ -142,9 +150,9 @@ class AuthController extends Controller
         );
 
         if ($resetPassword) {
-            return response()->json('کد احراز هویت با موفقیت ارسال شد', 200);
+            return response()->json(['error' => 'کد احراز هویت با موفقیت ارسال شد'], 200);
         } else {
-            return response()->json('خطای سیستمی', 404);
+            return response()->json(['error' => 'خطای سیستمی'], 404);
         }
     }
 
@@ -157,11 +165,11 @@ class AuthController extends Controller
         ]);
         $resetPassword = PasswordReset::query()->where('token', $request->code)->first();
         if (!$resetPassword || $resetPassword->phoneNumber !== $request->phoneNumber) {
-            return response()->json('کد احراز هویت معتبر نیست', 400);
+            return response()->json(['error' => 'کد احراز هویت معتبر نیست'], 400);
         }
         if (Carbon::parse($resetPassword->updated_at)->addMinutes(2000)->isPast()) {
             $resetPassword->delete();
-            return response()->json('کد احراز هویت معتبر نیست', 400);
+            return response()->json(['error' => 'کد احراز هویت معتبر نیست'], 400);
         }
 
         $user = User::query()->where('phoneNumber', $resetPassword->phoneNumber)->firstOrFail();
