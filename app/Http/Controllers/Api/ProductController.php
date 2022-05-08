@@ -63,7 +63,15 @@ class ProductController extends Controller
         $product->save();
 
         if ($branches = Arr::get($request->all(), 'branches')) {
-            $product->branches()->sync($this->prepareBranchesForSync($branches));
+            foreach ($branches as $branch) {
+                $product->branches()->attach([
+                        Arr::get($branch, 'branch_id') => [
+                            'description' => Arr::has($branch, 'description') ? $branch ['description'] : null,
+                            'stock' => $branch ['stock']
+                        ]
+                    ]
+                );
+            }
         }
 
         return new ProductResource($product->load(['main_image', 'branches']));
@@ -106,8 +114,18 @@ class ProductController extends Controller
 
         $product->save();
 
+        $product->branches()->detach();
+
         if ($branches = Arr::get($request->all(), 'branches')) {
-            $product->branches()->sync($this->prepareBranchesForSync($branches));
+            foreach ($branches as $branch) {
+                $product->branches()->attach([
+                        Arr::get($branch, 'branch_id') => [
+                            'description' => Arr::has($branch, 'description') ? $branch ['description'] : null,
+                            'stock' => $branch ['stock']
+                        ]
+                    ]
+                );
+            }
         }
 
         return new ProductResource($product->load(['main_image', 'branches']));
@@ -128,18 +146,18 @@ class ProductController extends Controller
         return response('عملیات با موفقیت انجام شد');
     }
 
-    private function prepareBranchesForSync(array $branches): array
-    {
-        $result = [];
-
-        foreach ($branches as $branch) {
-            $result[$branch['branch_id']] = [
-                'description' => Arr::has($branch, 'description') ? $branch ['description'] : null,
-                'stock' => $branch ['stock']
-            ];
-        }
-
-        return $result;
-    }
+//    private function prepareBranchesForSync(array $branches): array
+//    {
+//        $result = [];
+//
+//        foreach ($branches as $branch) {
+//            $result[$branch['branch_id']] = [
+//                'description' => Arr::has($branch, 'description') ? $branch ['description'] : null,
+//                'stock' => $branch ['stock']
+//            ];
+//        }
+//
+//        return $result;
+//    }
 
 }

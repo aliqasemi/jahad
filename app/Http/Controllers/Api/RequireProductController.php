@@ -62,7 +62,7 @@ class RequireProductController extends Controller
                 $requireProduct->load(['productRequireProduct', 'products', 'project'])
             );
         } else {
-            return response('مقادیر اعطا شده به محصول بیشتر از موجودی انبار است', 422);
+            return response()->json(['error' => 'مقادیر اعطا شده به محصول بیشتر از موجودی انبار است'], 422);
         }
     }
 
