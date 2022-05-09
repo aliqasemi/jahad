@@ -68,6 +68,8 @@ Route::group(['prefix' => 'jahad'], function () {
 
         //project routes
         Route::resource('projects', \App\Http\Controllers\Api\ProjectController::class);
+        Route::get('projects-user', [\App\Http\Controllers\Api\ProjectController::class, 'indexUser']);
+        Route::get('projects-user/{project}', [\App\Http\Controllers\Api\ProjectController::class, 'showUser']);
         Route::post('projects/{project}/change-step', [\App\Http\Controllers\Api\ProjectController::class, 'changeStep']);
         Route::get('projects-filter', [\App\Http\Controllers\Api\ProjectController::class, 'indexFilter']);
 

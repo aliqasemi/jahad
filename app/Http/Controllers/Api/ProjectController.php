@@ -9,6 +9,7 @@ use App\Http\Resources\ProjectResource;
 use App\Infrastructure\InterfaceRepository\ProjectInterface;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -36,6 +37,18 @@ class ProjectController extends Controller
 
         return ProjectResource::collection(
             Project::filter(request())->with(['services', 'requirement'])->get()
+        );
+    }
+
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function indexUser(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $this->authorize('viewAny', Project::class);
+
+        return ProjectResource::collection(
+            app()->make(ProjectInterface::class)->indexUser(['per_page' => request('per_page'), 'page' => request('page')], Auth::id())
         );
     }
 
@@ -68,6 +81,23 @@ class ProjectController extends Controller
 
         return new ProjectResource(
             app()->make(ProjectInterface::class)->show($project->id)
+        );
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Project $project
+     * @return ProjectResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function showUser(Project $project): ProjectResource
+    {
+        $this->authorize('viewAny', Project::class);
+
+        return new ProjectResource(
+            app()->make(ProjectInterface::class)->showUser($project->id)
         );
     }
 

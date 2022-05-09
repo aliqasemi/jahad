@@ -28,7 +28,7 @@ class StepController extends Controller
      */
     public function index(Project $project)
     {
-        $this->authorize('view', Step::class);
+        $this->authorize('viewAny', Step::class);
 
         return StepResource::collection(
             Step::where('project_id', $project->id)->orderBy('sort', 'asc')->get()

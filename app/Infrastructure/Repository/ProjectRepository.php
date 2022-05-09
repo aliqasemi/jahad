@@ -17,6 +17,20 @@ class ProjectRepository implements ProjectInterface
         return Project::filter(request())->with(['services', 'requirement', 'step'])->paginate(Arr::get($data, 'per_page'), ['*'], 'page', Arr::get($data, 'page'));
     }
 
+    public function indexUser($data, int $user_id)
+    {
+        return Project::query()
+            ->whereHas('services', function ($query) use ($user_id) {
+                return $query->where('user_id', $user_id);
+            })
+            ->orWhereHas('requirement', function ($query) use ($user_id) {
+                return $query->where('user_id', $user_id);
+            })
+            ->with(['services', 'requirement', 'step'])
+            ->filter(request())
+            ->paginate(Arr::get($data, 'per_page'), ['*'], 'page', Arr::get($data, 'page'));
+    }
+
     public function store(array $data)
     {
         $project = Project::where('requirement_id', Arr::get($data, 'requirement_id'))->first();
@@ -68,6 +82,21 @@ class ProjectRepository implements ProjectInterface
             },
             'step',
             'requireProducts'
+        ]);
+    }
+
+    public function showUser(int $projectId)
+    {
+        $project = Project::findOrFail($projectId);
+
+        return $project->load([
+            'services' => function ($query) {
+                return $query->with(['user', 'category', 'city.county.province', 'main_image']);
+            },
+            'requirement' => function ($query) {
+                return $query->with(['user', 'category', 'city.county.province', 'main_image']);
+            },
+            'step'
         ]);
     }
 
