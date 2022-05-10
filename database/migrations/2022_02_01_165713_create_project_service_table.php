@@ -15,8 +15,10 @@ class CreateProjectServiceTable extends Migration
     {
         Schema::create('project_service', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('project_id');
-            $table->unsignedInteger('service_id');
+            $table->foreignId('project_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('project_id');
+            $table->index('service_id');
         });
     }
 

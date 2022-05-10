@@ -16,8 +16,10 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('county_id');
-            $table->unsignedInteger('province_id');
+            $table->foreignId('county_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('province_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('county_id');
+            $table->index('province_id');
             $table->timestamps();
         });
     }

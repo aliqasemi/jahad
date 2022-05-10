@@ -17,7 +17,8 @@ class CreateTemplatesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('template');
-            $table->unsignedInteger('user_id');
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('user_id');
             $table->timestamps();
         });
     }

@@ -18,7 +18,8 @@ class CreateRequireProductsTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('number');
-            $table->unsignedInteger('project_id');
+            $table->foreignId('project_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('project_id');
             $table->timestamps();
         });
     }

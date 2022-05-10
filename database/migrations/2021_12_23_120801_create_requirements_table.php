@@ -17,11 +17,15 @@ class CreateRequirementsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->unsignedInteger('category_id');
             $table->string('address');
-            $table->unsignedInteger('city_id');
-            $table->unsignedInteger('user_id');
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('category_id');
+            $table->index('city_id');
+            $table->index('user_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

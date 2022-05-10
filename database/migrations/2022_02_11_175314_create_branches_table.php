@@ -21,8 +21,10 @@ class CreateBranchesTable extends Migration
             $table->string('postal_code');
             $table->string('cell_number');
             $table->string('phone_number');
-            $table->unsignedInteger('city_id');
+            $table->foreignId('city_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('city_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

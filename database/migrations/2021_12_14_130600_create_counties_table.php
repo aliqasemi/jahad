@@ -16,7 +16,8 @@ class CreateCountiesTable extends Migration
         Schema::create('counties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('province_id');
+            $table->foreignId('province_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('province_id');
             $table->timestamps();
         });
     }

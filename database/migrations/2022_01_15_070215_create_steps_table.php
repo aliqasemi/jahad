@@ -19,10 +19,14 @@ class CreateStepsTable extends Migration
             $table->string('description')->nullable();
             $table->boolean('send_sms')->default(false);
             $table->integer('sort')->default(1);
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('service_template_id')->nullable();
-            $table->unsignedInteger('requirement_template_id')->nullable();
-            $table->unsignedInteger('project_id');
+            $table->foreignId('service_template_id')->nullable()->references('id')->on('templates')->nullOnDelete();
+            $table->foreignId('requirement_template_id')->nullable()->references('id')->on('templates')->nullOnDelete();
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('service_template_id');
+            $table->index('requirement_template_id');
+            $table->index('project_id');
+            $table->index('user_id');
             $table->timestamps();
         });
     }

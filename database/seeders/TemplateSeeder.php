@@ -19,7 +19,6 @@ class TemplateSeeder extends Seeder
                 'id' => key($template),
                 'name' => $key,
                 'template' => value($template[key($template)]),
-                'user_id' => 0,
             ]);
         }
     }

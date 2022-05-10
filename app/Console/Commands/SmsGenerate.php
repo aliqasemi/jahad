@@ -51,7 +51,7 @@ class SmsGenerate extends Command
         if (Arr::get($response, 'IsSuccessful')) {
             SecureTokenSms::updateOrCreate(
                 [
-                    'id' => SecureTokenSms::first()->id,
+                    'id' => SecureTokenSms::first() ? SecureTokenSms::first()->id : null,
                 ],
                 [
                     'token' => Arr::get($response, 'TokenKey')

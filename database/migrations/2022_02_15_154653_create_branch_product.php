@@ -17,8 +17,10 @@ class CreateBranchProduct extends Migration
             $table->id();
             $table->integer('stock');
             $table->string('description')->nullable();
-            $table->unsignedInteger('branch_id');
-            $table->unsignedInteger('product_id');
+            $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('branch_id');
+            $table->index('product_id');
         });
     }
 

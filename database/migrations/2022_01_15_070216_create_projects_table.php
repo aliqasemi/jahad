@@ -18,10 +18,13 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->date('timeout')->nullable();
-            $table->unsignedInteger('step_id')->nullable();
-            $table->unsignedInteger('requirement_id')->nullable();
             $table->boolean('failed')->default(false);
+            $table->foreignId('step_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('requirement_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('step_id');
+            $table->index('requirement_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

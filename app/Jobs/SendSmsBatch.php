@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Console\Commands\SmsGenerate;
 use App\Models\User;
 use App\Services\Sms\SmsService;
 use Illuminate\Bus\Queueable;
@@ -24,6 +25,7 @@ class SendSmsBatch implements ShouldQueue
      */
     public function __construct(User $user, string $messageTemplate)
     {
+        (new SmsGenerate)->handle();
         $this->user = $user;
         $this->messageTemplate = $messageTemplate;
     }

@@ -34,7 +34,6 @@ class SendSmsAttachmentBatch extends Command
     public function __construct()
     {
         parent::__construct();
-        (new SmsGenerate)->handle();
     }
 
     /**
@@ -44,6 +43,7 @@ class SendSmsAttachmentBatch extends Command
      */
     public function handle()
     {
+        (new SmsGenerate)->handle();
         $usersRequirement = [];
         foreach (Requirement::get() as $requirement) {
             $attachment = app()->make(AttachRequirementInterface::class)->attachByRequirement($requirement->id);

@@ -15,8 +15,10 @@ class CreateAvailableProvince extends Migration
     {
         Schema::create('available_province', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('province_id');
-            $table->unsignedInteger('service_id');
+            $table->foreignId('province_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('province_id');
+            $table->index('service_id');
         });
     }
 

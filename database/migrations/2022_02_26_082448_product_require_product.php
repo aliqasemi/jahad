@@ -17,9 +17,12 @@ class ProductRequireProduct extends Migration
             $table->id();
             $table->integer('number');
             $table->string('description')->nullable();
-            $table->unsignedInteger('require_product_id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('branch_id');
+            $table->foreignId('require_product_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
+            $table->index('require_product_id');
+            $table->index('product_id');
+            $table->index('branch_id');
         });
     }
 
