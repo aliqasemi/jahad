@@ -105,6 +105,6 @@ class RequirementController extends Controller
         $this->authorize('delete', $requirement);
 
         $requirement->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 }

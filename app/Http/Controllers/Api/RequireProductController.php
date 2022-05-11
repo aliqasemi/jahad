@@ -62,7 +62,7 @@ class RequireProductController extends Controller
                 $requireProduct->load(['productRequireProduct', 'products', 'project'])
             );
         } else {
-            return response()->json(['error' => 'مقادیر اعطا شده به محصول بیشتر از موجودی انبار است'], 422);
+            return response()->json(['error' => trans('messages.overflow_stock')], 422);
         }
     }
 
@@ -78,6 +78,6 @@ class RequireProductController extends Controller
         ]);
 
         $requireProductProduct->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 }

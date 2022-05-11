@@ -42,7 +42,7 @@ class AuthController extends Controller
     {
         Confirmation::build('register_phone_number', $user, Template::$SING_IN);
 
-        return response()->json(['error' => 'کد احراز هویت با موفقیت ارسال شد'], 200);
+        return response()->json(['error' => trans('messages.success_confirm')], 200);
     }
 
     /**
@@ -58,9 +58,9 @@ class AuthController extends Controller
         if ($user->id == $userId) {
             $user->verify();
             $user->save();
-            return response()->json(['error' => 'کد احراز هویت با موفقیت تایید شد'], 200);
+            return response()->json(['error' => trans('messages.accept_confirm')], 200);
         } else {
-            return response()->json(['error' => 'کد احراز هویت معتبر نیست'], 400);
+            return response()->json(['error' => trans('messages.error_confirm')], 400);
         }
     }
 
@@ -71,11 +71,11 @@ class AuthController extends Controller
         if (!auth()->attempt($data)) {
             if (Arr::get($data, 'phoneNumber')) {
                 return response()->json([
-                    'error' => 'شماره تلفن همراه یا رمز عبور اشتباه است.'
+                    'error' => trans('messages.phone_login_error')
                 ], 422);
             } else {
                 return response()->json([
-                    'error' => 'ایمیل یا رمز عبور اشتباه است.'
+                    'error' => trans('messages.email_login_error')
                 ], 422);
             }
         }
@@ -106,7 +106,7 @@ class AuthController extends Controller
             ]);
         } else {
             return response()->json([
-                'error' => 'کاربر غیر فعال است'
+                'error' => trans('messages.deactivate_user')
             ], 422);
         }
 
@@ -118,7 +118,7 @@ class AuthController extends Controller
          */
         $request->user()->token()->revoke();
         return response()->json([
-            'error' => 'شما با موفقیت خارج شدید.'
+            'error' => trans('messages.logout_success')
         ], 200);
     }
 
@@ -130,7 +130,7 @@ class AuthController extends Controller
 
         auth('api')->user()->password = bcrypt($request->password);
         auth('api')->user()->save();
-        return response()->json(['error' => 'رمز شما با موفقیت تغییر یافت'], 200);
+        return response()->json(['error' => trans('messages.change_password_success')], 200);
     }
 
     public function forgotPassword(Request $request): \Illuminate\Http\JsonResponse
@@ -151,9 +151,9 @@ class AuthController extends Controller
         );
 
         if ($resetPassword) {
-            return response()->json(['error' => 'کد احراز هویت با موفقیت ارسال شد'], 200);
+            return response()->json(['error' => trans('messages.success_confirm')], 200);
         } else {
-            return response()->json(['error' => 'خطای سیستمی'], 404);
+            return response()->json(['error' => trans('messages.system_error')], 404);
         }
     }
 
@@ -166,11 +166,11 @@ class AuthController extends Controller
         ]);
         $resetPassword = PasswordReset::query()->where('token', $request->code)->first();
         if (!$resetPassword || $resetPassword->phoneNumber !== $request->phoneNumber) {
-            return response()->json(['error' => 'کد احراز هویت معتبر نیست'], 400);
+            return response()->json(['error' => trans('messages.error_confirm')], 400);
         }
         if (Carbon::parse($resetPassword->updated_at)->addMinutes(2000)->isPast()) {
             $resetPassword->delete();
-            return response()->json(['error' => 'کد احراز هویت معتبر نیست'], 400);
+            return response()->json(['error' => trans('messages.error_confirm')], 400);
         }
 
         $user = User::query()->where('phoneNumber', $resetPassword->phoneNumber)->firstOrFail();
@@ -206,7 +206,7 @@ class AuthController extends Controller
         if (Auth::id() !== $user->id) {
             $user->save();
         } else {
-            throw new ErrorException('امکان انجام عملیات وجود ندارد');
+            throw new ErrorException(trans('messages.unpossible_operation'));
         }
 
         return new UserResource($user);
@@ -256,7 +256,7 @@ class AuthController extends Controller
         if (Auth::id() !== $user->id) {
             $user->update(['active' => $request->get('active')]);
         } else {
-            throw new ErrorException('امکان انجام عملیات وجود ندارد');
+            throw new ErrorException(trans('messages.unpossible_operation'));
         }
 
         return new UserResource($user);

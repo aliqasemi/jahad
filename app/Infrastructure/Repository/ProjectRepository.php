@@ -144,6 +144,6 @@ class ProjectRepository implements ProjectInterface
     {
         $project = Project::findOrFail($projectId);
         $project->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 }

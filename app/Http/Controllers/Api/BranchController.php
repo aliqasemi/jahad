@@ -110,6 +110,6 @@ class BranchController extends Controller
         $this->authorize('delete', Branch::class);
 
         $branch->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 }

@@ -112,9 +112,9 @@ class StepController extends Controller
 
         if ($this->canDelete($step)) {
             $step->delete();
-            return response('عملیات با موفقیت انجام شد');
+            return response(trans('messages.success_operation'));
         } else {
-            return response('این مرحله توسط یک پروژه در حال انجام است');
+            return response(trans('messages.step_during'));
         }
     }
 

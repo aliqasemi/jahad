@@ -89,6 +89,6 @@ class CategoryController extends Controller
         $this->authorize('delete', Category::class);
 
         $category->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 }

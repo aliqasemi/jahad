@@ -112,6 +112,6 @@ class ServiceController extends Controller
         $this->authorize('delete', $service);
 
         $service->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 }

@@ -143,7 +143,7 @@ class ProductController extends Controller
         $this->authorize('delete', Product::class);
 
         $product->delete();
-        return response('عملیات با موفقیت انجام شد');
+        return response(trans('messages.success_operation'));
     }
 
 //    private function prepareBranchesForSync(array $branches): array
