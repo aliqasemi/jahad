@@ -27,9 +27,9 @@ class UpdateBranchRequest extends FormRequest
             'name' => 'nullable|string',
             'description' => 'nullable|string',
             'address' => 'nullable|string',
-            'postal_code' => 'nullable|string',
-            'cell_number' => 'nullable|string',
-            'phone_number' => 'nullable|string',
+            'postal_code' => 'nullable',
+            'cell_number' => 'nullable',
+            'phone_number' => 'nullable',
             'city_id' => 'nullable|integer',
         ];
     }

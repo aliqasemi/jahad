@@ -18,9 +18,9 @@ class CreateBranchesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('address');
-            $table->string('postal_code');
-            $table->string('cell_number');
-            $table->string('phone_number');
+            $table->string('postal_code')->nullable();
+            $table->string('cell_number')->nullable();
+            $table->string('phone_number')->nullable();
             $table->foreignId('city_id')->nullable()->constrained()->nullOnDelete();
             $table->index('city_id');
             $table->timestamps();

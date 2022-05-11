@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ErrorException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
@@ -190,6 +191,7 @@ class AuthController extends Controller
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Illuminate\Validation\ValidationException
+     * @throws ErrorException
      */
     public function assignRole(User $user, Request $ability): UserResource
     {
@@ -203,6 +205,8 @@ class AuthController extends Controller
 
         if (Auth::id() !== $user->id) {
             $user->save();
+        } else {
+            throw new ErrorException('امکان انجام عملیات وجود ندارد');
         }
 
         return new UserResource($user);
@@ -249,7 +253,11 @@ class AuthController extends Controller
             'active' => 'required|boolean',
         ]);
 
-        $user->update(['active' => $request->get('active')]);
+        if (Auth::id() !== $user->id) {
+            $user->update(['active' => $request->get('active')]);
+        } else {
+            throw new ErrorException('امکان انجام عملیات وجود ندارد');
+        }
 
         return new UserResource($user);
     }

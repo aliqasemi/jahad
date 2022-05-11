@@ -27,9 +27,9 @@ class StoreBranchRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'nullable|string',
             'address' => 'required|string',
-            'postal_code' => 'nullable|string',
-            'cell_number' => 'required_without:phone_number|string',
-            'phone_number' => 'required_without:cell_number|string',
+            'postal_code' => 'nullable',
+            'cell_number' => 'required_without:phone_number',
+            'phone_number' => 'required_without:cell_number',
             'city_id' => 'nullable|integer',
         ];
     }
